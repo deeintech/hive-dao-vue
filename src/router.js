@@ -21,7 +21,7 @@ export default new Router({
     {
       path: '/createproposal',
       name: 'CreateProposal',
-      component: () => import(/* webpackChunkName: "create proposal" */ './views/CreateProposal.vue')
+      component: () => import(/* webpackChunkName: "createproposal" */ './views/CreateProposal.vue')
     },
     {
       path: '/proposals',
@@ -32,7 +32,7 @@ export default new Router({
       path: '/proposals/:worker',
       name: 'WorkerProposals',
       props: true,
-      component: () => import(/* webpackChunkName: "proposal details" */ './views/WorkerProposals.vue')
+      component: () => import(/* webpackChunkName: "proposaldetails" */ './views/WorkerProposals.vue')
     },
     {
       path: '/workers',

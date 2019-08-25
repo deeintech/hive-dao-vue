@@ -110,7 +110,7 @@
                               target="_blank"
                             >@{{ data.item.receiver }}</a>
                           </div>
-                          <div v-if="data.item.receiver == 'steem.dao'" v-b-tooltip.hover title="This is a refunding proposal">
+                          <div v-if="data.item.receiver == 'steem.dao'" v-b-tooltip.hover title="This is a refunding proposal. Your proposal should be above this one to receive funding.">
                           <a class="text-muted link link-underline-active"
                             :href="`https://steemitwallet.com/@${data.item.receiver}`"
                             target="_blank"
