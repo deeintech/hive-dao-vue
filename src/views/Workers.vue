@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-lg-8">
             <h2 class="display-4 text-white">Steem Workers</h2>
-            <h5 class="mb-4 text-white">A list of every community member that submitted a proposal to a Steemit testnet network</h5>
+            <h5 class="mb-4 text-white">A list of every community member that submitted a proposal to a Steem network</h5>
           </div>
         </div>
       </div>
