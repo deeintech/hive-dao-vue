@@ -17,7 +17,7 @@
                 <a class="nav-link" href="https://steemit.com/@dmitrydao" target="_blank">Steemit</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="https://twitter.com/dmitrydao" target="_blank">Contacts</a>
+                <a class="nav-link" href="https://dmitrydao.com" target="_blank">Contacts</a>
               </li>
             </ul>
           </div>

@@ -12,7 +12,7 @@
               </div>
             </div>
             <div class="pl-4">
-              <span class="d-block h5 text-white mr-2 mb-1">{{totalBudget | numeric}} TBD</span>
+              <span class="d-block h5 text-white mr-2 mb-1">{{totalBudget | numeric}} SBD</span>
               <span class="text-white">Total budget</span>
             </div>
           </div>
@@ -31,7 +31,7 @@
               </div>
             </div>
             <div class="pl-4">
-              <span class="d-block h5 text-white mr-2 mb-1">{{dailyBudget | numeric}} TBD</span>
+              <span class="d-block h5 text-white mr-2 mb-1">{{dailyBudget | numeric}} SBD</span>
               <span class="text-white">Daily budget</span>
             </div>
           </div>

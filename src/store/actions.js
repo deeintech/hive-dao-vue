@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 export default {
-  async fetchTestnetProposals ({ commit }, proposals) {
-    const url = process.env.VUE_APP_STEEMIT_TESTNET_PROD
+  async fetchProposals ({ commit }, proposals) {
+    const url = process.env.VUE_APP_STEEMIT_MAINNET
     const headers = {
       'Content-Type': 'application/json'
     }
@@ -21,7 +21,7 @@ export default {
     await axios.post(url, body, headers)
       .then(response => {
         proposals = response.data.result.proposals
-        commit('SET_TESTNET_PROPOSALS', proposals)
+        commit('SET_PROPOSALS', proposals)
         return proposals
       })
       .catch(() => {
@@ -40,7 +40,7 @@ export default {
       })
   },
   async setBudget ({ commit }, totalBudget) {
-    const url = process.env.VUE_APP_STEEMIT_TESTNET_PROD
+    const url = process.env.VUE_APP_STEEMIT_MAINNET
     const headers = {
       'Content-Type': 'application/json'
     }

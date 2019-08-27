@@ -19,15 +19,15 @@ export default {
     Footer
   },
   methods: {
-    fetchTestnetProposals () {
-      this.$store.dispatch('fetchTestnetProposals')
+    fetchProposals () {
+      this.$store.dispatch('fetchProposals')
     },
     setBudget () {
       this.$store.dispatch('setBudget')
     }
   },
   created () {
-    this.fetchTestnetProposals()
+    this.fetchProposals()
     this.setBudget()
   }
 }

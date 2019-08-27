@@ -4,10 +4,10 @@
       <div class="container pt-5">
         <div class="row">
           <div class="col-lg-8">
-            <h2 class="display-4 text-white">Steemit Testnet Proposals</h2>
+            <h2 class="display-4 text-white">Steem Proposals</h2>
             <h5
               class="mb-4 text-white"
-            >A list of latest proposals submitted to a Steemit testnet network</h5>
+            >A list of latest proposals submitted to a Steem network</h5>
           </div>
         </div>
       </div>
@@ -21,7 +21,7 @@
           </div>
           <div class="mb-5" id="active">
             <div class="actions-toolbar py-2 mb-4">
-              <h5 class="mb-1">Steemit Testnet Proposals</h5>
+              <h5 class="mb-1">Steem Proposals</h5>
             </div>
             <!-- WEB -->
             <div class="row">
@@ -120,7 +120,7 @@
                     </template>
                     <template slot="requested" slot-scope="data">
                       <div>
-                        {{data.item.daily_pay.amount | numeric}} TBD
+                        {{data.item.daily_pay.amount | numeric}} SBD
                       </div>
                     </template>
                   </b-table>
@@ -167,7 +167,7 @@
                     </div>
                     <div class="st-foot">
                       <span class="label">Daily pay:</span>
-                      <span class="value">{{p.daily_pay.amount | numeric}} TBD</span>
+                      <span class="value">{{p.daily_pay.amount | numeric}} SBD</span>
                       <span class="value float-right">{{totalProposalDuration(p)}} days</span>
                       <span class="label float-right mr-2">Duration:</span>
                     </div>

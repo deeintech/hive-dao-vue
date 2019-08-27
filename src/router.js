@@ -25,8 +25,8 @@ export default new Router({
     },
     {
       path: '/proposals',
-      name: 'TestnetProposals',
-      component: () => import(/* webpackChunkName: "testnetproposals" */ './views/TestnetProposals.vue')
+      name: 'Proposals',
+      component: () => import(/* webpackChunkName: "proposals" */ './views/Proposals.vue')
     },
     {
       path: '/proposals/:worker',
