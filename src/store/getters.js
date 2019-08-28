@@ -1,7 +1,13 @@
 export default {
   // proposals
   proposals: (state) => state.proposals.sort((a, b) => b.total_votes - a.total_votes),
-  proposalsByStatus: (state) => (status) => state.proposals.filter(p => p.status === status).sort((a, b) => b.total_votes - a.total_votes),
+  proposalsByStatus: (state) => (status) => {
+    if(status != 'all'){
+      return state.proposals.filter(p => p.status === status).sort((a, b) => b.total_votes - a.total_votes)
+    } else {
+      return state.proposals
+    }
+  },
   totalProposalDuration: (state) => (proposal) => {
     const dt2 = new Date(proposal.end_date)
     const dt1 = new Date(proposal.start_date)

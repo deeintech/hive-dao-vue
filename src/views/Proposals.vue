@@ -36,7 +36,8 @@
                      <b-col md="2" class="my-1 offset-md-3">
                       <b-input-group>
                           <b-form-select v-model="status">
-                          <option value="active" selected>Active</option>
+                          <option value="all" selected>All</option>
+                          <option value="active">Active</option>
                           <option value="inactive">Inactive</option>
                           <option value="votable">Votable</option>
                           <option value="expired">Expired</option>
@@ -56,8 +57,7 @@
                     :filter="filter"
                     :sort-by.sync="sortBy"
                     :sort-desc.sync="sortDesc"
-                    :sort-direction="sortDirection"
-                  >
+                    :sort-direction="sortDirection">
                     <template slot="empty">
                       <div class="d-flex justify-content-center">
                         <span class="text-center mt-1">Empty is also a beautiful state</span>
@@ -65,9 +65,17 @@
                     </template>
                     <template
                       slot="total_votes"
-                      slot-scope="data"
-                    ><span>{{data.item.total_votes | numeric2}}</span><br/>
-                      </template>
+                      slot-scope="data">
+                      <span>{{data.item.total_votes | numeric2}}</span><br/>
+                    </template>
+                    <template
+                      slot="status"
+                      slot-scope="data">
+                      <span class="badge badge-dot">
+                        <i :class="`bg-${data.item.status}`"></i>
+                      </span>
+                      <span>{{data.item.status}}</span>
+                    </template>
                     <template slot="description" slot-scope="data">
                       <div class="row">
                         <div class="media align-items-center col-2 d-sm-none d-md-block">
@@ -83,7 +91,7 @@
                                 class="text-dark text-dark"
                                 :href="`https://steemit.com/@${data.item.creator}/${data.item.permlink}`"
                                 target="_blank"
-                              >{{ (data.item.subject.length > 30) ? (data.item.subject.slice(0, 30) + '..') : data.item.subject }}</a>
+                              >{{ (data.item.subject.length > 25) ? (data.item.subject.slice(0, 25) + '..') : data.item.subject }}</a>
                             </h5>
                             <div>
                               by
@@ -115,10 +123,16 @@
                             :href="`https://steemitwallet.com/@${data.item.receiver}`"
                             target="_blank"
                           >@{{ data.item.receiver }}*</a>
+                          <!-- <span class="badge">
+                            <img src="../assets/img/random/flame.png"/>
+                          </span> -->
                           </div>
                         </div>
                     </template>
                     <template slot="requested" slot-scope="data">
+                      <div>
+                        {{data.item.daily_pay.amount*totalProposalDuration(data.item) | numeric}} SBD
+                      </div>
                       <div>
                         {{data.item.daily_pay.amount | numeric}} SBD
                       </div>
@@ -131,7 +145,8 @@
             <div class="p-0 d-block d-md-none">
               <b-input-group>
                   <b-form-select v-model="status">
-                  <option value="active" selected>Active</option>
+                    <option value="all" selected>All</option>
+                  <option value="active">Active</option>
                   <option value="inactive">Inactive</option>
                   <option value="votable">Votable</option>
                   <option value="expired">Expired</option>
@@ -216,12 +231,17 @@ export default {
           label: 'Receiver'
         },
         {
+          key: 'status',
+          label: 'Status',
+          sortable: true
+        },
+        {
           key: 'duration',
           label: 'Duration'
         },
         {
           key: 'requested',
-          label: 'Requested'
+          label: 'Total/daily pay'
         }
       ],
       perPage: 10,
@@ -230,7 +250,7 @@ export default {
       sortDesc: true,
       sortDirection: 'desc',
       filter: null,
-      status: 'active'
+      status: 'all'
     }
   }
 }

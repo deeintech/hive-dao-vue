@@ -22,6 +22,7 @@ export default {
       .then(response => {
         proposals = response.data.result.proposals
         commit('SET_PROPOSALS', proposals)
+        console.log(proposals)
         return proposals
       })
       .catch(() => {
