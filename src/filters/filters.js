@@ -2,6 +2,10 @@ export function numeric(value) {
    return Number(value).toLocaleString()
 }
 
+export function isoDate(value) {
+   return new Date(value).toISOString()
+}
+
 export function numeric2(value) {
    var thousand = 1000;
    var million = 1000000;

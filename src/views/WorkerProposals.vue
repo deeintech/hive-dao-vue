@@ -70,15 +70,15 @@
                               <span class="avatar bg-success text-uppercase text-white mr-4">{{avatarName(proposal.subject)}}</span>
                             </div>
                             <div class="pi-info">
-                              <div class="h6 pi-name">{{proposal.creator}}</div>
-                              <div class="pi-sub">{{proposal.subject}}</div>
+                              <div class="h6 pi-name text-wrap">{{proposal.creator}}</div>
+                              <div class="pi-sub text-wrap">{{proposal.subject}}</div>
                             </div>
                           </div>
                           <div class="pi-foot">
                             <div class="tags">
                               <a class="tag"><i class="fas fa-arrow-alt-circle-up mr-1"></i>{{proposal.total_votes | numeric2}}</a>
                             </div>
-                            <span class="extra-info">
+                            <span class="extra-info text-wrap">
                               <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD |
                               <strong>{{proposal.end_date | moment("MMM D, YY")}}</strong>
                             </span>

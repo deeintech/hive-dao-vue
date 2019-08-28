@@ -6979,7 +6979,12 @@ button.bg-secondary:focus {
   background-color: #cdd6e6 !important;
 }
 
-.bg-success, .bg-active {
+a.btn.btn-sm.btn-active:hover, a.btn.btn-sm.btn-inactive:hover, a.btn.btn-sm.btn-expired:hover, 
+a.btn.btn-sm.btn-active, a.btn.btn-sm.btn-inactive, a.btn.btn-sm.btn-expired  {
+  color: #ffffff;
+}
+
+.bg-success, .bg-active, .btn-active {
   background-color: #36B37E !important;
 }
 
@@ -6999,7 +7004,7 @@ button.bg-info:focus {
   background-color: #008da6 !important;
 }
 
-.bg-warning, .bg-inactive {
+.bg-warning, .bg-inactive, .btn-inactive {
   background-color: #FFAB00 !important;
 }
 
@@ -7009,7 +7014,7 @@ button.bg-warning:focus {
   background-color: #cc8900 !important;
 }
 
-.bg-danger, .bg-expired {
+.bg-danger, .bg-expired, .btn-expired {
   background-color: #FF5630 !important;
 }
 

@@ -5,7 +5,7 @@
     </div> -->
     <Header />
       <router-view/>
-    <Footer v-if='$route.name!="CreateProposal" && $route.name!="NotFound"'/>
+    <Footer v-if='$route.name!="NotFound"'/>
   </div>
 </template>
 <script>

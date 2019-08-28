@@ -1,5 +1,5 @@
 <template>
-  <div class="vh-100">
+  <div>
     <section class="slice slice-lg bg-gradient-primary">
       <div class="container pt-5">
         <div class="row">
@@ -22,7 +22,7 @@
             </router-link>
         </div>
       </div>
-      <div class="row"  v-if="workers.length">
+      <div class="row" v-if="workers.length">
         <div class="col-lg-4" v-for="worker in workers" :key="worker">
           <div class="card text-center py-3 hover-translate-y-n10">
             <div class="card-body">
