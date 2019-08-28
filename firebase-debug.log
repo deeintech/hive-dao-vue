@@ -1,0 +1,35 @@
+[debug] [2019-08-28T03:12:22.061Z] ----------------------------------------------------------------------
+[debug] [2019-08-28T03:12:22.071Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\DAO\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2019-08-28T03:12:22.072Z] CLI Version:   7.2.4
+[debug] [2019-08-28T03:12:22.072Z] Platform:      win32
+[debug] [2019-08-28T03:12:22.072Z] Node Version:  v10.15.3
+[debug] [2019-08-28T03:12:22.080Z] Time:          Wed Aug 28 2019 11:12:22 GMT+0800 (Singapore Standard Time)
+[debug] [2019-08-28T03:12:22.081Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-08-28T03:12:22.131Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-08-28T03:12:22.133Z] > authorizing via signed-in user
+[debug] [2019-08-28T03:12:22.134Z] [iam] checking project steem-dao for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-08-28T03:12:22.137Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-08-28T03:12:22.137Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-08-28T03:12:22.387Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-28T03:12:22.405Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/steem-dao:testIamPermissions  
+
+[debug] [2019-08-28T03:12:23.724Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-28T03:12:23.735Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/steem-dao  
+ 
+[debug] [2019-08-28T03:12:24.248Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'steem-dao'...
+[info] 
+[info] i  deploying hosting
+[debug] [2019-08-28T03:12:24.254Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/steem-dao/versions  
+
+[debug] [2019-08-28T03:12:26.555Z] <<< HTTP RESPONSE 200
+[info] i  hosting[steem-dao]: beginning deploy...
+[info] i  hosting[steem-dao]: found 24 files in dist
+[debug] [2019-08-28T03:12:26.640Z] [hosting] hash cache [ZGlzdA] load error: lines is not defined
+[debug] [2019-08-28T03:12:27.892Z] [hosting] hash cache [ZGlzdA] stored for 24 files
+[debug] [2019-08-28T03:12:27.893Z] [hosting][hash queue][FINAL]
+[debug] [2019-08-28T03:12:27.893Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/steem-dao/versions/fc59d3bdee85bea1:populateFiles  
+ <request body omitted>

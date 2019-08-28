@@ -66,6 +66,9 @@
                     <template
                       slot="total_votes"
                       slot-scope="data">
+                      <span class="badge">
+                        <a :href="`https://beta.steemconnect.com/sign/update-proposal-votes?proposal_ids=[${data.item.id}]`" target="_blank"><img src="../assets/img/random/up.png"/></a>
+                      </span>
                       <span>{{data.item.total_votes | numeric2}}</span><br/>
                     </template>
                     <template
@@ -145,7 +148,7 @@
             <div class="p-0 d-block d-md-none">
               <b-input-group>
                   <b-form-select v-model="status">
-                    <option value="all" selected>All</option>
+                  <option value="all" selected>All</option>
                   <option value="active">Active</option>
                   <option value="inactive">Inactive</option>
                   <option value="votable">Votable</option>
