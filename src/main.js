@@ -5,7 +5,7 @@ import store from './store/store'
 import BootstrapVue from 'bootstrap-vue'
 import datePicker from 'vue-bootstrap-datetimepicker'
 import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css'
-import { numeric, numeric2 } from './filters/filters'
+import { numeric, numeric2, numeric3 } from './filters/filters'
 
 import './assets/css/purpose.css'
 import './assets/js/all.min.js'
@@ -16,6 +16,7 @@ Vue.use(datePicker)
 Vue.use(require('vue-moment'))
 Vue.filter('numeric', numeric)
 Vue.filter('numeric2', numeric2)
+Vue.filter('numeric3', numeric3)
 
 new Vue({
   router,

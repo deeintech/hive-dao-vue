@@ -32,16 +32,16 @@
                       <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
                     </b-input-group>
                   </b-col>
-                    <b-col md="2" class="my-1 offset-md-3">
+                  <b-col md="2" class="my-1 offset-md-3">
                     <b-input-group>
-                        <b-form-select v-model="status">
+                      <b-form-select v-model="status">
                         <option value="all" selected>All</option>
                         <option value="active">Active</option>
                         <option value="inactive">Inactive</option>
                         <option value="expired">Expired</option>
                       </b-form-select>
                     </b-input-group>
-                    </b-col>
+                  </b-col>
                   <b-col md="2" class="my-1">
                     <b-form-select v-model="perPage" :options="pageOptions"></b-form-select>
                   </b-col>
@@ -129,10 +129,10 @@
                   </template>
                   <template slot="requested" slot-scope="data">
                     <div>
-                      {{data.item.daily_pay.amount*totalProposalDuration(data.item) | numeric}} SBD
+                      {{data.item.daily_pay.amount/1000*totalProposalDuration(data.item) | numeric3}} SBD
                     </div>
                     <div>
-                      {{data.item.daily_pay.amount | numeric}} SBD
+                      {{data.item.daily_pay.amount/1000 | numeric3}} SBD
                     </div>
                   </template>
                   <template
@@ -215,6 +215,9 @@ export default {
     dailyBudget () {
       return this.$store.getters.dailyBudget
     }
+  },
+  methods: {
+   
   },
   data () {
     return {

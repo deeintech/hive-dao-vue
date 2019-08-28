@@ -27592,13 +27592,13 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 }
 
 .pipeline-item .pi-foot .tags .tag {
-  padding: 3px 6px;
+  padding: 3px 8px;
   line-height: 1;
   display: inline-block;
   background-color: #fff;
   border: 1px solid #047bf8;
   color: #047bf8;
-  margin-right: 2px;
+  margin-right: 3px;
   font-size: 0.72rem;
   border-radius: 4px;
   margin-bottom: 2px;

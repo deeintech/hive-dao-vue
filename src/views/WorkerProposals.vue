@@ -74,13 +74,22 @@
                               <div class="pi-sub text-wrap">{{proposal.subject}}</div>
                             </div>
                           </div>
-                          <div class="pi-foot">
-                            <div class="tags">
-                              <a class="tag"><i class="fas fa-arrow-alt-circle-up mr-1"></i>{{proposal.total_votes | numeric2}}</a>
-                            </div>
+                          <div class="pi-foot pb-0">
                             <span class="extra-info text-wrap">
-                              <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD |
-                              <strong>{{proposal.end_date | moment("MMM D, YY")}}</strong>
+                              <ul>
+                                <li>
+                                  <strong>{{proposal.total_votes | numeric2}}</strong> votes
+                                </li>
+                                <li>
+                                  <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD / day
+                                </li>
+                                <li>
+                                  <strong>{{proposal.daily_pay.amount/1000*totalProposalDuration(proposal) | numeric3}}</strong> SBD total
+                                </li>
+                                <li>
+                                  <strong>{{proposal.start_date | moment("MMM D, YY")}}</strong> - <strong>{{proposal.end_date | moment("MMM D, YY")}}</strong>
+                                </li>
+                              </ul>
                             </span>
                           </div>
                         </a>
@@ -127,13 +136,22 @@
                                 <div class="pi-sub">{{proposal.subject}}</div>
                               </div>
                             </div>
-                            <div class="pi-foot">
-                              <div class="tags">
-                                <a class="tag"><i class="fas fa-arrow-alt-circle-up mr-1"></i>{{proposal.total_votes | numeric2}}</a>
-                              </div>
-                              <span class="extra-info">
-                                <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD |
-                                <strong>{{proposal.end_date | moment("MMM D, YY")}}</strong>
+                            <div class="pi-foot pb-0">
+                              <span class="extra-info text-wrap">
+                                <ul>
+                                  <li>
+                                    <strong>{{proposal.total_votes | numeric2}}</strong> votes
+                                  </li>
+                                  <li>
+                                    <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD / day
+                                  </li>
+                                  <li>
+                                    <strong>{{proposal.daily_pay.amount/1000*totalProposalDuration(proposal) | numeric3}}</strong> SBD total
+                                  </li>
+                                  <li>
+                                    <strong>{{proposal.start_date | moment("MMM D, YY")}}</strong> - <strong>{{proposal.end_date | moment("MMM D, YY")}}</strong>
+                                  </li>
+                                </ul>
                               </span>
                             </div>
                         </a>
@@ -179,13 +197,22 @@
                                 <div class="pi-sub">{{proposal.subject}}</div>
                               </div>
                             </div>
-                            <div class="pi-foot">
-                              <div class="tags">
-                                <a class="tag"><i class="fas fa-arrow-alt-circle-up mr-1"></i>{{proposal.total_votes | numeric2}}</a>
-                              </div>
-                              <span class="extra-info">
-                                <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD |
-                                <strong>{{proposal.end_date | moment("MMM D, YY")}}</strong>
+                            <div class="pi-foot pb-0">
+                              <span class="extra-info text-wrap">
+                                <ul>
+                                  <li>
+                                    <strong>{{proposal.total_votes | numeric2}}</strong> votes
+                                  </li>
+                                  <li>
+                                    <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD / day
+                                  </li>
+                                  <li>
+                                    <strong>{{proposal.daily_pay.amount/1000*totalProposalDuration(proposal) | numeric3}}</strong> SBD total
+                                  </li>
+                                  <li>
+                                    <strong>{{proposal.start_date | moment("MMM D, YY")}}</strong> - <strong>{{proposal.end_date | moment("MMM D, YY")}}</strong>
+                                  </li>
+                                </ul>
                               </span>
                             </div>
                           </div>
@@ -219,6 +246,9 @@ export default {
     },
     totalWorkerProposalsByStatus () {
       return this.$store.getters.totalWorkerProposalsByStatus
+    },
+    totalProposalDuration () {
+      return this.$store.getters.totalProposalDuration
     }
   },
   methods: {
