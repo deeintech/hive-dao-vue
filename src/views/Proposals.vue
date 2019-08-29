@@ -59,7 +59,7 @@
                   <template
                     slot="total_votes"
                     slot-scope="data">
-                    <span>{{data.item.total_votes | numeric2}}</span><br/>
+                    <span v-b-tooltip.hover :title='`${Number(data.item.total_votes/1000000).toLocaleString()} VESTS \n The votes are updated on hourly basis.`'>{{data.item.total_votes | numeric2}}</span><br/>
                   </template>
                   <template
                     slot="status"
