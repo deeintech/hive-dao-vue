@@ -7,7 +7,7 @@
           <div class="row row-grid justify-content-around align-items-center">
             <div class="col-lg-5">
               <div class>
-                <h5 class="h3">A modern way of funding your projects</h5>
+                <h5 class="h3">A modern way to fund your projects</h5>
                 <p class="lead my-4">
                   With Steem Proposals System you get financial, as well as professional support from
                   the biggest blockchain community.
@@ -102,7 +102,7 @@
                   <h5 class="h4 text-white">Receive votes</h5>
                   <p
                     class="mt-4 mb-0 text-white"
-                  >Submit your proposal to the Steem blockchain. Engage with community to get enough votes and funding.</p>
+                  >Submit your proposal to Steem blockchain. Engage with community to get enough votes and funding.</p>
                 </div>
               </div>
             </div>
@@ -283,7 +283,7 @@
               <b-collapse id="collapse-2">
                 <div class="card-body">
                   <p>
-                    The funding is generated directly from Steem blockchain creating a true decentralized autonomous organization.
+                    The funding is generated directly from Steem blockchain creating a true Decentralized Autonomous Organization.
                   </p>
                 </div>
               </b-collapse>
@@ -324,7 +324,7 @@
           <div class="fluid-paragraph mt-4">
             <p
               class="lead text-muted lh-180"
-            >You never know how great your idea is until you make it happen. You can always go back to your job, you can't always make somethign worthwhile for the people around you. Don't wait.</p>
+            >You never know how great your idea is until you make it happen. You can always go back to your job, you can't always make something worthwhile for the people around you. Don't wait.</p>
             <router-link
               to="/createproposal"
               class="btn btn-dark btn-icon rounded-pill hover-scale-110 mt-5"

@@ -1,0 +1,68 @@
+[debug] [2019-08-29T05:30:01.587Z] ----------------------------------------------------------------------
+[debug] [2019-08-29T05:30:01.589Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\DAO\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2019-08-29T05:30:01.589Z] CLI Version:   7.2.4
+[debug] [2019-08-29T05:30:01.589Z] Platform:      win32
+[debug] [2019-08-29T05:30:01.589Z] Node Version:  v10.15.3
+[debug] [2019-08-29T05:30:01.590Z] Time:          Thu Aug 29 2019 13:30:01 GMT+0800 (Singapore Standard Time)
+[debug] [2019-08-29T05:30:01.590Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-08-29T05:30:01.609Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-08-29T05:30:01.610Z] > authorizing via signed-in user
+[debug] [2019-08-29T05:30:01.610Z] [iam] checking project steem-dao for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-08-29T05:30:01.612Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-08-29T05:30:01.613Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-08-29T05:30:01.768Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-29T05:30:01.783Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/steem-dao:testIamPermissions  
+
+[debug] [2019-08-29T05:30:03.394Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-29T05:30:03.404Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/steem-dao  
+ 
+[debug] [2019-08-29T05:30:33.504Z] Server Error. read ECONNRESET
+[debug] [2019-08-29T05:30:33.594Z] FirebaseError: Server Error. read ECONNRESET
+    at Request._callback (C:\Users\DAO\AppData\Roaming\npm\node_modules\firebase-tools\lib\api.js:30:31)
+    at self.callback (C:\Users\DAO\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:185:22)
+    at Request.emit (events.js:189:13)
+    at Request.EventEmitter.emit (domain.js:441:20)
+    at Request.onRequestError (C:\Users\DAO\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:881:8)
+    at ClientRequest.emit (events.js:194:15)
+    at ClientRequest.EventEmitter.emit (domain.js:441:20)
+    at TLSSocket.socketErrorListener (_http_client.js:392:9)
+    at TLSSocket.emit (events.js:189:13)
+    at TLSSocket.EventEmitter.emit (domain.js:441:20)
+[error] 
+[error] Error: Failed to get Firebase project steem-dao. Please make sure the project exists and your account has permission to access it.
+[debug] [2019-08-29T05:30:47.613Z] ----------------------------------------------------------------------
+[debug] [2019-08-29T05:30:47.616Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\DAO\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2019-08-29T05:30:47.616Z] CLI Version:   7.2.4
+[debug] [2019-08-29T05:30:47.616Z] Platform:      win32
+[debug] [2019-08-29T05:30:47.616Z] Node Version:  v10.15.3
+[debug] [2019-08-29T05:30:47.617Z] Time:          Thu Aug 29 2019 13:30:47 GMT+0800 (Singapore Standard Time)
+[debug] [2019-08-29T05:30:47.617Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-08-29T05:30:47.628Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-08-29T05:30:47.630Z] > authorizing via signed-in user
+[debug] [2019-08-29T05:30:47.630Z] [iam] checking project steem-dao for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-08-29T05:30:47.632Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/steem-dao:testIamPermissions  
+
+[debug] [2019-08-29T05:30:48.930Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-29T05:30:48.941Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/steem-dao  
+ 
+[debug] [2019-08-29T05:30:50.532Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'steem-dao'...
+[info] 
+[info] i  deploying hosting
+[debug] [2019-08-29T05:30:50.560Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/steem-dao/versions  
+
+[debug] [2019-08-29T05:30:52.887Z] <<< HTTP RESPONSE 200
+[info] i  hosting[steem-dao]: beginning deploy...
+[info] i  hosting[steem-dao]: found 25 files in dist
+[debug] [2019-08-29T05:30:52.966Z] [hosting] hash cache [ZGlzdA] load error: lines is not defined
+[debug] [2019-08-29T05:30:53.841Z] [hosting] hash cache [ZGlzdA] stored for 25 files
+[debug] [2019-08-29T05:30:53.842Z] [hosting][hash queue][FINAL]
+[debug] [2019-08-29T05:30:53.842Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/steem-dao/versions/04006d6e065669fb:populateFiles  
+ <request body omitted>
+[debug] [2019-08-29T05:30:58.213Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-29T05:30:58.247Z] [hosting][populate queue][FINAL]
+[debug] [2019-08-29T05:30:58.247Z] [hosting] uploads queued: 11

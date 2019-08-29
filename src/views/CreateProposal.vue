@@ -14,7 +14,7 @@
       <h3>Submit the form for your proposal to go live</h3>
       <div class="card">
         <div class="card-body">
-          <b-form>
+          <b-form @submit.prevent="createProposal">
             <b-form-group
               id="subject_group"
               label="A short title for your proposal"
@@ -80,11 +80,11 @@
               </b-form-input>
             </b-form-group>
             <label for="start_date">Start date</label>
-            <date-picker class="mb-3" name="start_date" id="start_date" v-model="form.start_date" :config="options"></date-picker>
+            <date-picker class="mb-3" name="start_date" id="start_date" v-model="form.start_date" :config="options" required></date-picker>
             <label for="end_date">End date</label>
-            <date-picker class="mb-3" name="end_date" v-model="form.end_date" :config="options"></date-picker>
+            <date-picker class="mb-3" name="end_date" v-model="form.end_date" :config="options" required></date-picker>
             <p class="text-danger"><small>*Notice, there's 10 SBD submission fee, so make sure to have it in your creator account.</small></p>
-            <a target="_blank" class="btn btn-primary" :href="`https://beta.steemconnect.com/sign/create-proposal?start_date=${this.form.start_date}&end_date=${this.form.end_date}&daily_pay=${this.form.dailypay}&subject=${this.form.subject}&permlink=${this.form.permlink}`">Submit</a>
+            <b-button type="sumbit" variant="primary">Submit</b-button>
           </b-form>
         </div>
       </div>
@@ -103,14 +103,21 @@ export default {
           permlink: '',
           creator: '',
           receiver: '',
-          start_date: new Date(),
-          end_date: new Date()
+          start_date: '',
+          end_date: ''
         },
         options: {
           format: 'YYYY-MM-DDTHH:mm:ss',
           useCurrent: true
         }
       }
+  },
+  methods: {
+    createProposal () {
+      event.target.reset()
+      this.$router.push('/proposals')
+      window.open(`https://beta.steemconnect.com/sign/create-proposal?start_date=${this.form.start_date}&end_date=${this.form.end_date}&daily_pay=${this.form.dailypay}&subject=${this.form.subject}&permlink=${this.form.permlink}&creator=${this.form.creator}&receiver=${this.form.receiver}`)
+    }
   }
 }
 </script>

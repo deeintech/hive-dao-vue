@@ -253,8 +253,8 @@ export default {
           label: 'Vote'
         }
       ],
-      perPage: 10,
-      pageOptions: [10, 20, 50],
+      perPage: 20,
+      pageOptions: [20, 50, 100],
       sortBy: 'total_votes',
       sortDesc: true,
       sortDirection: 'desc',

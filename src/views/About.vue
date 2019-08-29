@@ -51,7 +51,7 @@
                   href="https://steemit.com/@blocktrades"
                   target="_blank"
                 >@blocktrades</a> for community members and implemented during HF21.
-                This website represents only one of the potenital interfaces of proposals on the Steem blockchain.
+                This website represents only one of the potenital interfaces of proposals on Steem blockchain.
               </p>
               <a
                 href="https://steemit.com/steem/@steemitblog/hf21-sps-and-eip-explained"
@@ -78,7 +78,7 @@
                   class="text-muted"
                   target="_blank"
                   href="https://steemit.com/@dmitrydao"
-                >@dmitrydao</a>, a front-end dev, blockchain consultant and a Steem Witness.
+                >@dmitrydao</a>, a front-end dev and a Steem Witness.
                 For any questions please reach out to the
                 <a
                   class="text-muted"
