@@ -2,7 +2,7 @@ export default {
   // proposals
   proposals: (state) => state.proposals.sort((a, b) => b.total_votes - a.total_votes),
   proposalsByStatus: (state) => (status) => {
-    if(status != 'all'){
+    if (status !== 'all') {
       return state.proposals.filter(p => p.status === status).sort((a, b) => b.total_votes - a.total_votes)
     } else {
       return state.proposals
@@ -38,5 +38,7 @@ export default {
   totalBudget: (state) => state.totalBudget,
   dailyBudget: (state) => state.dailyBudget,
   dailyBudgetLimit: (state) => state.dailyBudgetLimit,
-  totalWorkers: (state) => state.workers.length
+  totalWorkers: (state) => state.workers.length,
+  user: (state) => state.user,
+  isLoggedin: (state) => state.isLoggedin
 }

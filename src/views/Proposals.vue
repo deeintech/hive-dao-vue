@@ -101,7 +101,7 @@
                     <br />
                     <span class="smaller text-muted">{{data.item.start_date | moment("MMM D, YYYY")}} - {{data.item.end_date | moment("MMM D, YYYY")}}</span>
                   </template>
-                  <template slot="receiver" class="nowrap" slot-scope="data">
+                  <template slot="receiver" slot-scope="data">
                       <div class="align-middle">
                           <div v-if="data.item.receiver != 'steem.dao'">
                           <a class="text-muted"
@@ -130,7 +130,28 @@
                   <template
                     slot="vote"
                     slot-scope="data">
-                    <a :href="`https://beta.steemconnect.com/sign/update-proposal-votes?proposal_ids=[${data.item.id}]`" target="_blank" :class="`btn btn-sm btn-${data.item.status}`">Vote</a>
+                    <button :class="`btn btn-sm btn-${data.item.status} text-white`" @click="$bvModal.show(`modal-${data.item.id}`)">Vote</button>
+                     <b-modal :id='`modal-${data.item.id}`' :title="`${data.item.subject}`" centered hide-footer>
+                      <b-form>
+                      <b-form-group
+                        id="user_group"
+                        label="1. Enter your Steem account name:"
+                        label-for="user">
+                        <b-form-input
+                          id="user"
+                          v-model="user"
+                          type="text"
+                          required
+                          placeholder="name">
+                        </b-form-input>
+                      </b-form-group>
+                      <b-form-group>
+                        <div class="mb-2">2. Choose one of the options to vote for this proposal:</div>
+                        <button class="btn-block btn btn-light" @click="keychainVote(user, data.item.id)" type="button" variant="light">Vote with <img class="icon-small ml-1" src="../assets/img/random/keychain2.png"/></button>
+                        <button class="btn-block btn btn-light" @click="steemconnectVote(data.item.id)" type="button" variant="light">Vote with <img class="icon-small ml-1" src="../assets/img/random/steemconnect.png"/></button>
+                      </b-form-group>
+                    </b-form>
+                     </b-modal>
                   </template>
                 </b-table>
               </div>
@@ -192,7 +213,7 @@
 <script>
 import Stats from '@/views/Stats.vue'
 export default {
-  name: 'TestnetProposals',
+  name: 'Proposals',
   components: {
     Stats
   },
@@ -208,7 +229,22 @@ export default {
     }
   },
   methods: {
-   
+    keychainVote (user, id) {
+      if (window.steem_keychain && user!= '') {
+        steem_keychain.requestBroadcast(user, [["update_proposal_votes", {"voter":user,"proposal_ids":[`${id}`],"approve":"true"}]], 'Active', function (response) {
+          if (response.success) {
+            return []
+          } else {
+            return []
+          }
+        })
+      } else {
+        return []
+      }
+    },
+    steemconnectVote (id) {
+      window.open(`https://beta.steemconnect.com/sign/update-proposal-votes?proposal_ids=[${id}]`)
+    }
   },
   data () {
     return {
@@ -250,10 +286,9 @@ export default {
       sortDesc: true,
       sortDirection: 'desc',
       filter: null,
-      status: 'all'
+      status: 'all',
+      user: ''
     }
   }
 }
 </script>
-<style scoped>
-</style>

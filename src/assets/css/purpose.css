@@ -27665,3 +27665,12 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 .width50{
   width: 50px;
 }
+
+.icon-small {
+  height: 30px;
+}
+
+.modal-backdrop {
+  opacity: .5;
+  background: #000;
+}

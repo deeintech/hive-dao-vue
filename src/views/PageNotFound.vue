@@ -1,8 +1,7 @@
 <template>
   <section
     class="slice slice-lg vh-100 bg-gradient-primary overflow-hidden"
-    data-offset-top="#header-main"
-  >
+    data-offset-top="#header-main">
     <div class="container h-100 d-flex align-items-center position-relative zindex-100">
       <div class="col">
         <div class="row justify-content-center">
