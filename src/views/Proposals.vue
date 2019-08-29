@@ -5,9 +5,7 @@
         <div class="row">
           <div class="col-lg-8">
             <h2 class="display-4 text-white">Steem Proposals</h2>
-            <h5
-              class="mb-4 text-white"
-            >A list of latest proposals submitted to a Steem network</h5>
+            <h5 class="mb-4 text-white">A list of latest proposals submitted to a Steem network</h5>
           </div>
         </div>
       </div>
@@ -19,9 +17,6 @@
           <Stats />
         </div>
         <div class="mb-5" id="active">
-          <div class="actions-toolbar py-2 mb-4">
-            <h5 class="mb-1">Steem Proposals</h5>
-          </div>
           <!-- WEB -->
           <div class="row">
             <div class="col-12 d-none d-md-block d-xxl-none">
@@ -88,8 +83,8 @@
                             <a
                               class="text-dark"
                               :href="`https://steemit.com/@${data.item.creator}/${data.item.permlink}`"
-                              target="_blank"
-                            >{{ (data.item.subject.length > 30) ? (data.item.subject.slice(0, 30) + '..') : data.item.subject }}</a>
+                              target="_blank">{{ (data.item.subject.length > 30) ? (data.item.subject.slice(0, 30) + '..') : data.item.subject }}
+                            </a>
                           </h6>
                           <div>
                             by
@@ -104,17 +99,14 @@
                   <template slot="duration" slot-scope="data">
                     {{totalProposalDuration(data.item) | numeric}} days
                     <br />
-                    <span
-                      class="smaller text-muted"
-                    >{{data.item.start_date | moment("MMM D, YYYY")}} - {{data.item.end_date | moment("MMM D, YYYY")}}</span>
+                    <span class="smaller text-muted">{{data.item.start_date | moment("MMM D, YYYY")}} - {{data.item.end_date | moment("MMM D, YYYY")}}</span>
                   </template>
                   <template slot="receiver" class="nowrap" slot-scope="data">
                       <div class="align-middle">
                           <div v-if="data.item.receiver != 'steem.dao'">
                           <a class="text-muted"
                             :href="`https://steemitwallet.com/@${data.item.receiver}`"
-                            target="_blank"
-                          >@{{ data.item.receiver }}</a>
+                            target="_blank">@{{ data.item.receiver }}</a>
                         </div>
                         <div v-if="data.item.receiver == 'steem.dao'" v-b-tooltip.hover title="This is a refunding proposal. Your proposal should be above this one to receive funding.">
                         <a class="text-muted link link-underline-active"
@@ -145,7 +137,7 @@
             </div>
           </div>
           <!-- MOBILE-->
-          <div class="p-0 d-block d-md-none">
+          <div class="px-3 d-block d-md-none">
             <b-input-group>
                 <b-form-select v-model="status">
                 <option value="all" selected>All</option>
@@ -177,9 +169,8 @@
                       </router-link>
                       <a
                         :href="`https://steemit.com/@${p.creator}/${p.permlink}`"
-                        target="_blank"
-                      >
-                        <div class="ticket-description">{{p.subject}}</div>
+                        target="_blank">
+                        <div class="text-wrap text-dark">{{p.subject}}</div>
                       </a>
                     </div>
                   </div>

@@ -1,9 +1,7 @@
 <template>
-  <div class="row">
+  <div class="row mx-auto">
     <div class="col-lg-4">
-      <div
-        class="card card-stats bg-gradient-primary border-0 hover-shadow-lg hover-translate-y-n3 mb-4 ml-lg-0"
-      >
+      <div class="card card-stats bg-gradient-primary border-0 hover-shadow-lg hover-translate-y-n3 mb-4 ml-lg-0">
         <div class="card-body">
           <div class="d-flex">
             <div>
@@ -20,9 +18,7 @@
       </div>
     </div>
     <div class="col-lg-4">
-      <div
-        class="card card-stats bg-gradient-info border-0 hover-shadow-lg hover-translate-y-n3 mb-4 ml-lg-0"
-      >
+      <div class="card card-stats bg-gradient-info border-0 hover-shadow-lg hover-translate-y-n3 mb-4 ml-lg-0">
         <div class="card-body">
           <div class="d-flex">
             <div>
@@ -39,9 +35,7 @@
       </div>
     </div>
     <div class="col-lg-4">
-      <div
-        class="card card-stats bg-gradient-dark border-0 hover-shadow-lg hover-translate-y-n3 mb-4 ml-lg-0"
-      >
+      <div class="card card-stats bg-gradient-dark border-0 hover-shadow-lg hover-translate-y-n3 mb-4 ml-lg-0">
         <div class="card-body">
           <div class="d-flex">
             <div>

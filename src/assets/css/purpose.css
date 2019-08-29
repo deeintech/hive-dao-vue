@@ -26646,7 +26646,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   border-radius: 6px;
   display: -webkit-box;
   display: -ms-flexbox;
-  /* display: flex; */
+  display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
