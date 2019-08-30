@@ -103,7 +103,7 @@
                   </template>
                   <template slot="receiver" slot-scope="data">
                       <div class="align-middle">
-                          <div v-if="data.item.receiver != 'steem.dao'">
+                        <div v-if="data.item.receiver != 'steem.dao' && data.item.receiver != 'null'">
                           <a class="text-muted"
                             :href="`https://steemitwallet.com/@${data.item.receiver}`"
                             target="_blank">@{{ data.item.receiver }}</a>
@@ -113,9 +113,15 @@
                           :href="`https://steemitwallet.com/@${data.item.receiver}`"
                           target="_blank"
                         >@{{ data.item.receiver }}*</a>
-                        <!-- <span class="badge">
+                        </div>
+                        <div v-if="data.item.receiver == 'null'" v-b-tooltip.hover title="This is a burning proposal. It decreases Steem inflation rate.">
+                        <a :class="`text-muted link link-underline-${data.item.status}`"
+                          :href="`https://steemitwallet.com/@${data.item.receiver}`"
+                          target="_blank"
+                        >@{{ data.item.receiver }}*</a>
+                        <span class="badge">
                           <img src="../assets/img/random/flame.png"/>
-                        </span> -->
+                        </span>
                         </div>
                       </div>
                   </template>
@@ -130,7 +136,7 @@
                   <template
                     slot="vote"
                     slot-scope="data">
-                    <button :class="`btn btn-sm btn-${data.item.status} text-white`" @click="$bvModal.show(`modal-${data.item.id}`)">Vote</button>
+                    <button :class="`btn btn-sm btn-${data.item.status} text-white`" @click="$bvModal.show(`modal-${data.item.id}`)"><i class="far fa-thumbs-up"></i></button>
                      <b-modal :id='`modal-${data.item.id}`' :title="`${data.item.subject}`" centered hide-footer>
                       <b-form>
                       <b-form-group
@@ -146,9 +152,15 @@
                         </b-form-input>
                       </b-form-group>
                       <b-form-group>
-                        <div class="mb-2">2. Choose one of the options to vote for this proposal:</div>
-                        <button class="btn-block btn btn-light" @click="keychainVote(user, data.item.id)" type="button" variant="light">Vote with <img class="icon-small ml-1" src="../assets/img/random/keychain2.png"/></button>
-                        <button class="btn-block btn btn-light" @click="steemconnectVote(data.item.id)" type="button" variant="light">Vote with <img class="icon-small ml-1" src="../assets/img/random/steemconnect.png"/></button>
+                        <div class="mb-2">2. Do you want to vote or remove your vote?</div>
+                        <b-form-checkbox v-model="voteStatus" name="vote-button" switch>
+                          <b>{{ voteStatus ? 'Vote' : 'Remove vote' }}</b>
+                        </b-form-checkbox>
+                      </b-form-group>
+                      <b-form-group>
+                        <div class="mb-2">3. Choose one of the options to vote for this proposal:</div>
+                        <button class="btn-block btn btn-light" @click="keychainVote(user, data.item.id, voteStatus)" type="button" variant="light">Vote with <img class="icon-small ml-1" src="../assets/img/random/keychain2.png"/></button>
+                        <button class="btn-block btn btn-light" @click="steemconnectVote(data.item.id, voteStatus)" type="button" variant="light">Vote with <img class="icon-small ml-1" src="../assets/img/random/steemconnect.png"/></button>
                       </b-form-group>
                     </b-form>
                      </b-modal>
@@ -229,9 +241,9 @@ export default {
     }
   },
   methods: {
-    keychainVote (user, id) {
+    keychainVote (user, id, approve) {
       if (window.steem_keychain && user!= '') {
-        steem_keychain.requestBroadcast(user, [["update_proposal_votes", {"voter":user,"proposal_ids":[`${id}`],"approve":"true"}]], 'Active', function (response) {
+        steem_keychain.requestBroadcast(user, [["update_proposal_votes", {"voter":user,"proposal_ids":[`${id}`],"approve":`${approve}`}]], 'Active', function (response) {
           if (response.success) {
             return []
           } else {
@@ -242,8 +254,8 @@ export default {
         return []
       }
     },
-    steemconnectVote (id) {
-      window.open(`https://beta.steemconnect.com/sign/update-proposal-votes?proposal_ids=[${id}]`)
+    steemconnectVote (id, approve) {
+      window.open(`https://beta.steemconnect.com/sign/update-proposal-votes?proposal_ids=[${id}]&approve=${approve}`)
     }
   },
   data () {
@@ -287,7 +299,8 @@ export default {
       sortDirection: 'desc',
       filter: null,
       status: 'all',
-      user: ''
+      user: '',
+      voteStatus: true
     }
   }
 }

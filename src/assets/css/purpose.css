@@ -23358,23 +23358,23 @@ a {
   color: #008da6;
 }
 
-.link-underline-expired {
+.link-underline-inactive {
   color: #FFAB00;
 }
-.link-underline-expired:after {
+.link-underline-inactive:after {
   background-color: #FFAB00;
 }
-.link-underline-expired:hover {
+.link-underline-inactive:hover {
   color: #cc8900;
 }
 
-.link-underline-inactive {
+.link-underline-expired {
   color: #FF5630;
 }
-.link-underline-inactive:after {
+.link-underline-expired:after {
   background-color: #FF5630;
 }
-.link-underline-inactive:hover {
+.link-underline-expired:hover {
   color: #fc2e00;
 }
 
