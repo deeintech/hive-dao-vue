@@ -4,11 +4,11 @@ import router from './router'
 import store from './store/store'
 import BootstrapVue from 'bootstrap-vue'
 import datePicker from 'vue-bootstrap-datetimepicker'
-import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css'
 import { numeric, numeric2, numeric3 } from './filters/filters'
 
 import './assets/css/purpose.css'
 import './assets/js/all.min.js'
+import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css'
 
 Vue.config.productionTip = process.env.NODE_ENV === 'production'
 Vue.use(BootstrapVue)

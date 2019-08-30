@@ -27674,3 +27674,9 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   opacity: .5;
   background: #000;
 }
+
+.news{
+  background: #6e00ff;
+  border-bottom: 1pt solid #7468dd;
+  color: #ffffff;
+}

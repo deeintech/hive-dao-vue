@@ -227,7 +227,7 @@
             <div class="icon icon-lg text-primary">
               <i class="fas fa-hand-holding-usd"></i>
             </div>
-            <span class="d-block mt-4 h3 text-primary">{{totalBudget | numeric}} SBD</span>
+            <span class="d-block mt-4 h3 text-primary">{{totalBudget | numeric3}} SBD</span>
             <span class="d-block mt-2 h6">Total Budget</span>
           </div>
         </div>
@@ -236,7 +236,7 @@
             <div class="icon icon-lg text-danger">
               <i class="fas fa-user-friends"></i>
             </div>
-            <span class="d-block mt-4 h2 text-danger">{{dailyBudget | numeric}} SBD</span>
+            <span class="d-block mt-4 h2 text-danger">{{dailyBudget | numeric3}} SBD</span>
             <span class="d-block mt-2 h6">Daily Budget</span>
           </div>
         </div>

@@ -14,7 +14,7 @@
       <h3>Submit the form for your proposal to go live</h3>
       <div class="card">
         <div class="card-body">
-          <b-form @submit.prevent="createProposal">
+          <b-form @submit.prevent="createProposalKeychain">
             <b-form-group
               id="subject_group"
               label="A short title for your proposal"
@@ -31,11 +31,11 @@
               id="dailypay_group"
               label="Daily requested amount in SBD"
               label-for="dailypay"
-              description="Please put an amount you're requesting + SBD, i.e. 300 SBD">
+              description="SBD is Steen-backed dollars (1 SBD ~ 1 USD)">
               <b-form-input
                 id="dailypay"
                 v-model="form.dailypay"
-                type="text"
+                type="number"
                 required
                 placeholder="Enter requested daily pay in SBD">
               </b-form-input>
@@ -84,7 +84,7 @@
             <label for="end_date">End date</label>
             <date-picker class="mb-3" name="end_date" v-model="form.end_date" :config="options" required></date-picker>
             <p class="text-danger"><small>*Notice, there's 10 SBD submission fee, so make sure to have it in your creator account.</small></p>
-            <b-button type="sumbit" variant="primary">Submit</b-button>
+            <button type="sumbit" class="btn btn-primary">Submit with <img class="icon-small ml-1" src="../assets/img/random/keychain.png"/></button>
           </b-form>
         </div>
       </div>
@@ -98,7 +98,7 @@ export default {
   data () {
       return {
         form: {
-          dailypay: '',
+          dailypay: 0,
           subject: '',
           permlink: '',
           creator: '',
@@ -113,10 +113,23 @@ export default {
       }
   },
   methods: {
-    createProposal () {
+    createProposalSteemconnect () {
       event.target.reset()
       this.$router.push('/proposals')
       window.open(`https://beta.steemconnect.com/sign/create-proposal?start_date=${this.form.start_date}&end_date=${this.form.end_date}&daily_pay=${this.form.dailypay}&subject=${this.form.subject}&permlink=${this.form.permlink}&creator=${this.form.creator}&receiver=${this.form.receiver}`)
+    },
+    createProposalKeychain (event) {
+      if (window.steem_keychain) {
+        steem_keychain.requestBroadcast(this.form.creator, [["create_proposal",{"creator":this.form.creator,"receiver":this.form.receiver,"start_date":this.form.start_date,"end_date":this.form.end_date,"daily_pay":Number(this.form.dailypay).toFixed(3)+' SBD',"subject":this.form.subject,"permlink":this.form.permlink}]], 'Active', function (response) {
+          if (response.success) {
+            event.target.reset()
+          } else {
+            event.target.reset()
+          }
+        })
+      } else {
+        return []
+      }
     }
   }
 }
