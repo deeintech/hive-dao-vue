@@ -56,11 +56,35 @@
                       <span class="text-center mt-1">Empty is also a beautiful state</span>
                     </div>
                   </template>
+                  <!-- Votes -->
                   <template
                     slot="total_votes"
                     slot-scope="data">
-                    <span v-b-tooltip.hover :title='`${Number(data.item.total_votes/1000000).toLocaleString()} VESTS \n The votes are updated on hourly basis.`'>{{data.item.total_votes | numeric2}}</span><br/>
+                    <span style = "cursor:pointer" @click="$bvModal.show(`voters-${data.item.id}`)">{{data.item.total_votes*steemPerMVest/1000000000 | numeric3}} SP</span>
+                    <b-modal :id='`voters-${data.item.id}`' :title="`${data.item.subject}`" centered hide-footer>
+                      <div class="row">
+                        <div class="col-12 d-flex justify-content-center" v-if="!accounts.length">
+                          <b-spinner label="Spinning"></b-spinner>
+                          <span class="ml-3">Loading votes. Be patient!</span>
+                        </div>
+                      </div>
+                      <div v-if="voters.length && accounts.length">
+                        <b-list-group>
+                          <h5>This proposal is supported by the following community members:</h5>
+                          <b-list-group-item v-for="(voter, index) in votersByProposalId(data.item.id)" :key="index" class="d-flex justify-content-between align-items-center">
+                            <div class="avatar rounded-circle">
+                              <a :href="`https://steemit.com/@${voter.voter}`" target="_blank">
+                                <img :src="`https://steemitimages.com/u/${voter.voter}/avatar`" />
+                              </a>
+                            </div>
+                            <a class="text-dark" :href="`https://steemit.com/@${voter.voter}`" target="_blank">@{{voter.voter}}</a> 
+                            <b-badge variant="primary" pill>{{voter.sp | numeric3}} SP</b-badge>
+                          </b-list-group-item>
+                        </b-list-group>
+                      </div>
+                    </b-modal>
                   </template>
+                  <!-- Status -->
                   <template
                     slot="status"
                     slot-scope="data">
@@ -69,6 +93,7 @@
                     </span>
                     <span>{{data.item.status}}</span>
                   </template>
+                  <!-- Description -->
                   <template slot="description" slot-scope="data">
                     <div class="row">
                       <div class="media align-items-center col-2 d-sm-none d-md-block mr-3">
@@ -96,6 +121,7 @@
                       </div>
                     </div>
                   </template>
+                  <!-- Duration -->
                   <template slot="duration" slot-scope="data">
                     {{totalProposalDuration(data.item) | numeric}} days
                     <br />
@@ -125,6 +151,7 @@
                         </div>
                       </div>
                   </template>
+                  <!-- Requested -->
                   <template slot="requested" slot-scope="data">
                     <div>
                       {{data.item.daily_pay.amount/1000*totalProposalDuration(data.item) | numeric3}} SBD
@@ -133,6 +160,7 @@
                       {{data.item.daily_pay.amount/1000 | numeric3}} SBD
                     </div>
                   </template>
+                  <!-- Voting modal -->
                   <template
                     slot="vote"
                     slot-scope="data">
@@ -238,6 +266,24 @@ export default {
     },
     dailyBudget () {
       return this.$store.getters.dailyBudget
+    },
+    accounts () {
+      return this.$store.getters.accounts
+    },
+    voters () {
+      return this.$store.getters.voters
+    },
+    votersByProposalId () {
+      return this.$store.getters.votersByProposalId
+    },
+    accountDetails () {
+      return this.$store.getters.accountDetails
+    },
+    globalProperties () {
+      return this.$store.getters.globalProperties
+    },
+    steemPerMVest () {
+      return this.$store.getters.steemPerMVest
     }
   },
   methods: {
@@ -256,6 +302,13 @@ export default {
     },
     steemconnectVote (id, approve) {
       window.open(`https://beta.steemconnect.com/sign/update-proposal-votes?proposal_ids=[${id}]&approve=${approve}`)
+    },
+    fetchProposalVoters () {
+      this.$store.dispatch('fetchProposalVoters')
+      // this.$store.dispatch('fetchAccounts')
+    },
+    vestsToSP (account) {
+      return parseFloat(this.accountDetails(account).vesting_shares)*this.steemPerMVest/1000
     }
   },
   data () {
@@ -302,6 +355,9 @@ export default {
       user: '',
       voteStatus: true
     }
+  },
+  created () {
+    this.fetchProposalVoters(this.voters)
   }
 }
 </script>

@@ -27,11 +27,15 @@ export default {
     },
     setBudget () {
       this.$store.dispatch('setBudget')
+    },
+    fetchSteemGlobalPropoerties () {
+      this.$store.dispatch('fetchSteemGlobalPropoerties')
     }
   },
   created () {
     this.fetchProposals()
     this.setBudget()
+    this.fetchSteemGlobalPropoerties()
   }
 }
 </script>

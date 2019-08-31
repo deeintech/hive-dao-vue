@@ -13,7 +13,9 @@ export default new Vuex.Store({
     totalBudget: 0,
     dailyBudget: 0,
     accounts: [],
-    account: {}
+    account: {},
+    voters: [],
+    globalProperties: []
   },
   mutations: mutations,
   actions: actions,

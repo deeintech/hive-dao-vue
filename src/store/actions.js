@@ -22,19 +22,67 @@ export default {
       .then(response => {
         proposals = response.data.result.proposals
         commit('SET_PROPOSALS', proposals)
-        // console.log(proposals)
         return proposals
       })
       .catch(() => {
         return []
       })
   },
-  async fetchAccountByName ({ commit }, account) {
-    const baseUrl = process.env.VUE_APP_HIVEMIND_API
-    await axios.get(`${baseUrl}/accounts/${account}`)
+  async fetchProposalVoters ({ commit, dispatch }, voters) {
+    const url = process.env.VUE_APP_STEEMIT_MAINNET
+    const headers = {
+      'Content-Type': 'application/json'
+    }
+    const body = {
+      jsonrpc: '2.0',
+      method: 'call',
+      id: 0,
+      params:[
+        'condenser_api','list_proposal_votes',[[0,''],500,'by_proposal_voter']
+      ]
+    }
+    await axios.post(url, body, headers)
       .then(response => {
-        commit('SET_ACCOUNT', response.data)
-        return response
+        voters = response.data.result
+        commit('SET_VOTERS', voters)
+        dispatch('fetchAccounts', voters.map(voter => voter['voter']))
+        return voters
+      })
+      .catch(() => {
+        return []
+      })
+  },
+  async fetchAccounts ({ commit }, voters) {
+    const url = process.env.VUE_APP_STEEMIT_MAINNET
+    const headers = {
+      'Content-Type': 'application/json'
+    }
+    const body = {
+      jsonrpc: '2.0',
+      method: 'call',
+      id: 0,
+      params:[
+        'condenser_api','get_accounts', [voters]
+      ]
+    }
+    await axios.post(url, body, headers)
+      .then(response => {
+        let accounts = response.data.result
+        commit('SET_ACCOUNTS', accounts)
+        // console.log(accounts)
+        return accounts
+      })
+      .catch(() => {
+        return []
+      })
+  },
+  async fetchAccountByName ({ commit }, accountName) {
+    const baseUrl = process.env.VUE_APP_HIVEMIND_API
+    await axios.get(`${baseUrl}/accounts/${accountName}`)
+      .then(response => {
+        let account = response.data
+        commit('SET_ACCOUNT', account)
+        return account
       })
       .catch(() => {
         return []
@@ -57,6 +105,26 @@ export default {
         commit('SET_TOTAL_BUDGET', totalBudget)
         commit('SET_DAILY_BUDGET', totalBudget / 100)
         return totalBudget
+      })
+      .catch(() => {
+        return []
+      })
+  },
+  async fetchSteemGlobalPropoerties ({ commit }, globalProperties) {
+    const url = process.env.VUE_APP_STEEMIT_MAINNET
+    const headers = {
+      'Content-Type': 'application/json'
+    }
+    const body = {
+      jsonrpc: '2.0',
+      method: 'database_api.get_dynamic_global_properties',
+      id: 2
+    }
+    await axios.post(url, body, headers)
+      .then(response => {
+        globalProperties = response.data.result
+        commit('SET_GLOBAL_PROPERTIES', globalProperties)
+        return globalProperties
       })
       .catch(() => {
         return []

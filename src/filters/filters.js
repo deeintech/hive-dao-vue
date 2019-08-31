@@ -40,5 +40,5 @@ export function numeric2(value) {
 }
 
 export function numeric3(value) {
-   return new Number(value).toLocaleString(undefined, { minimumFractionDigits: 0,maximumFractionDigits: 3 })
+   return new Number(value).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })
 }
