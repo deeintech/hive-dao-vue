@@ -32,6 +32,22 @@ export default {
       return parseFloat(account.vesting_shares)*getters.steemPerMVest/1000
     }
   },
+  votersByProposalId: (state, getters) => (proposalId) => {
+    if(state.voters.length && state.accounts.length) {
+      let newVoters = []
+      let steemPerMVest = getters.steemPerMVest
+      let voters = state.voters.filter(item => item.proposal.id === proposalId).slice(0, 100)
+
+      voters.forEach(v => {
+        let account = state.accounts.find(account => account.name === v.voter)
+        if(account !== undefined) {
+          let voterSP = parseFloat(account.vesting_shares)*steemPerMVest/1000
+          newVoters.push({voter: v.voter, sp: voterSP})
+        }
+      })
+      return newVoters.sort((a, b) => b.sp - a.sp)
+    }
+  },
   // workers
   workers: (state) => {
     state.workers = [...new Set(state.proposals.map(p => p.creator))]

@@ -69,19 +69,22 @@
                           <span class="ml-3">Loading votes. Be patient!</span>
                         </div>
                       </div>
-                        <b-list-group v-if="accounts.length">
-                          <h5>This proposal is supported by the following community members:</h5>
-                          <b-list-group-item v-for="(voter, index) in voters" :key="index" class="d-flex justify-content-between align-items-center">
-                          <div class="avatar rounded-circle">
-                            <a :href="`https://steemit.com/@${voter.voter}`" target="_blank">
-                              <img :src="`https://steemitimages.com/u/${voter.voter}/avatar`" />
-                            </a>
-                          </div>
-                          <a class="text-dark" :href="`https://steemit.com/@${voter.voter}`" target="_blank">@{{voter.voter}}</a> 
-                          <b-badge variant="primary" pill>{{accountSP(voter.voter) | numeric3}} SP</b-badge>
-                        </b-list-group-item>
-                      </b-list-group>
-
+                       <div class="row">
+                        <div class="col-12 d-flex justify-content-center">
+                           <b-list-group v-if="accounts.length">
+                              <h5>This proposal is supported by the following community members:</h5>
+                              <b-list-group-item v-for="(voter, index) in votersByProposalId(data.item.id)" :key="index" class="d-flex justify-content-between align-items-center">
+                              <div class="avatar rounded-circle">
+                                <a :href="`https://steemit.com/@${voter.voter}`" target="_blank">
+                                  <img :src="`https://steemitimages.com/u/${voter.voter}/avatar`" />
+                                </a>
+                              </div>
+                              <a class="text-dark" :href="`https://steemit.com/@${voter.voter}`" target="_blank">@{{voter.voter}}</a> 
+                              <b-badge variant="primary" pill>{{voter.sp | numeric3}} SP</b-badge>
+                            </b-list-group-item>
+                          </b-list-group>
+                        </div>
+                       </div>
                     </b-modal>
                   </template>
                   <!-- Status -->

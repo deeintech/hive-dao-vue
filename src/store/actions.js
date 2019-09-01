@@ -40,15 +40,18 @@ export default {
       method: 'call',
       id: 0,
       params:[
-        'condenser_api','list_proposal_votes',[[0,proposalId],100,'by_proposal_voter']
+        'condenser_api','list_proposal_votes',[[proposalId, ''],100,'by_proposal_voter']
       ]
     }
     await axios.post(url, body, headers)
       .then(response => {
-        let voters = response.data.result
-        commit('SET_VOTERS', voters)
-        dispatch('fetchAccounts', voters.map(voter => voter['voter']))
-        return voters
+        if (response.data.result.length) {
+          let voters = response.data.result
+          let accounts = voters.map(voter => voter['voter'])
+          commit('SET_VOTERS', voters)
+          dispatch('fetchAccounts', accounts)
+          return voters
+        }
       })
       .catch(() => {
         return []
