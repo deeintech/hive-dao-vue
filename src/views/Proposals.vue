@@ -45,12 +45,12 @@
                   :class="`table table-padded table-${status} align-items-center`"
                   :show-empty="true"
                   :items="proposals(`${status}`)"
-                  :fields="fields"
+                  :fields="fieldsProposals"
                   :per-page="perPage"
                   :filter="filter"
-                  :sort-by.sync="sortBy"
-                  :sort-desc.sync="sortDesc"
-                  :sort-direction="sortDirection">
+                  :sort-by.sync="proposalsSortBy"
+                  :sort-desc.sync="proposalsSortDesc"
+                  :sort-direction="proposalsSortDirection">
                   <template slot="empty">
                     <div class="d-flex justify-content-center">
                       <span class="text-center mt-1">Empty is also a beautiful state</span>
@@ -60,28 +60,28 @@
                   <template
                     slot="total_votes"
                     slot-scope="data">
-                    <span style = "cursor:pointer" @click="$bvModal.show(`voters-${data.item.id}`)">{{data.item.total_votes*steemPerMVest/1000000000 | numeric3}} SP</span>
-                    <b-modal :id='`voters-${data.item.id}`' :title="`${data.item.subject}`" centered hide-footer>
+                    <span style = "cursor:pointer" @click="loadVoters(`voters-${data.item.id}`, data.item.id)">{{ data.item.total_votes*steemPerMVest/1000000000 | numeric3}} SP</span>
+                    <!-- Voters model -->
+                    <b-modal size="md" scrollable :id='`voters-${data.item.id}`' :title="`${data.item.subject}`" centered hide-footer>
                       <div class="row">
                         <div class="col-12 d-flex justify-content-center" v-if="!accounts.length">
                           <b-spinner label="Spinning"></b-spinner>
                           <span class="ml-3">Loading votes. Be patient!</span>
                         </div>
                       </div>
-                      <div v-if="voters.length && accounts.length">
-                        <b-list-group>
+                        <b-list-group v-if="accounts.length">
                           <h5>This proposal is supported by the following community members:</h5>
-                          <b-list-group-item v-for="(voter, index) in votersByProposalId(data.item.id)" :key="index" class="d-flex justify-content-between align-items-center">
-                            <div class="avatar rounded-circle">
-                              <a :href="`https://steemit.com/@${voter.voter}`" target="_blank">
-                                <img :src="`https://steemitimages.com/u/${voter.voter}/avatar`" />
-                              </a>
-                            </div>
-                            <a class="text-dark" :href="`https://steemit.com/@${voter.voter}`" target="_blank">@{{voter.voter}}</a> 
-                            <b-badge variant="primary" pill>{{voter.sp | numeric3}} SP</b-badge>
-                          </b-list-group-item>
-                        </b-list-group>
-                      </div>
+                          <b-list-group-item v-for="(voter, index) in voters" :key="index" class="d-flex justify-content-between align-items-center">
+                          <div class="avatar rounded-circle">
+                            <a :href="`https://steemit.com/@${voter.voter}`" target="_blank">
+                              <img :src="`https://steemitimages.com/u/${voter.voter}/avatar`" />
+                            </a>
+                          </div>
+                          <a class="text-dark" :href="`https://steemit.com/@${voter.voter}`" target="_blank">@{{voter.voter}}</a> 
+                          <b-badge variant="primary" pill>{{accountSP(voter.voter) | numeric3}} SP</b-badge>
+                        </b-list-group-item>
+                      </b-list-group>
+
                     </b-modal>
                   </template>
                   <!-- Status -->
@@ -123,10 +123,11 @@
                   </template>
                   <!-- Duration -->
                   <template slot="duration" slot-scope="data">
-                    {{totalProposalDuration(data.item) | numeric}} days
+                    {{duration(data.item) | numeric}} days
                     <br />
                     <span class="smaller text-muted">{{data.item.start_date | moment("MMM D, YYYY")}} - {{data.item.end_date | moment("MMM D, YYYY")}}</span>
                   </template>
+                  <!-- Receiver -->
                   <template slot="receiver" slot-scope="data">
                       <div class="align-middle">
                         <div v-if="data.item.receiver != 'steem.dao' && data.item.receiver != 'null'">
@@ -154,7 +155,7 @@
                   <!-- Requested -->
                   <template slot="requested" slot-scope="data">
                     <div>
-                      {{data.item.daily_pay.amount/1000*totalProposalDuration(data.item) | numeric3}} SBD
+                      {{data.item.daily_pay.amount/1000*duration(data.item) | numeric3}} SBD
                     </div>
                     <div>
                       {{data.item.daily_pay.amount/1000 | numeric3}} SBD
@@ -167,30 +168,30 @@
                     <button :class="`btn btn-sm btn-${data.item.status} text-white`" @click="$bvModal.show(`modal-${data.item.id}`)"><i class="far fa-thumbs-up"></i></button>
                      <b-modal :id='`modal-${data.item.id}`' :title="`${data.item.subject}`" centered hide-footer>
                       <b-form>
-                      <b-form-group
-                        id="user_group"
-                        label="1. Enter your Steem account name:"
-                        label-for="user">
-                        <b-form-input
-                          id="user"
-                          v-model="user"
-                          type="text"
-                          required
-                          placeholder="name">
-                        </b-form-input>
-                      </b-form-group>
-                      <b-form-group>
-                        <div class="mb-2">2. Do you want to vote or remove your vote?</div>
-                        <b-form-checkbox v-model="voteStatus" name="vote-button" switch>
-                          <b>{{ voteStatus ? 'Vote' : 'Remove vote' }}</b>
-                        </b-form-checkbox>
-                      </b-form-group>
-                      <b-form-group>
-                        <div class="mb-2">3. Choose one of the options to vote for this proposal:</div>
-                        <button class="btn-block btn btn-light" @click="keychainVote(user, data.item.id, voteStatus)" type="button" variant="light">Vote with <img class="icon-small ml-1" src="../assets/img/random/keychain2.png"/></button>
-                        <button class="btn-block btn btn-light" @click="steemconnectVote(data.item.id, voteStatus)" type="button" variant="light">Vote with <img class="icon-small ml-1" src="../assets/img/random/steemconnect.png"/></button>
-                      </b-form-group>
-                    </b-form>
+                        <b-form-group
+                          id="user_group"
+                          label="1. Enter your Steem account name:"
+                          label-for="user">
+                          <b-form-input
+                            id="user"
+                            v-model="user"
+                            type="text"
+                            required
+                            placeholder="name">
+                          </b-form-input>
+                        </b-form-group>
+                        <b-form-group>
+                          <div class="mb-2">2. Do you want to vote or remove your vote?</div>
+                          <b-form-checkbox v-model="voteStatus" name="vote-button" switch>
+                            <b>{{ voteStatus ? 'Vote' : 'Remove vote' }}</b>
+                          </b-form-checkbox>
+                        </b-form-group>
+                        <b-form-group>
+                          <div class="mb-2">3. Choose one of the options to vote for this proposal:</div>
+                          <button class="btn-block btn btn-light" @click="keychainVote(user, data.item.id, voteStatus)" type="button" variant="light">Vote with <img class="icon-small ml-1" src="../assets/img/random/keychain2.png"/></button>
+                          <button class="btn-block btn btn-light" @click="steemconnectVote(data.item.id, voteStatus)" type="button" variant="light">Vote with <img class="icon-small ml-1" src="../assets/img/random/steemconnect.png"/></button>
+                        </b-form-group>
+                      </b-form>
                      </b-modal>
                   </template>
                 </b-table>
@@ -238,7 +239,7 @@
                   <div class="st-foot">
                     <span class="label">Daily pay:</span>
                     <span class="value">{{p.daily_pay.amount | numeric}} SBD</span>
-                    <span class="value float-right">{{totalProposalDuration(p)}} days</span>
+                    <span class="value float-right">{{duration(p)}} days</span>
                     <span class="label float-right mr-2">Duration:</span>
                   </div>
                 </div>
@@ -252,48 +253,30 @@
 </template>
 <script>
 import Stats from '@/views/Stats.vue'
+import { mapState , mapGetters } from 'vuex'
 export default {
   name: 'Proposals',
   components: {
     Stats
   },
   computed: {
-    proposals () {
-      return this.$store.getters.proposalsByStatus
-    },
-    totalProposalDuration () {
-      return this.$store.getters.totalProposalDuration
-    },
-    dailyBudget () {
-      return this.$store.getters.dailyBudget
-    },
-    accounts () {
-      return this.$store.getters.accounts
-    },
-    voters () {
-      return this.$store.getters.voters
-    },
-    votersByProposalId () {
-      return this.$store.getters.votersByProposalId
-    },
-    accountDetails () {
-      return this.$store.getters.accountDetails
-    },
-    globalProperties () {
-      return this.$store.getters.globalProperties
-    },
-    steemPerMVest () {
-      return this.$store.getters.steemPerMVest
-    }
+    ...mapState(['voters', 'accounts', 'dailyBudget', 'globalProperties']),
+    ...mapGetters({
+      proposals: 'proposalsByStatus',
+      duration: 'totalProposalDuration',
+      votersByProposalId: 'votersByProposalId',
+      steemPerMVest: 'steemPerMVest',
+      accountSP: 'accountSP'
+    })
   },
   methods: {
     keychainVote (user, id, approve) {
       if (window.steem_keychain && user!= '') {
         steem_keychain.requestBroadcast(user, [["update_proposal_votes", {"voter":user,"proposal_ids":[`${id}`],"approve":`${approve}`}]], 'Active', function (response) {
           if (response.success) {
-            return []
+            return response
           } else {
-            return []
+            return response.success
           }
         })
       } else {
@@ -303,17 +286,14 @@ export default {
     steemconnectVote (id, approve) {
       window.open(`https://beta.steemconnect.com/sign/update-proposal-votes?proposal_ids=[${id}]&approve=${approve}`)
     },
-    fetchProposalVoters () {
-      this.$store.dispatch('fetchProposalVoters')
-      // this.$store.dispatch('fetchAccounts')
-    },
-    vestsToSP (account) {
-      return parseFloat(this.accountDetails(account).vesting_shares)*this.steemPerMVest/1000
+    loadVoters (modalId, id) {
+      this.$bvModal.show(modalId)
+      this.$store.dispatch('fetchProposalVoters', id)
     }
   },
   data () {
     return {
-      fields: [
+      fieldsProposals: [
         {
           key: 'total_votes',
           label: 'Total votes',
@@ -347,17 +327,14 @@ export default {
       ],
       perPage: 20,
       pageOptions: [20, 50, 100],
-      sortBy: 'total_votes',
-      sortDesc: true,
-      sortDirection: 'desc',
+      proposalsSortBy: 'total_votes',
+      proposalsSortDesc: true,
+      proposalsSortDirection: 'asc',
       filter: null,
       status: 'all',
-      user: '',
-      voteStatus: true
+      voteStatus: true,
+      user: ''
     }
-  },
-  created () {
-    this.fetchProposalVoters(this.voters)
   }
 }
 </script>

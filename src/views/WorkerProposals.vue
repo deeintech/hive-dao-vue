@@ -44,7 +44,7 @@
                         <div class="pipeline-value"></div>
                         <div
                           class="pipeline-count"
-                        >{{totalWorkerProposalsByStatus(`${this.worker}`,'active')}} proposals</div>
+                        >{{totalProposals(`${this.worker}`,'active')}} proposals</div>
                       </div>
                       <div class="pipeline-settings">
                         <i class="fas fa-align-justify"></i>
@@ -84,7 +84,7 @@
                                   <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD / day
                                 </li>
                                 <li>
-                                  <strong>{{proposal.daily_pay.amount/1000*totalProposalDuration(proposal) | numeric3}}</strong> SBD total
+                                  <strong>{{proposal.daily_pay.amount/1000*duration(proposal) | numeric3}}</strong> SBD total
                                 </li>
                                 <li>
                                   <strong>{{proposal.start_date | moment("MMM D, YY")}}</strong> - <strong>{{proposal.end_date | moment("MMM D, YY")}}</strong>
@@ -106,7 +106,7 @@
                         <div class="pipeline-value"></div>
                         <div
                           class="pipeline-count"
-                        >{{totalWorkerProposalsByStatus(`${this.worker}`,'inactive')}} proposals</div>
+                        >{{totalProposals(`${this.worker}`,'inactive')}} proposals</div>
                       </div>
                       <div class="pipeline-settings">
                         <i class="fas fa-align-justify"></i>
@@ -146,7 +146,7 @@
                                     <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD / day
                                   </li>
                                   <li>
-                                    <strong>{{proposal.daily_pay.amount/1000*totalProposalDuration(proposal) | numeric3}}</strong> SBD total
+                                    <strong>{{proposal.daily_pay.amount/1000*duration(proposal) | numeric3}}</strong> SBD total
                                   </li>
                                   <li>
                                     <strong>{{proposal.start_date | moment("MMM D, YY")}}</strong> - <strong>{{proposal.end_date | moment("MMM D, YY")}}</strong>
@@ -166,7 +166,7 @@
                       <h5 class="pipeline-name">Completed</h5>
                       <div class="pipeline-header-numbers">
                         <div class="pipeline-value"></div>
-                        <div class="pipeline-count">{{totalWorkerProposalsByStatus(`${this.worker}`,'expired')}} proposals</div>
+                        <div class="pipeline-count">{{totalProposals(`${this.worker}`,'expired')}} proposals</div>
                       </div>
                       <div class="pipeline-settings">
                         <i class="fas fa-align-justify"></i>
@@ -207,7 +207,7 @@
                                     <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD / day
                                   </li>
                                   <li>
-                                    <strong>{{proposal.daily_pay.amount/1000*totalProposalDuration(proposal) | numeric3}}</strong> SBD total
+                                    <strong>{{proposal.daily_pay.amount/1000*duration(proposal) | numeric3}}</strong> SBD total
                                   </li>
                                   <li>
                                     <strong>{{proposal.start_date | moment("MMM D, YY")}}</strong> - <strong>{{proposal.end_date | moment("MMM D, YY")}}</strong>
@@ -231,25 +231,17 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
 export default {
   name: 'WorkerProposals',
   props: ['worker'],
   computed: {
-    account () {
-      return this.$store.getters.account
-    },
-    workerProposals () {
-      return this.$store.getters.workerProposals(this.worker)
-    },
-    workerProposalsByStatus () {
-      return this.$store.getters.workerProposalsByStatus
-    },
-    totalWorkerProposalsByStatus () {
-      return this.$store.getters.totalWorkerProposalsByStatus
-    },
-    totalProposalDuration () {
-      return this.$store.getters.totalProposalDuration
-    }
+    ...mapState(['account']),
+    ...mapGetters({
+      workerProposalsByStatus: 'workerProposalsByStatus',
+      totalProposals: 'totalWorkerProposalsByStatus',
+      duration: 'totalProposalDuration'
+    })
   },
   methods: {
     fetchAccountByName (name) {

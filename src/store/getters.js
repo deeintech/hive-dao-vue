@@ -26,33 +26,19 @@ export default {
   totalWorkerProposalsByStatus: (state) => (worker, status) => {
     return state.proposals.filter(proposal => proposal.creator === worker && proposal.status === status).length
   },
-  votersByProposalId: (state, getters) => (proposalId) => {
-    let newVoters = []
-    if(state.voters.length && state.accounts.length) {
-      state.voters.filter(voter => voter.proposal.id === proposalId).slice(0, 50).forEach(v => {
-        let voterSP = parseFloat(state.accounts.find(account => account.name === v.voter).vesting_shares)*getters.steemPerMVest/1000
-        newVoters.push({voter: v.voter, sp: voterSP})
-      })
-      return newVoters.sort((a, b) => b.sp - a.sp)
+  accountSP: (state, getters) => (name) => {
+    let account = state.accounts.find(account => account.name === name)
+    if(account !== undefined) {
+      return parseFloat(account.vesting_shares)*getters.steemPerMVest/1000
     }
   },
-  // accounts and workers
-  account: (state) => state.account,
-  accounts: (state) => state.accounts,
-  voters: (state) => state.voters,
+  // workers
   workers: (state) => {
     state.workers = [...new Set(state.proposals.map(p => p.creator))]
     return state.workers
   },
   // high level data
-  votingThreshhold: (state) => state.votingThreshhold,
-  totalBudget: (state) => state.totalBudget,
-  dailyBudget: (state) => state.dailyBudget,
-  dailyBudgetLimit: (state) => state.dailyBudgetLimit,
   totalWorkers: (state) => state.workers.length,
-  user: (state) => state.user,
-  isLoggedin: (state) => state.isLoggedin,
-  globalProperties: (state) => state.globalProperties,
   steemPerMVest: (state) => {
     if (state.globalProperties && state.globalProperties.total_vesting_fund_steem != undefined && state.globalProperties.total_vesting_shares != undefined) {
       let  total_vesting_fund_steem = parseFloat(state.globalProperties.total_vesting_fund_steem.amount)

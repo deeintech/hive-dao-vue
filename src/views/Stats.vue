@@ -54,18 +54,14 @@
   </div>
 </template>
 <script>
+import { mapState, mapGetters } from 'vuex'
 export default {
   name: 'Stats',
   computed: {
-    totalProposals () {
-      return this.$store.getters.totalProposals
-    },
-    totalBudget () {
-      return this.$store.getters.totalBudget
-    },
-    dailyBudget () {
-      return this.$store.getters.dailyBudget
-    }
+    ...mapState(['dailyBudget', 'totalBudget']),
+    ...mapGetters({
+      totalProposals: 'totalProposals'
+    })
   }
 }
 </script>

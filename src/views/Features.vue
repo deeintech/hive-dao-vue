@@ -158,7 +158,7 @@
           <div class="table-responsive-lg">
             <table class="table table-padded align-items-center">
               <tbody>
-                <tr v-for="proposal in proposals" :key="proposal.id" class="mb-3">
+                <tr v-for="proposal in proposals('active').slice(0, 5)" :key="proposal.id" class="mb-3">
                   <td scope="row">
                     <div class="media align-items-center">
                       <div>
@@ -218,7 +218,7 @@
             <div class="icon icon-lg text-warning">
               <i class="fas fa-thumbs-up"></i>
             </div>
-            <span class="d-block mt-4 h3 text-warning">{{completedProposals}}</span>
+            <span class="d-block mt-4 h3 text-warning">{{totalProposalsByStatus('expired')}}</span>
             <span class="d-block mt-2 h6">Completed Proposals</span>
           </div>
         </div>
@@ -342,30 +342,17 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
 export default {
   name: 'Header',
   computed: {
-    proposals () {
-      return this.$store.getters.proposalsByStatus('active').slice(0, 5)
-    },
-    totalProposals () {
-      return this.$store.getters.totalProposals
-    },
-    completedProposals () {
-      return this.$store.getters.totalProposalsByStatus('expired')
-    },
-    activeProposals () {
-      return this.$store.getters.totalProposalsByStatus('active')
-    },
-    totalBudget () {
-      return this.$store.getters.totalBudget
-    },
-    dailyBudget () {
-      return this.$store.getters.dailyBudget
-    },
-    faq () {
-      return this.$store.getters.faq.slice(0, 4)
-    }
+    ...mapState(['dailyBudget', 'totalBudget', 'globalProperties']),
+    ...mapGetters({
+      proposals: 'proposalsByStatus',
+      totalProposals: 'totalProposals',
+      totalProposalsByStatus: 'totalProposalsByStatus',
+      steemPerMVest: 'steemPerMVest'
+    }),
   },
   methods: {
     avatarName (value) {

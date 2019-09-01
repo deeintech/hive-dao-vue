@@ -52,15 +52,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'Workers',
   computed: {
-    workers () {
-      return this.$store.getters.workers
-    },
-    totalWorkerProposalsByStatus () {
-      return this.$store.getters.totalWorkerProposalsByStatus
-    }
+    ...mapGetters({
+      workers: 'workers',
+      totalWorkerProposalsByStatus: 'totalWorkerProposalsByStatus'
+    })
   }
 }
 </script>

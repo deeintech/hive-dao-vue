@@ -28,7 +28,9 @@ export default {
         return []
       })
   },
-  async fetchProposalVoters ({ commit, dispatch }, voters) {
+  async fetchProposalVoters ({ commit, dispatch }, proposalId) {
+    commit('SET_VOTERS', [])
+    commit('SET_ACCOUNTS', [])
     const url = process.env.VUE_APP_STEEMIT_MAINNET
     const headers = {
       'Content-Type': 'application/json'
@@ -38,12 +40,12 @@ export default {
       method: 'call',
       id: 0,
       params:[
-        'condenser_api','list_proposal_votes',[[0,''],500,'by_proposal_voter']
+        'condenser_api','list_proposal_votes',[[0,proposalId],100,'by_proposal_voter']
       ]
     }
     await axios.post(url, body, headers)
       .then(response => {
-        voters = response.data.result
+        let voters = response.data.result
         commit('SET_VOTERS', voters)
         dispatch('fetchAccounts', voters.map(voter => voter['voter']))
         return voters
@@ -69,7 +71,6 @@ export default {
       .then(response => {
         let accounts = response.data.result
         commit('SET_ACCOUNTS', accounts)
-        // console.log(accounts)
         return accounts
       })
       .catch(() => {
@@ -77,6 +78,7 @@ export default {
       })
   },
   async fetchAccountByName ({ commit }, accountName) {
+    commit('SET_ACCOUNT', '')
     const baseUrl = process.env.VUE_APP_HIVEMIND_API
     await axios.get(`${baseUrl}/accounts/${accountName}`)
       .then(response => {
