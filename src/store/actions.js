@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default {
-  async fetchProposals ({ commit }, proposals) {
+  async fetchProposals ({ commit }, limit) {
     const url = process.env.VUE_APP_STEEMIT_MAINNET
     const headers = {
       'Content-Type': 'application/json'
@@ -12,7 +12,7 @@ export default {
       id: 2,
       params: {
         start: [],
-        limit: 20,
+        limit: limit,
         order: 'by_creator',
         order_direction: 'ascending',
         status: 'all'
@@ -20,7 +20,7 @@ export default {
     }
     await axios.post(url, body, headers)
       .then(response => {
-        proposals = response.data.result.proposals
+        let proposals = response.data.result.proposals
         commit('SET_PROPOSALS', proposals)
         return proposals
       })

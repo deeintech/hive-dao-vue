@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     fetchProposals () {
-      this.$store.dispatch('fetchProposals')
+      this.$store.dispatch('fetchProposals', 100)
     },
     setBudget () {
       this.$store.dispatch('setBudget')

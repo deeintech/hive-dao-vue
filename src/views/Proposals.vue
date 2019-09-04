@@ -184,9 +184,9 @@
                           </b-form-input>
                         </b-form-group>
                         <b-form-group>
-                          <div class="mb-2">2. Do you want to vote or remove your vote?</div>
+                          <div class="mb-2">2. Do you want to approve or remove your vote?</div>
                           <b-form-checkbox v-model="voteStatus" name="vote-button" switch>
-                            <b>{{ voteStatus ? 'Vote' : 'Remove vote' }}</b>
+                            <b>{{ voteStatus ? 'Approve Vote' : 'Remove vote' }}</b>
                           </b-form-checkbox>
                         </b-form-group>
                         <b-form-group>
@@ -328,8 +328,8 @@ export default {
           label: 'Vote'
         }
       ],
-      perPage: 20,
-      pageOptions: [20, 50, 100],
+      perPage: 30,
+      pageOptions: [30, 50, 100],
       proposalsSortBy: 'total_votes',
       proposalsSortDesc: true,
       proposalsSortDirection: 'asc',

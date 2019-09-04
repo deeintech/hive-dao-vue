@@ -33,7 +33,7 @@ export default {
     }
   },
   votersByProposalId: (state, getters) => (proposalId) => {
-    if(state.voters.length && state.accounts.length) {
+    if(state.voters != undefined && state.voters.length && state.accounts != undefined && state.accounts.length) {
       let newVoters = []
       let steemPerMVest = getters.steemPerMVest
       let voters = state.voters.filter(item => item.proposal.id === proposalId).slice(0, 100)
