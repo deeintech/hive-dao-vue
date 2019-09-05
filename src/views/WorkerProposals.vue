@@ -71,14 +71,14 @@
                             </div>
                             <div class="pi-info">
                               <div class="h6 pi-name text-wrap">{{proposal.creator}}</div>
-                              <div class="pi-sub text-wrap">{{proposal.subject}}</div>
+                              <div class="small text-dark text-wrap">{{proposal.subject}}</div>
                             </div>
                           </div>
                           <div class="pi-foot pb-0">
                             <span class="extra-info text-wrap">
                               <ul>
                                 <li>
-                                  <strong>{{proposal.total_votes | numeric2}}</strong> votes
+                                  <strong>{{vestsToSP(proposal.total_votes) | numeric3}} SP</strong>
                                 </li>
                                 <li>
                                   <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD / day
@@ -101,12 +101,10 @@
                 <div class="col-lg-4">
                   <div class="pipeline white lined-danger">
                     <div class="pipeline-header">
-                      <h5 class="pipeline-name">Inactive</h5>
+                      <h5 class="pipeline-name">Upcoming</h5>
                       <div class="pipeline-header-numbers">
                         <div class="pipeline-value"></div>
-                        <div
-                          class="pipeline-count"
-                        >{{totalProposals(`${this.worker}`,'inactive')}} proposals</div>
+                        <div class="pipeline-count">{{totalProposals(`${this.worker}`,'inactive')}} proposals</div>
                       </div>
                       <div class="pipeline-settings">
                         <i class="fas fa-align-justify"></i>
@@ -116,8 +114,7 @@
                       <div
                         class="pipeline-item"
                         v-for="proposal in workerProposalsByStatus(`${this.worker}`,'inactive')"
-                        :key="proposal.id"
-                      >
+                        :key="proposal.id">
                         <a class="text-dark text-dark" :href="`https://steemit.com/@${proposal.creator}/${proposal.permlink}`" target="_blank">
                             <div class="pi-controls">
                               <div
@@ -133,14 +130,14 @@
                               </div>
                               <div class="pi-info">
                                 <div class="h6 pi-name">{{proposal.creator}}</div>
-                                <div class="pi-sub">{{proposal.subject}}</div>
+                                <div class="small pi-sub">{{proposal.subject}}</div>
                               </div>
                             </div>
                             <div class="pi-foot pb-0">
                               <span class="extra-info text-wrap">
                                 <ul>
                                   <li>
-                                    <strong>{{proposal.total_votes | numeric2}}</strong> votes
+                                    <strong>{{vestsToSP(proposal.total_votes) | numeric3}} SP</strong>
                                   </li>
                                   <li>
                                     <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD / day
@@ -194,14 +191,14 @@
                               </div>
                               <div class="pi-info">
                                 <div class="h6 pi-name">{{proposal.creator}}</div>
-                                <div class="pi-sub">{{proposal.subject}}</div>
+                                <div class="small pi-sub">{{proposal.subject}}</div>
                               </div>
                             </div>
                             <div class="pi-foot pb-0">
                               <span class="extra-info text-wrap">
                                 <ul>
                                   <li>
-                                    <strong>{{proposal.total_votes | numeric2}}</strong> votes
+                                    <strong>{{vestsToSP(proposal.total_votes) | numeric3}} SP</strong>
                                   </li>
                                   <li>
                                     <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD / day
@@ -240,7 +237,8 @@ export default {
     ...mapGetters({
       workerProposalsByStatus: 'workerProposalsByStatus',
       totalProposals: 'totalWorkerProposalsByStatus',
-      duration: 'totalProposalDuration'
+      duration: 'totalProposalDuration',
+      steemPerMVest: 'steemPerMVest'
     })
   },
   methods: {
@@ -249,6 +247,9 @@ export default {
     },
     avatarName (value) {
       return value.substring(0, 2)
+    },
+    vestsToSP (votes) {
+      return votes * this.steemPerMVest / 1000000000
     }
   },
   created () {

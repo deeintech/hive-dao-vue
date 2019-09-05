@@ -26359,17 +26359,14 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   border-right: 1px solid rgba(0, 0, 0, 0.03);
 }
 
-.table.table-padded.table-inactive tbody td:first-child{
+.table.table-padded.table-expired tbody td:first-child{
   border-left: solid #FF5630 4pt;
 }
 .table.table-padded.table-active tbody td:first-child{
   border-left: solid #36B37E 4pt;
 }
-.table.table-padded.table-expired tbody td:first-child{
+.table.table-padded.table-inactive tbody td:first-child{
   border-left: solid #FFAB00 4pt;
-}
-.table.table-padded.table-votable tbody td:first-child{
-  border-left: solid #6e00ff 4pt;
 }
 
 /* .table.table-padded.table-active tbody td .badge-active a,
@@ -26383,9 +26380,6 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 }
 .table.table-padded.table-expired tbody td .badge-expired{
   background-color: #FFAB00;
-}
-.table.table-padded.table-votable tbody td .badge-votable{
-  background-color: #6e00ff;
 }
 
 .table.table-padded tbody td.bolder {
@@ -26599,7 +26593,6 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
           box-shadow: 0px 5px 12px rgba(126, 142, 177, 0.2), 0px 0px 0px 2px #047bf8;
   -webkit-transform: translateY(-3px);
           transform: translateY(-3px);
-  cursor: pointer;
 }
 
 .support-index .support-ticket:hover .ticket-title, .support-index .support-ticket.active .ticket-title {
@@ -27565,7 +27558,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 
 .pipeline-item .pi-body .pi-name {
   margin-bottom: 0px;
-}
+}hover
 
 .pipeline-item .pi-body .pi-sub {
   color: rgba(0, 0, 0, 0.5);
@@ -27679,4 +27672,20 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   background: #6e00ff;
   border-bottom: 1pt solid #7468dd;
   color: #ffffff;
+}
+
+.nav-tabs {
+  border: none;
+}
+.proptabs {
+  border-bottom: 1pt solid #eee;
+  border-top: 1pt solid #eee;
+  color: #8492A6;
+}
+.proptabs a:hover {
+  color: #6e00ff;
+}
+
+.table.table-padded.table-inactive thead tr th, .table.table-padded.table-limit thead tr th {
+  display: none;
 }

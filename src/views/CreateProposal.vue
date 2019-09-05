@@ -1,15 +1,5 @@
 <template>
   <div>
-     <section class="slice slice-lg bg-gradient-primary" data-offset-top="#header-main">
-      <div class="container pt-5">
-        <div class="row">
-          <div class="col-lg-8">
-            <h2 class="display-4 text-white">Create Proposal</h2>
-            <h5 class="mb-4 text-white">A place to chill and type in some characters!</h5>
-          </div>
-        </div>
-      </div>
-    </section>
     <div class="container mt-5">
       <h3>Submit the form for your proposal to go live</h3>
       <div class="card">

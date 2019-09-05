@@ -1,12 +1,35 @@
 export default {
   // proposals
-  proposals: (state) => state.proposals.sort((a, b) => b.total_votes - a.total_votes),
-  proposalsByStatus: (state) => (status) => {
-    if (status !== 'all') {
-      return state.proposals.filter(p => p.status === status).sort((a, b) => b.total_votes - a.total_votes)
-    } else {
-      return state.proposals
+  proposalsByVotesStatus: (state) => (votesStatus) => {
+    let returning = state.proposals.filter(p => p.receiver === 'steem.dao')
+    if (returning.length && returning[0].total_votes !== 0) {
+      let votes = returning[0].total_votes
+      if (votesStatus === 'passing') {
+        let newproposals = state.proposals.filter(p => Number(p.total_votes) > Number(votes)).sort((a, b) => b.total_votes - a.total_votes)
+        return newproposals
+      }
+      if (votesStatus === 'insufficient') {
+        let newproposals = state.proposals.filter(p => Number(p.total_votes) < Number(votes)).sort((a, b) => b.total_votes - a.total_votes)
+        return newproposals
+      }
     }
+  },
+  returningProposal: (state) => {
+    let returning = state.proposals.filter(p => p.receiver === 'steem.dao')
+    if (returning.length && returning[0]) {
+      return returning[0]
+    }
+  },
+  totalProposalsByVotesStatus: (state, getters) => (status) => {
+    if (getters.proposalsByVotesStatus(status)) {
+      return getters.proposalsByVotesStatus(status).length
+    }
+  },
+  proposalsByStatus: (state) => (status) => {
+    return state.proposals.filter(p => p.status === status)
+  },
+  totalProposalsByStatus: (state) => (status) => {
+    return state.proposals.filter(p => p.status === status).length
   },
   totalProposalDuration: (state) => (proposal) => {
     const dt2 = new Date(proposal.end_date)
@@ -15,8 +38,6 @@ export default {
     const days = Math.round((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())) / oneDay)
     return days
   },
-  totalProposals: (state) => state.proposals.length,
-  totalProposalsByStatus: (state) => (status) => state.proposals.filter(proposal => proposal.status === status).length,
   workerProposals: (state) => (worker) => {
     return state.proposals.filter(proposal => proposal.creator === worker)
   },
@@ -33,11 +54,10 @@ export default {
     }
   },
   votersByProposalId: (state, getters) => (proposalId) => {
-    if(state.voters != undefined && state.voters.length && state.accounts != undefined && state.accounts.length) {
+    if(state.voters !== undefined && state.voters.length && state.accounts !== undefined && state.accounts.length) {
       let newVoters = []
       let steemPerMVest = getters.steemPerMVest
       let voters = state.voters.filter(item => item.proposal.id === proposalId).slice(0, 100)
-
       voters.forEach(v => {
         let account = state.accounts.find(account => account.name === v.voter)
         if(account !== undefined) {
@@ -54,6 +74,7 @@ export default {
     return state.workers
   },
   // high level data
+  totalProposals: (state) => state.proposals.length,
   totalWorkers: (state) => state.workers.length,
   steemPerMVest: (state) => {
     if (state.globalProperties && state.globalProperties.total_vesting_fund_steem != undefined && state.globalProperties.total_vesting_shares != undefined) {

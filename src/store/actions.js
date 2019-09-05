@@ -40,7 +40,7 @@ export default {
       method: 'call',
       id: 0,
       params:[
-        'condenser_api','list_proposal_votes',[[proposalId, ''],100,'by_proposal_voter']
+        'condenser_api','list_proposal_votes',[[proposalId, ''],200,'by_proposal_voter']
       ]
     }
     await axios.post(url, body, headers)

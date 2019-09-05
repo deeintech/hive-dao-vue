@@ -1,15 +1,5 @@
 <template>
   <div>
-    <section class="slice slice-lg bg-gradient-primary">
-      <div class="container pt-5">
-        <div class="row">
-          <div class="col-lg-8">
-            <h2 class="display-4 text-white">Steem Workers</h2>
-            <h5 class="mb-4 text-white">A list of every community member that submitted a proposal to Steem network</h5>
-          </div>
-        </div>
-      </div>
-    </section>
     <div class="container mt-5">
        <div class="row justify-content-center" v-if="!workers.length">
         <div class="col-lg-7 text-center">

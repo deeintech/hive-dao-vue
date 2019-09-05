@@ -1,11 +1,5 @@
 <template>
   <div id='app'>
-    <div class="news text-center p-1">
-      <span>
-        Keychain support is added. <router-link class="text-white" to="/createproposal">Create your proposal now! </router-link> 
-        <span class="badge badge-danger border-dark">Hot</span>
-      </span>
-    </div>
     <Header />
       <router-view/>
     <Footer v-if='$route.name!="NotFound"'/>
