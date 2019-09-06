@@ -153,7 +153,7 @@
                     </b-modal>
                 </template>
               </b-table>
-
+              <!-- RETURNING PROPOSAL -->
               <div style="cursor:pointer" class="text-warning text-center text-uppercase mb-2" v-b-modal.modal-returning v-b-tooltip.hover :title="`You need to have (${vestsToSP(returningProposal.total_votes).toLocaleString()} SP) to start receiving funding.`">
                 INSUFFICIENT VOTES
                   <b-modal scrollable id='modal-returning' title="This is a returning proposal" centered hide-footer>
@@ -190,8 +190,8 @@
                       </b-form-group>
                       <b-form-group>
                         <div class="mb-2">3. Choose one of the options to vote for this proposal:</div>
-                        <button class="btn-block btn btn-light" @click="keychainVote(user, data.item.id, voteStatus)" type="button" variant="light">Vote with <img class="icon-small ml-1" src="../assets/img/random/keychain2.png"/></button>
-                        <button class="btn-block btn btn-light" @click="steemconnectVote(data.item.id, voteStatus)" type="button" variant="light">Vote with <img class="icon-small ml-1" src="../assets/img/random/steemconnect.png"/></button>
+                        <button class="btn-block btn btn-light" @click="keychainVote(user, returningProposal.id, voteStatus)" type="button" variant="light">Vote with <img class="icon-small ml-1" src="../assets/img/random/keychain2.png"/></button>
+                        <button class="btn-block btn btn-light" @click="steemconnectVote(returningProposal.id, voteStatus)" type="button" variant="light">Vote with <img class="icon-small ml-1" src="../assets/img/random/steemconnect.png"/></button>
                       </b-form-group>
                     </b-form>
                   </b-modal>
@@ -344,7 +344,6 @@
             <!-- Passing -->
             <div class="support-index mb-3">
               <div class="support-tickets">
-                <span v-if="proposals('passing')==0">Oops, can't find any {{status}} proposals</span>
                 <div class="support-ticket" v-for="p in proposals('passing')" :key="p.id">
                   <div class="st-meta">
                     <div class="badge badge-success-inverted">{{vestsToSP(p.total_votes) | numeric3}} SP</div>
@@ -381,10 +380,8 @@
             <div class="text-warning text-center text-uppercase mb-2" v-b-modal.modal-returning>
               INSUFFICIENT VOTES
             </div>
-            <!-- Insufficient -->
              <div class="support-index mt-3">
               <div class="support-tickets">
-                <span v-if="proposals('insufficient')==0">Oops, can't find any {{status}} proposals</span>
                 <div class="support-ticket" v-for="p in proposals('insufficient')" :key="p.id">
                   <div class="st-meta">
                     <div class="badge badge-success-inverted">{{vestsToSP(p.total_votes) | numeric3}} SP</div>
@@ -433,7 +430,7 @@ export default {
     Stats
   },
   computed: {
-    ...mapState(['voters', 'accounts', 'proposals', 'dailyBudget', 'globalProperties']),
+    ...mapState(['voters', 'accounts', 'dailyBudget', 'globalProperties']),
     ...mapGetters({
       proposals: 'proposalsByVotesStatus',
       totalproposals: 'totalProposalsByVotesStatus',
@@ -441,7 +438,6 @@ export default {
       votersByProposalId: 'votersByProposalId',
       steemPerMVest: 'steemPerMVest',
       accountSP: 'accountSP',
-      totalProposalVotes: 'totalProposalVotes',
       returningProposal: 'returningProposal'
     })
   },
@@ -463,8 +459,10 @@ export default {
       window.open(`https://beta.steemconnect.com/sign/update-proposal-votes?proposal_ids=[${id}]&approve=${approve}`)
     },
     loadVoters (modalId, id) {
+      this.makeToast()
       this.$bvModal.show(modalId)
       this.$store.dispatch('fetchProposalVoters', id)
+      
     },
     vestsToSP (votes) {
       return votes * this.steemPerMVest / 1000000000
