@@ -1,5 +1,23 @@
 <template>
 <div>
+  <section class="slice slice-lg vh-100 bg-gradient-primary overflow-hidden" data-offset-top="#header-main" v-if="proposal === undefined">
+    <div class="container h-100 d-flex align-items-center position-relative zindex-100">
+      <div class="col">
+        <div class="row justify-content-center">
+          <div class="col-lg-7 text-center">
+            <h6 class="h1 mb-5 font-weight-400 text-white">Ooops. Can't find your proposal!</h6>
+              <router-link class="btn btn-white btn-icon rounded-pill hover-translate-y-n3" to="/">
+                <span class="btn-inner--icon">
+                  <i class="fas fa-home"></i>
+                </span>
+                <span class="btn-inner--text">Return home?</span>
+              </router-link>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ <div v-if="proposal">
    <section class="slice bg-gradient-primary vh-100 pt-5">
     <div class="container py-5 position-relative zindex-100">
       <div class="row row-grid justify-content-around align-items-center">
@@ -55,11 +73,12 @@
           <div class="card bg-section-secondary mt-6 mb-0 py-3 px-4 shadow-lg">
             <div class="card-body">
               <h5 class="heading h5 mb-3">{{proposal.subject}}</h5>
+              <div class="mb-3" style="cursor:pointer" @click="loadVoters()"><strong class="h3">{{totalVotersByProposalId(Number(id)) || 0}}</strong><span> supporters</span></div>
               <b-progress id="tooltip1" height="2rem" variant="primary" :max="100">
                 <b-progress-bar :class="totalValue() < 10 ? 'text-dark pl-2' : 'text-white pl-2'" :value="totalValue() || 0" :label="`${totalValue() || 0}%`"></b-progress-bar>
               </b-progress>
               <b-tooltip target="tooltip1" triggers="hover">
-                <p v-if="returningProposal">Total votes value: {{vestsToSP(proposal.total_votes) | numeric3}} SP</p>
+                <p v-if="returningProposal">Total votes value: {{totalProposalSP(proposal.id) | numeric3}} SP</p>
               </b-tooltip>
               <ul class="list-unstyled mt-4">
                 <li class="py-2">
@@ -104,7 +123,33 @@
         </div>
       </div>
     </div>
+     <!-- Voters modal -->
+  <b-modal size="md" scrollable ref="modal-voters" title="Proposal voters" centered hide-footer>
+    <div class="row">
+      <div class="col-12 d-flex justify-content-center" v-if="!accounts.length">
+        <b-spinner label="Spinning"></b-spinner>
+        <span class="ml-3">Loading votes. Be patient!</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 d-flex justify-content-center">
+        <b-list-group v-if="accounts.length">
+          <h5>This proposal is supported by the following community members:</h5>
+          <b-list-group-item v-for="(voter, index) in votersByProposalId(Number(id))" :key="index" class="d-flex justify-content-between align-items-center">
+            <div class="avatar rounded-circle">
+              <a :href="`https://steemit.com/@${voter.voter}`" target="_blank">
+                <img :src="`https://steemitimages.com/u/${voter.voter}/avatar`" />
+              </a>
+            </div>
+            <a class="text-dark" :href="`https://steemit.com/@${voter.voter}`" target="_blank">@{{voter.voter}}</a> 
+            <b-badge variant="light" class="p-2">{{voter.sp | numeric3}} SP + <br/>{{voter.proxySP | numeric3}} SP (proxy)</b-badge>
+          </b-list-group-item>
+         </b-list-group>
+       </div>
+     </div>
+   </b-modal>
   </section>
+  </div>
 </div>
 </template>
 
@@ -114,11 +159,13 @@ export default {
   name: 'ProposalVote',
   props: ['id'],
   computed: {
-    ...mapState(['proposals', 'proposal']),
+    ...mapState(['proposal', 'voters', 'accounts']),
     ...mapGetters({
       duration: 'totalProposalDuration',
       totalRequested: 'totalRequested2',
       returningProposal: 'returningProposal',
+      votersByProposalId: 'votersByProposalId',
+      totalVotersByProposalId: 'totalVotersByProposalId',
       totalProposalSP: 'totalProposalSP',
       vestsToSP: 'vestsToSP'
     })
@@ -147,16 +194,18 @@ export default {
       window.open(`https://beta.steemconnect.com/sign/update-proposal-votes?proposal_ids=[${this.id}]&approve=${approve}`)
     },
     fetchProposalById () {
-      this.$store.dispatch('fetchProposalById', this.id)
-    },
-    fetchProposalVoters () {
-      this.$store.dispatch('fetchProposalVoters', this.id)
+      this.$store.dispatch('fetchProposalById', Number(this.id))
     },
     totalValue () {
-      if (this.proposal !== undefined && this.returningProposal !== undefined) {
-        let value = Number(this.proposal.total_votes / this.returningProposal.total_votes * 100).toFixed(2)
+      if (this.proposal && this.returningProposal && this.totalProposalSP(Number(this.id))) {
+        let proposalSP = this.totalProposalSP(Number(this.id))
+        let returningSP = this.vestsToSP(this.returningProposal.total_votes)
+        let value = Number(proposalSP / returningSP * 100).toFixed(2)
         return Number(value)
       }
+    },
+    loadVoters () {
+      this.$refs['modal-voters'].show()
     }
   },
   created () {

@@ -28,7 +28,7 @@ export default {
         return []
       })
   },
-  async fetchProposalById ({ commit }, id) {
+  async fetchProposalById ({ commit, dispatch }, id) {
     commit('SET_PROPOSAL', {})
     const url = process.env.VUE_APP_STEEMIT_MAINNET
     const headers = {
@@ -46,6 +46,7 @@ export default {
       .then(response => {
         let proposal = response.data.result[0]
         commit('SET_PROPOSAL', proposal)
+        dispatch('fetchProposalVoters', id)
         return proposal
       })
       .catch(() => {
@@ -64,7 +65,7 @@ export default {
       method: 'call',
       id: 0,
       params:[
-        'condenser_api','list_proposal_votes',[[proposalId, ''],200,'by_proposal_voter']
+        'condenser_api','list_proposal_votes',[[proposalId, ''],300,'by_proposal_voter']
       ]
     }
     await axios.post(url, body, headers)
@@ -72,8 +73,8 @@ export default {
         if (response.data.result.length) {
           let voters = response.data.result
           let accounts = voters.map(voter => voter['voter'])
-          dispatch('fetchAccounts', accounts)
           commit('SET_VOTERS', voters)
+          dispatch('fetchAccounts', accounts)
           return voters
         }
       })

@@ -100,7 +100,7 @@ export default {
       let newVoters = []
       let totalSP = 0
       let steemPerMVest = getters.steemPerMVest
-      let voters = state.voters.filter(item => item.proposal.id === proposalId).slice(0, 100)
+      let voters = state.voters.filter(item => item.proposal.id === proposalId)
       voters.forEach(v => {
         let account = state.accounts.find(account => account.name === v.voter)
         if(account !== undefined) {
