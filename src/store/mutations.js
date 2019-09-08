@@ -5,6 +5,7 @@ export default {
   SET_TOTAL_BUDGET: (state, totalBudget) => { state.totalBudget = totalBudget },
   SET_DAILY_BUDGET: (state, dailyBudget) => { state.dailyBudget = dailyBudget },
   SET_PROPOSALS: (state, proposals) => { state.proposals = proposals },
+  SET_PROPOSAL: (state, proposal) => { state.proposal = proposal },
   SET_VOTERS: (state, voters) => { state.voters = voters },
   SET_GLOBAL_PROPERTIES: (state, properties) => { state.globalProperties = properties }
 }

@@ -9,6 +9,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     proposals: [],
+    proposal: {},
     workers: [],
     totalBudget: 0,
     dailyBudget: 0,

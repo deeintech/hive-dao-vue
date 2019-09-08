@@ -35,11 +35,11 @@
           <div class="col-lg-9 mt-lg-5">
              <div class="pipelines-w">
               <div class="row">
-                <!-- Active proposals -->
+                <!-- Started proposals -->
                 <div class="col-lg-4">
                   <div class="pipeline white lined-success">
                     <div class="pipeline-header">
-                      <h5 class="pipeline-name">Active</h5>
+                      <h5 class="pipeline-name">Started</h5>
                       <div class="pipeline-header-numbers">
                         <div class="pipeline-value"></div>
                         <div
@@ -62,7 +62,7 @@
                               class="status status-green"
                               data-placement="top"
                               data-toggle="tooltip"
-                              title="Active Status"
+                              title="Started Status"
                             ></div>
                           </div>
                           <div class="pi-body">
@@ -121,7 +121,7 @@
                                 class="status status-red"
                                 data-placement="top"
                                 data-toggle="tooltip"
-                                title="Active Status"
+                                title="Scheduled Status"
                               ></div>
                             </div>
                             <div class="pi-body">
@@ -182,7 +182,7 @@
                                 class="status status-yellow"
                                 data-placement="top"
                                 data-toggle="tooltip"
-                                title="Active Status"
+                                title="Completed Status"
                               ></div>
                             </div>
                             <div class="pi-body">

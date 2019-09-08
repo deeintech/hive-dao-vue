@@ -40,5 +40,21 @@ export function numeric2(value) {
 }
 
 export function numeric3(value) {
-   return new Number(value).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })
+   let result = new Number(value).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })
+   return result
+}
+
+// in 5 days
+export function daysLeft(value) {
+   let today = new Date()
+   let one_day=1000*60*60*24
+   let result = " in " + Math.ceil((new Date(value).getTime() - today.getTime()) / (one_day)) + " days"
+   return result
+}
+
+// Sep 1, 2019 ("MMM D, YYYY")
+export function dateFilter(value) {
+   let options = { day : 'numeric', month : 'short', year : 'numeric' }
+   let result = new Date(value).toLocaleDateString(undefined, options)
+   return result
 }

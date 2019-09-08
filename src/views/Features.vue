@@ -181,12 +181,10 @@
                     <span class="h6">{{proposal.daily_pay.amount | numeric}} SBD</span>
                   </td>
                   <td>
-                    <span
-                      class="h6"
-                    >{{proposal.start_date | moment("MMM D, YYYY")}}-{{proposal.end_date | moment("MMM D, YYYY")}}</span>
+                    <span class="h6">{{duration(proposal) | numeric3}} days</span>
                   </td>
                   <td>
-                    <span class="h6">{{proposal.total_votes | numeric2}} votes</span>
+                    <span class="h6">{{vestsToSP(proposal.total_votes) | numeric3}} SP</span>
                   </td>
                 </tr>
               </tbody>
@@ -351,7 +349,8 @@ export default {
       proposals: 'proposalsByStatus',
       totalProposals: 'totalProposals',
       totalProposalsByStatus: 'totalProposalsByStatus',
-      steemPerMVest: 'steemPerMVest'
+      vestsToSP: 'vestsToSP',
+      duration: 'totalProposalDuration'
     }),
   },
   methods: {

@@ -13,7 +13,7 @@ export default {
       params: {
         start: [],
         limit: limit,
-        order: 'by_creator',
+        order: 'by_total_votes',
         order_direction: 'ascending',
         status: 'all'
       }
@@ -26,6 +26,30 @@ export default {
       })
       .catch(() => {
         return []
+      })
+  },
+  async fetchProposalById ({ commit }, id) {
+    commit('SET_PROPOSAL', {})
+    const url = process.env.VUE_APP_STEEMIT_MAINNET
+    const headers = {
+      'Content-Type': 'application/json'
+    }
+    const body = {
+      jsonrpc: '2.0',
+      method: 'call',
+      id: 2,
+      params: [
+        'condenser_api','find_proposals', [[`${id}`]]
+      ]
+    }
+    await axios.post(url, body, headers)
+      .then(response => {
+        let proposal = response.data.result[0]
+        commit('SET_PROPOSAL', proposal)
+        return proposal
+      })
+      .catch(() => {
+        return {}
       })
   },
   async fetchProposalVoters ({ commit, dispatch }, proposalId) {
@@ -48,8 +72,8 @@ export default {
         if (response.data.result.length) {
           let voters = response.data.result
           let accounts = voters.map(voter => voter['voter'])
-          commit('SET_VOTERS', voters)
           dispatch('fetchAccounts', accounts)
+          commit('SET_VOTERS', voters)
           return voters
         }
       })

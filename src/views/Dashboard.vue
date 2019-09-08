@@ -18,11 +18,7 @@
                <b-tabs>
                  <template slot="tabs">
                     <b-nav-item><router-link to='/proposals' class="text-dark">Proposals</router-link></b-nav-item>
-                  </template>
-                  <template slot="tabs">
                     <b-nav-item><router-link to='/proposals/workers' class="text-dark">Workers</router-link></b-nav-item>
-                  </template>
-                  <template slot="tabs">
                     <b-nav-item><router-link to='/proposals/createproposal' class="text-dark">Create Proposal</router-link></b-nav-item>
                   </template>
                 </b-tabs>
@@ -40,7 +36,7 @@
                     and approve your vote below if you find this service useful.
                   </p>
                  </div>
-                <b-form>
+                <b-form @submit.prevent="keychainVote(user, 27, voteStatus)">
                   <b-form-group
                     id="user_group"
                     label="1. Enter your Steem account name:"
@@ -61,7 +57,7 @@
                   </b-form-group>
                   <b-form-group>
                     <div class="mb-2">3. Choose one of the options to vote for this proposal:</div>
-                    <button class="btn-block btn btn-light" @click="keychainVote(user, 27, voteStatus)" type="button" variant="light">Vote with <img class="icon-small ml-1" src="../assets/img/random/keychain2.png"/></button>
+                    <button class="btn-block btn btn-light" type="submmit" variant="light">Vote with <img class="icon-small ml-1" src="../assets/img/random/keychain2.png"/></button>
                     <button class="btn-block btn btn-light" @click="steemconnectVote(27, voteStatus)" type="button" variant="light">Vote with <img class="icon-small ml-1" src="../assets/img/random/steemconnect.png"/></button>
                   </b-form-group>
                 </b-form>

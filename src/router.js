@@ -8,6 +8,7 @@ import Workers from './views/Workers.vue'
 import CreateProposal from './views/CreateProposal.vue'
 import WorkerProposals from './views/WorkerProposals.vue'
 import PageNotFound from './views/PageNotFound.vue'
+import Vote from './views/Vote.vue'
 
 Vue.use(Router)
 
@@ -23,32 +24,38 @@ export default new Router({
     {
       path: '/about',
       name: 'About',
-      component: About,
+      component: About
+    },
+    {
+      path: '/proposal/:id',
+      name: 'ProposalVote',
+      props: true,
+      component: Vote
     },
     {
       path: '/proposals',
       component: Dashboard,
       children: [{
         path: '/',
-        component: Proposals,
+        component: Proposals
       },{
         path: 'workers',
-        component: Workers,
+        component: Workers
       }, {
         path: 'createproposal',
-        component: CreateProposal,
+        component: CreateProposal
       }]
     },
     {
       path: '/proposals/:worker',
       name: 'WorkerProposals',
       props: true,
-      component: WorkerProposals,
+      component: WorkerProposals
     },
     {
       path: '*',
       name: 'NotFound',
-      component: PageNotFound,
+      component: PageNotFound
     }
   ]
   // scrollBehavior (to, from, savedPosition) {

@@ -2,7 +2,7 @@
   <div id='app'>
     <Header />
       <router-view/>
-    <Footer v-if='$route.name!="NotFound"'/>
+    <Footer v-if='$route.name!="NotFound" && $route.name!="ProposalVote"'/>
   </div>
 </template>
 <script>

@@ -11,7 +11,6 @@
       <b-nav class="ml-auto">
         <b-nav-item><router-link class="text-white" to="/">Home</router-link></b-nav-item>
         <b-nav-item><router-link class="text-white" to="/proposals">Proposals</router-link></b-nav-item>
-        <b-nav-item><router-link class="text-white" to="/proposals/workers">Workers</router-link></b-nav-item>
         <b-nav-item><router-link class="text-white" to="/about">About</router-link></b-nav-item>
       </b-nav>
     </b-collapse>

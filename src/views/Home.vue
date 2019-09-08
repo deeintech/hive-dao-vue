@@ -11,7 +11,7 @@
                   class="lead lh-180 text-white"
                 >Steem allocates budget for talented entrepreneurs to grow its ecosystem. Have some skill or service to offer? Give it a chance.</p>
                 <div class="mt-5">
-                  <router-link to="/createproposal" class="btn btn-soft-info rounded-pill mr-lg-4 mb-4 mb-md-0" data-toggle="tab">Create Proposal</router-link>
+                  <router-link to="/proposals/createproposal" class="btn btn-soft-info rounded-pill mr-lg-4 mb-4 mb-md-0" data-toggle="tab">Create Proposal</router-link>
                   <router-link to="/proposals" class="btn btn-outline-white btn-icon rounded-pill" data-toggle="tab">
                     <span class="btn-inner--icon">
                       <i class="fas fa-play"></i>
