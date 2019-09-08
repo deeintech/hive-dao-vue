@@ -40,25 +40,26 @@
           </b-modal>
 
           <!-- WEB -->
-          <div class="row">
-            <div class="col-12 d-none d-md-block d-xxl-none">
-              <div class="row">
-                <div class="col-md-5 my-1 mb-3">
-                  <input v-model="filter" placeholder="Type to Search" class="form-control"/>
-                </div>
-                <div class="col-md-2 mt-1 offset-md-5">
-                  <b-input-group>
-                    <b-form-select v-model="status">
-                      <option value="all" selected>All</option>
-                      <option value="active">Started</option>
-                      <option value="inactive">Upcoming</option>
-                      <option value="expired">Completed</option>
-                      <option value="dmitrydao">By @dmitrydao</option>
-                    </b-form-select>
-                  </b-input-group>
-                </div>
+          <div class="container p-md-0">
+            <div class="row">
+              <div class="col-md-5 my-1 mb-3 d-none d-md-block d-xxl-none">
+                <input v-model="filter" placeholder="Type to Search" class="form-control"/>
               </div>
-
+              <div class="col-md-2 mt-1 offset-md-5">
+                <b-input-group>
+                  <b-form-select v-model="status">
+                    <option value="all" selected>All</option>
+                    <option value="active">Started</option>
+                    <option value="inactive">Upcoming</option>
+                    <option value="expired">Completed</option>
+                    <option value="dmitrydao">By @dmitrydao</option>
+                  </b-form-select>
+                </b-input-group>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-12 d-none d-md-block d-xxl-none">
               <!-- PASSING -->
               <b-table
                 class="table table-padded table-active align-items-center"
@@ -279,12 +280,9 @@
           
           <!-- MOBILE-->
           <div class="px-3 d-block d-md-none">
-            <div class="text-success text-center text-uppercase mb-2" v-b-modal.modal-returning>
-              PASSING
-            </div>
             <div class="support-index mb-3">
               <div class="support-tickets">
-                <div class="support-ticket" v-for="p in proposals('passing')" :key="p.key">
+                <div class="support-ticket" v-for="p in proposals('passing', status)" :key="p.key">
                   <div class="st-meta">
                     <div class="badge badge-success-inverted">{{vestsToSP(p.total_votes) | numeric3}} SP</div>
                     <span class="badge badge-dot">
@@ -322,7 +320,7 @@
             </div>
              <div class="support-index mt-3">
               <div class="support-tickets">
-                <div class="support-ticket" v-for="p in proposals('insufficient')" :key="p.key">
+                <div class="support-ticket" v-for="p in proposals('insufficient', status)" :key="p.key">
                   <div class="st-meta">
                     <div class="badge badge-success-inverted">{{vestsToSP(p.total_votes) | numeric3}} SP</div>
                     <span class="badge badge-dot">
