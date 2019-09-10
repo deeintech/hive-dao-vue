@@ -17,7 +17,6 @@ Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
-  // path: '/:lang',
   routes: [
     {
       path: '/',
@@ -75,16 +74,5 @@ router.beforeEach((to, from, next) => {
     store.dispatch('setLanguage', i18n.locale)
   }
   next()
-
-  // if (['en', 'ko', 'sp'].includes(lang)) {
-  //   i18n.locale = lang
-  //   if (store.state.language !== i18n.locale) {
-  //     store.dispatch('setLanguage', i18n.locale)
-  //   }
-  // } else {
-  //   i18n.locale = 'en'
-  //   // console.log('unknown language, locale switched to en')
-  // }
-  // next()
 })
 export default router

@@ -88,8 +88,8 @@
                   <span class="badge badge-dot">
                     <i class="bg-success"></i>
                   </span>
-                  <span>{{data.item.status === 'active' ? $t('common.startedProposalsLabel') : $t('common.upcomingProposalsLabel')}}</span><br/>
-                  <span>({{$t('common.ends')}} {{data.item.end_date | daysLeft}})</span>
+                  <span v-if="data.item.status">{{data.item.status === 'active' ? $t('common.startedProposalsLabel') : $t('common.upcomingProposalsLabel')}}</span><br/>
+                  <span v-if="data.item.status">({{$t('common.ends')}} {{data.item.end_date | daysLeft}})</span>
                 </template>
                 <!-- Description -->
                 <template slot="description" slot-scope="data">
@@ -141,7 +141,7 @@
                 </template>
                 <!-- Voting -->
                 <template slot="vote" slot-scope="data">
-                  <router-link target="_blank" class="text-white" :to="`proposal/${data.item.id}`"><button class="btn btn-sm btn-light text-dark"><i class="far fa-thumbs-up"></i></button></router-link>
+                  <router-link class="text-white" :to="`proposal/${data.item.id}`"><button class="btn btn-sm btn-light text-dark"><i class="far fa-thumbs-up"></i></button></router-link>
                 </template>
               </b-table>
 
@@ -225,7 +225,7 @@
                   <div class="row">
                     <div class="media align-items-center col-2 d-sm-none d-md-block mr-3">
                       <div class="avatar rounded-circle">
-                        <router-link target="_blank" :to="'/proposals/' + data.item.creator">
+                        <router-link :to="'/proposals/' + data.item.creator">
                           <img :src="`https://steemitimages.com/u/${data.item.creator}/avatar`" />
                         </router-link>
                       </div>
@@ -270,7 +270,7 @@
                 </template>
                 <!-- Voting modal -->
                 <template slot="vote" slot-scope="data">
-                  <router-link target="_blank" class="text-white" :to="`proposal/${data.item.id}`"><button class="btn btn-sm btn-light text-dark"><i class="far fa-thumbs-up"></i></button></router-link>
+                  <router-link class="text-white" :to="`proposal/${data.item.id}`"><button class="btn btn-sm btn-light text-dark"><i class="far fa-thumbs-up"></i></button></router-link>
                 </template>
               </b-table>
             </div>

@@ -12,12 +12,12 @@
         <b-nav-item><router-link class="text-white" to="/">{{$t('common.homeLabel')}}</router-link></b-nav-item>
         <b-nav-item><router-link class="text-white" to="/proposals">{{$t('common.proposalsLabel2')}}</router-link></b-nav-item>
         <b-nav-item><router-link class="text-white" to="/about">{{$t('common.aboutLabel')}}</router-link></b-nav-item>
-      </b-nav>
-      <b-nav-item-dropdown text="Language">
-          <b-dropdown-item v-for="lang in languages" right :key="lang.key" @click="changeLang(lang.locale)">
+        <select v-model="$i18n.locale" class="form-control-sm selector-plain mt-1 pr-1 pl-2 mr-4">
+          <option v-for="(lang, i) in languages" :key="i" :value="lang.locale">
             {{lang.name}}
-          </b-dropdown-item>
-        </b-nav-item-dropdown>
+          </option>
+        </select>
+      </b-nav>
     </b-collapse>
   </b-navbar>
  </header>
@@ -33,8 +33,8 @@ export default {
   data () {
     return {
       languages: [
-        { name: 'English', locale: 'en' },
-        { name: 'Korean', locale: 'ko' }
+        { name: 'EN', locale: 'en' },
+        { name: 'KR', locale: 'ko' }
       ]
     }
   },
@@ -48,4 +48,23 @@ export default {
 </script>
 
 <style scoped>
+select.form-control-sm.selector-plain {
+  border-radius: 0;
+  background: transparent;
+  border: 1pt solid #eeeeee;
+  text-transform: uppercase;
+  color: white;
+  opacity: 0.7;
+   /* -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; */
+} 
+
+select.form-control-sm.selector-plain option {
+  color: black;
+} 
+
+select.form-control-sm.selector-plain:focus {
+  border: 1pt solid #eeeeee;
+}
 </style>
