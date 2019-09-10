@@ -4,10 +4,8 @@
       <div class="container pt-5">
         <div class="row">
           <div class="col-lg-8">
-            <h2 class="display-4 text-white">Worker Proposals</h2>
-            <h5
-              class="mb-4 text-white"
-            >A list of all proposals submitted by particular worker</h5>
+            <h2 class="display-4 text-white">{{$t('workerProposals.title')}}</h2>
+            <h5 class="mb-4 text-white">{{$t('workerProposals.subtitle')}}</h5>
           </div>
         </div>
       </div>
@@ -22,8 +20,7 @@
                 <img
                   alt="user"
                   :src="`https://steemitimages.com/u/${account.name}/avatar`"
-                  class="card-profile-image avatar rounded-circle shadow hover-shadow-lg"
-                >
+                  class="card-profile-image avatar rounded-circle shadow hover-shadow-lg">
               </a>
               <div class="card-body p-3 pt-0 text-center">
                 <h5 class="mb-0">{{account.name}}</h5>
@@ -39,12 +36,10 @@
                 <div class="col-lg-4">
                   <div class="pipeline white lined-success">
                     <div class="pipeline-header">
-                      <h5 class="pipeline-name">Started</h5>
+                      <h5 class="pipeline-name">{{$t('common.startedProposalsLabel')}}</h5>
                       <div class="pipeline-header-numbers">
                         <div class="pipeline-value"></div>
-                        <div
-                          class="pipeline-count"
-                        >{{totalProposals(`${this.worker}`,'active')}} proposals</div>
+                        <div class="pipeline-count">{{totalProposals(`${this.worker}`,'active')}} {{$t('common.proposalsLabel')}}</div>
                       </div>
                       <div class="pipeline-settings">
                         <i class="fas fa-align-justify"></i>
@@ -81,13 +76,13 @@
                                   <strong>{{vestsToSP(proposal.total_votes) | numeric3}} SP</strong>
                                 </li>
                                 <li>
-                                  <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD / day
+                                  <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD / {{$t('common.day')}}
                                 </li>
                                 <li>
-                                  <strong>{{proposal.daily_pay.amount/1000*duration(proposal) | numeric3}}</strong> SBD total
+                                  <strong>{{proposal.daily_pay.amount/1000*duration(proposal) | numeric3}}</strong> SBD {{$t('common.total')}}
                                 </li>
                                 <li>
-                                  <strong>{{proposal.start_date | moment("MMM D, YY")}}</strong> - <strong>{{proposal.end_date | moment("MMM D, YY")}}</strong>
+                                  <strong>{{proposal.start_date | dateFilter}}</strong> - <strong>{{proposal.end_date | dateFilter}}</strong>
                                 </li>
                               </ul>
                             </span>
@@ -101,10 +96,10 @@
                 <div class="col-lg-4">
                   <div class="pipeline white lined-danger">
                     <div class="pipeline-header">
-                      <h5 class="pipeline-name">Upcoming</h5>
+                      <h5 class="pipeline-name">{{$t('common.upcomingProposalsLabel')}}</h5>
                       <div class="pipeline-header-numbers">
                         <div class="pipeline-value"></div>
-                        <div class="pipeline-count">{{totalProposals(`${this.worker}`,'inactive')}} proposals</div>
+                        <div class="pipeline-count">{{totalProposals(`${this.worker}`,'inactive')}} {{$t('common.proposalsLabel')}}</div>
                       </div>
                       <div class="pipeline-settings">
                         <i class="fas fa-align-justify"></i>
@@ -120,9 +115,7 @@
                               <div
                                 class="status status-red"
                                 data-placement="top"
-                                data-toggle="tooltip"
-                                title="Scheduled Status"
-                              ></div>
+                                data-toggle="tooltip"></div>
                             </div>
                             <div class="pi-body">
                               <div class="media align-items-center">
@@ -140,13 +133,13 @@
                                     <strong>{{vestsToSP(proposal.total_votes) | numeric3}} SP</strong>
                                   </li>
                                   <li>
-                                    <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD / day
+                                    <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD / {{$t('common.day')}}
                                   </li>
                                   <li>
-                                    <strong>{{proposal.daily_pay.amount/1000*duration(proposal) | numeric3}}</strong> SBD total
+                                    <strong>{{proposal.daily_pay.amount/1000*duration(proposal) | numeric3}}</strong> SBD {{$t('common.total')}}
                                   </li>
                                   <li>
-                                    <strong>{{proposal.start_date | moment("MMM D, YY")}}</strong> - <strong>{{proposal.end_date | moment("MMM D, YY")}}</strong>
+                                    <strong>{{proposal.start_date | dateFilter}}</strong> - <strong>{{proposal.end_date | dateFilter}}</strong>
                                   </li>
                                 </ul>
                               </span>
@@ -160,10 +153,10 @@
                 <div class="col-lg-4">
                   <div class="pipeline white lined-warning">
                     <div class="pipeline-header">
-                      <h5 class="pipeline-name">Completed</h5>
+                      <h5 class="pipeline-name">{{$t('common.completedProposalsLabel')}}</h5>
                       <div class="pipeline-header-numbers">
                         <div class="pipeline-value"></div>
-                        <div class="pipeline-count">{{totalProposals(`${this.worker}`,'expired')}} proposals</div>
+                        <div class="pipeline-count">{{totalProposals(`${this.worker}`,'expired')}} {{$t('common.proposalsLabel')}}</div>
                       </div>
                       <div class="pipeline-settings">
                         <i class="fas fa-align-justify"></i>
@@ -173,17 +166,14 @@
                       <div
                         class="pipeline-item"
                         v-for="proposal in workerProposalsByStatus(`${this.worker}`,'expired')"
-                        :key="proposal.id"
-                      >
+                        :key="proposal.id">
                         <a class="text-dark text-dark" :href="`https://steemit.com/@${proposal.creator}/${proposal.permlink}`" target="_blank">
                           <div>
                             <div class="pi-controls">
                               <div
                                 class="status status-yellow"
                                 data-placement="top"
-                                data-toggle="tooltip"
-                                title="Completed Status"
-                              ></div>
+                                data-toggle="tooltip"></div>
                             </div>
                             <div class="pi-body">
                                <div class="media align-items-center">
@@ -201,13 +191,13 @@
                                     <strong>{{vestsToSP(proposal.total_votes) | numeric3}} SP</strong>
                                   </li>
                                   <li>
-                                    <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD / day
+                                    <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD / {{$t('common.day')}}
                                   </li>
                                   <li>
-                                    <strong>{{proposal.daily_pay.amount/1000*duration(proposal) | numeric3}}</strong> SBD total
+                                    <strong>{{proposal.daily_pay.amount/1000*duration(proposal) | numeric3}}</strong> SBD {{$t('common.total')}}
                                   </li>
                                   <li>
-                                    <strong>{{proposal.start_date | moment("MMM D, YY")}}</strong> - <strong>{{proposal.end_date | moment("MMM D, YY")}}</strong>
+                                    <strong>{{proposal.start_date | dateFilter}}</strong> - <strong>{{proposal.end_date | dateFilter}}</strong>
                                   </li>
                                 </ul>
                               </span>

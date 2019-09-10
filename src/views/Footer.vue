@@ -11,13 +11,13 @@
           <div class="col-sm-12 col-md-5 mb-4 mb-sm-0">
             <ul class="nav justify-content-center">
               <li class="nav-item">
-                <a class="nav-link" href="https://discord.gg/eXxA5BN" target="_blank">Support</a>
+                <a class="nav-link" href="https://discord.gg/eXxA5BN" target="_blank">{{$t('common.supportLabel')}}</a>
               </li>
                <li class="nav-item">
                 <a class="nav-link" href="https://steemit.com/@dmitrydao" target="_blank">Steemit</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="https://dmitrydao.com" target="_blank">Contacts</a>
+                <a class="nav-link" href="https://dmitrydao.com" target="_blank">{{$t('common.contactsLabel')}}</a>
               </li>
             </ul>
           </div>

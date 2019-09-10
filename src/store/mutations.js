@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 export default {
   SET_ACCOUNTS: (state, accounts) => { state.accounts = accounts },
   SET_ACCOUNT: (state, account) => { state.account = account },
@@ -7,5 +9,6 @@ export default {
   SET_PROPOSALS: (state, proposals) => { state.proposals = proposals },
   SET_PROPOSAL: (state, proposal) => { state.proposal = proposal },
   SET_VOTERS: (state, voters) => { state.voters = voters },
-  SET_GLOBAL_PROPERTIES: (state, properties) => { state.globalProperties = properties }
+  SET_GLOBAL_PROPERTIES: (state, properties) => { state.globalProperties = properties },
+  SET_LANGUAGE: (state, language) => { state.language = language }
 }

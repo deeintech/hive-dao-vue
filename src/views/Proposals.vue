@@ -14,17 +14,17 @@
         <div class="mb-5" v-if="totalProposals > 0">
 
           <!-- Voters modal -->
-          <b-modal size="md" scrollable ref="modal-voters2" title="Proposal voters" centered hide-footer>
+          <b-modal size="md" scrollable ref="modal-voters2" :title="`${$t('proposals.proposalVoters')}`" centered hide-footer>
             <div class="row">
               <div class="col-12 d-flex justify-content-center" v-if="!accounts.length">
                 <b-spinner label="Spinning"></b-spinner>
-                <span class="ml-3">Loading votes. Be patient!</span>
+                <span class="ml-3">{{$t('common.loadingVotes')}}</span>
               </div>
             </div>
             <div class="row">
               <div class="col-12 d-flex justify-content-center">
                 <b-list-group v-if="accounts.length">
-                  <h5>This proposal is supported by the following community members:</h5>
+                  <h5>{{$t('vote.supportedByCommunity')}}:</h5>
                   <b-list-group-item v-for="(voter, index) in votersByProposalId(proposalId)" :key="index" class="d-flex justify-content-between align-items-center">
                     <div class="avatar rounded-circle">
                       <a :href="`https://steemit.com/@${voter.voter}`" target="_blank">
@@ -32,7 +32,7 @@
                       </a>
                     </div>
                     <a class="text-dark" :href="`https://steemit.com/@${voter.voter}`" target="_blank">@{{voter.voter}}</a> 
-                    <b-badge variant="light" class="p-2">{{voter.sp | numeric3}} SP + <br/>{{voter.proxySP | numeric3}} SP (proxy)</b-badge>
+                    <b-badge variant="light" class="p-2">{{voter.sp | numeric3}} SP + <br/>{{voter.proxySP | numeric3}} SP ({{$t('common.proxy')}})</b-badge>
                   </b-list-group-item>
                 </b-list-group>
               </div>
@@ -48,11 +48,11 @@
               <div class="col-md-2 mt-1 offset-md-5">
                 <b-input-group>
                   <b-form-select v-model="status">
-                    <option value="all" selected>All</option>
-                    <option value="active">Started</option>
-                    <option value="inactive">Upcoming</option>
-                    <option value="expired">Completed</option>
-                    <option value="dmitrydao">By @dmitrydao</option>
+                    <option value="all" selected>{{$t('common.allProposalsLabel')}}</option>
+                    <option value="active">{{$t('common.startedProposalsLabel')}}</option>
+                    <option value="inactive">{{$t('common.upcomingProposalsLabel')}}</option>
+                    <option value="expired">{{$t('common.completedProposalsLabel')}}</option>
+                    <option value="dmitrydao">{{$t('common.dmitrydaoProposalsLabel')}}</option>
                   </b-form-select>
                 </b-input-group>
               </div>
@@ -72,7 +72,7 @@
                 :sort-direction="proposalsSortDirection">
                 <template slot="empty">
                   <div class="d-flex justify-content-center">
-                    <span class="text-center mt-1">Empty is also a beautiful state</span>
+                    <span class="text-center mt-1">{{$t('proposals.emptyState')}}</span>
                   </div>
                 </template>
                 <!-- Votes -->
@@ -88,8 +88,8 @@
                   <span class="badge badge-dot">
                     <i class="bg-success"></i>
                   </span>
-                  <span>{{data.item.status === 'active' ? 'Started' : 'Upcoming'}}</span><br/>
-                  <span>(ends {{data.item.end_date | daysLeft}})</span>
+                  <span>{{data.item.status === 'active' ? $t('common.startedProposalsLabel') : $t('common.upcomingProposalsLabel')}}</span><br/>
+                  <span>({{$t('common.ends')}} {{data.item.end_date | daysLeft}})</span>
                 </template>
                 <!-- Description -->
                 <template slot="description" slot-scope="data">
@@ -106,17 +106,17 @@
                           <a
                             class="text-dark"
                             :href="`https://steemit.com/@${data.item.creator}/${data.item.permlink}`"
-                            target="_blank">{{data.item.subject}}
+                            target="_blank">{{(data.item.subject)}}
                           </a>
                         </h6>
                         <div>
-                          by
+                          {{$t('common.by')}}
                           <router-link
                             class="text-uppercase text-muted"
                             :to="'/proposals/' + data.item.creator"
                           >@{{data.item.creator}}</router-link>
                           <span v-if="data.item.creator !== data.item.receiver">
-                            for
+                            {{$t('common.for')}}
                             <router-link
                               class="text-uppercase text-muted"
                               :to="'/proposals/' + data.item.receiver"
@@ -128,7 +128,7 @@
                 </template>
                 <!-- Duration -->
                 <template slot="duration" slot-scope="data">
-                  {{duration(data.item) | numeric3}} days
+                  {{duration(data.item) | numeric3}} {{$t('common.days')}}
                 </template>
                 <!-- Requested -->
                 <template slot="requested" slot-scope="data">
@@ -146,45 +146,43 @@
               </b-table>
 
               <!-- RETURNING PROPOSAL -->
-              <div class="text-center text-warning text-uppercase mb-2" @click="showReturningModal()" style="cursor:pointer" v-b-tooltip.hover :title="`You need to have ${vestsToSP(returningProposal.total_votes).toLocaleString()} SP votes to start receiving funding.`">
-                INSUFFICIENT VOTES
-                <b-modal ref="modal-returning" scrollable title="This is a returning proposal" centered hide-footer>
+              <div class="text-center text-warning text-uppercase mb-2" @click="showReturningModal()" style="cursor:pointer" v-b-tooltip.hover :title="`${$t('proposals.miminumThreshold')} ${vestsToSP(returningProposal.total_votes).toLocaleString()} SP`">
+                {{$t('proposals.insufficientVotes')}}
+                <b-modal ref="modal-returning" scrollable :title="`${$t('proposals.returningProposalTitle')}`" centered hide-footer>
                   <div>
                     <p>
-                      Returning proposal acts as a certain threshhold you need to pass to receive funding ({{vestsToSP(returningProposal.total_votes) | numeric3}} SP at the moment).
-                      Essentially, it returns money back to Steem Proposal System's account <a href="https://steemitwallet.com/@steem.dao" target="_blank">(@steem.dao)</a>.
+                      {{$t('proposals.returningProposalInfo1')}} ({{vestsToSP(returningProposal.total_votes) | numeric3}} SP).
+                      {{$t('proposals.returningProposalInfo2')}} <a href="https://steemitwallet.com/@steem.dao" target="_blank">(@steem.dao)</a>.
                     </p>
                     <p>
-                      The current returning proposal was created by <a :href="`https://steemit.com/@${returningProposal.creator}`" target="_blank">@{{returningProposal.creator}}</a>. 
-                      You can check the full description <a :href="`https://steemit.com/@${returningProposal.creator}/${returningProposal.permlink}`" target="_blank">here</a>.
+                      {{$t('proposals.returningProposalInfo3')}} <a :href="`https://steemit.com/@${returningProposal.creator}`" target="_blank">@{{returningProposal.creator}}</a>. 
+                      {{$t('proposals.returningProposalInfo4')}} <a :href="`https://steemit.com/@${returningProposal.creator}/${returningProposal.permlink}`" target="_blank">{{$t('common.here')}}</a>.
                     </p>
-                    <p>
-                      It is advisable to upvote this proposal only if your goal is to increase the passing threshhold. You can approve/romove your vote using the form below.
-                    </p>
+                    <p> {{$t('proposals.returningProposalInfo5')}} </p>
                   </div>
                   <b-form>
                     <b-form-group
                       id="user_group"
-                      label="1. Enter your Steem account name:"
+                      :label="`${$t('keychain.inputLabel')}`"
                       label-for="user">
                       <b-form-input
                         id="user"
                         v-model="user"
                         type="text"
                         required
-                        placeholder="name">
+                        :placeholder="`${$t('keychain.placeholder')}`">
                       </b-form-input>
                     </b-form-group>
                     <b-form-group>
-                      <div class="mb-2">2. Do you want to approve or remove your vote?</div>
+                      <div class="mb-2">{{$t('keychain.voteLabel1')}}</div>
                       <b-form-checkbox v-model="voteStatus" name="vote-button" switch>
-                        <b>{{ voteStatus ? 'Approve Vote' : 'Remove vote' }}</b>
+                        <b>{{ voteStatus ? $t('keychain.voteApprove') : $t('keychain.voteRemove') }}</b>
                       </b-form-checkbox>
                     </b-form-group>
                     <b-form-group>
-                      <div class="mb-2">3. Choose one of the options to vote for this proposal:</div>
-                      <button class="btn-block btn btn-light" @click="keychainVote(user, returningProposal.id, voteStatus)" type="button" variant="light">Vote with <img class="icon-small ml-1" src="../assets/img/random/keychain2.png"/></button>
-                      <button class="btn-block btn btn-light" @click="steemconnectVote(returningProposal.id, voteStatus)" type="button" variant="light">Vote with <img class="icon-small ml-1" src="../assets/img/random/steemconnect.png"/></button>
+                      <div class="mb-2">{{$t('keychain.voteLabel3')}}</div>
+                      <button class="btn-block btn btn-light" @click="keychainVote(user, returningProposal.id, voteStatus)" type="button" variant="light">{{$t('keychain.voteWithLabel')}} <img class="icon-small ml-1" src="../assets/img/random/keychain2.png"/></button>
+                      <button class="btn-block btn btn-light" @click="steemconnectVote(returningProposal.id, voteStatus)" type="button" variant="light">{{$t('keychain.voteWithLabel')}} <img class="icon-small ml-1" src="../assets/img/random/steemconnect.png"/></button>
                     </b-form-group>
                   </b-form>
                 </b-modal>
@@ -202,7 +200,7 @@
                 :filter="filter">
                 <template slot="empty">
                   <div class="d-flex justify-content-center">
-                    <span class="text-center mt-1">Empty is also a beautiful state</span>
+                    <span class="text-center mt-1">{{$t('proposals.emptyState')}}</span>
                   </div>
                 </template>
                 <!-- Votes -->
@@ -218,9 +216,9 @@
                   <span class="badge badge-dot">
                     <i class="bg-warning"></i>
                   </span>
-                  <span>{{data.item.status === 'active' ? 'Started' : 'Upcoming'}}</span><br/>
-                  <span v-if="data.item.status === 'active'">(ends {{data.item.end_date | daysLeft}})</span>
-                  <span v-if="data.item.status === 'inactive'">(starts {{data.item.start_date | daysLeft}})</span>
+                  <span>{{data.item.status === 'active' ? $t('common.startedProposalsLabel') : $t('common.upcomingProposalsLabel')}}</span><br/>
+                  <span v-if="data.item.status === 'active'">({{$t('common.ends')}} {{data.item.end_date | daysLeft}})</span>
+                  <span v-if="data.item.status === 'inactive'">({{$t('common.starts')}} {{data.item.start_date | daysLeft}})</span>
                 </template>
                 <!-- Description -->
                 <template slot="description" slot-scope="data">
@@ -259,7 +257,7 @@
                 </template>
                 <!-- Duration -->
                 <template slot="duration" slot-scope="data">
-                  {{duration(data.item)}} days
+                  {{duration(data.item)}} {{$t('common.days')}}
                 </template>
                 <!-- Requested -->
                 <template slot="requested" slot-scope="data">
@@ -307,16 +305,16 @@
                     </div>
                   </div>
                   <div class="st-foot">
-                    <span class="label">Daily pay:</span>
+                    <span class="label">{{$t('common.dailyPay')}}:</span>
                     <span class="value">{{p.daily_pay.amount | numeric}} SBD</span>
-                    <span class="value float-right">{{duration(p) | numeric3}} days</span>
-                    <span class="label float-right mr-2">Duration:</span>
+                    <span class="value float-right">{{duration(p) | numeric3}} {{$t('common.days')}}</span>
+                    <span class="label float-right mr-2">{{$t('common.duration')}}:</span>
                   </div>
                 </div>
               </div>
             </div>
             <div class="text-warning text-center text-uppercase mb-2" v-b-modal.modal-returning>
-              INSUFFICIENT VOTES
+              {{$t('proposals.insufficientVotes')}}
             </div>
              <div class="support-index mt-3">
               <div class="support-tickets">
@@ -345,10 +343,10 @@
                     </div>
                   </div>
                   <div class="st-foot">
-                    <span class="label">Daily pay:</span>
+                    <span class="label">{{$t('common.dailyPay')}}:</span>
                     <span class="value">{{p.daily_pay.amount | numeric}} SBD</span>
-                    <span class="value float-right">{{duration(p) | numeric3}} days</span>
-                    <span class="label float-right mr-2">Duration:</span>
+                    <span class="value float-right">{{duration(p) | numeric3}} {{$t('common.days')}}</span>
+                    <span class="label float-right mr-2">{{$t('common.duration')}}:</span>
                   </div>
                 </div>
               </div>
@@ -368,7 +366,7 @@ export default {
     Stats
   },
   computed: {
-    ...mapState(['voters', 'accounts', 'dailyBudget', 'globalProperties']),
+    ...mapState(['voters', 'accounts', 'dailyBudget', 'globalProperties', 'language']),
     ...mapGetters({
       proposals: 'proposalsByVotesStatus',
       totalProposalsByVotesStatus: 'totalProposalsByVotesStatus',
@@ -412,6 +410,7 @@ export default {
       fieldsProposals: [
         {
           key: 'total_votes',
+          // label: `${this.$t("totalVotes")}`,
           label: 'Total votes',
           sortable: true
         },

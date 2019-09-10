@@ -8,13 +8,16 @@ import Workers from './views/Workers.vue'
 import CreateProposal from './views/CreateProposal.vue'
 import WorkerProposals from './views/WorkerProposals.vue'
 import PageNotFound from './views/PageNotFound.vue'
+import FAQ from './views/FAQ.vue'
 import Vote from './views/Vote.vue'
+import store from './store/store'
+import { i18n } from './plugins/i18n.js'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
-  base: process.env.BASE_URL,
+  // path: '/:lang',
   routes: [
     {
       path: '/',
@@ -25,6 +28,11 @@ export default new Router({
       path: '/about',
       name: 'About',
       component: About
+    },
+    {
+      path: '/faq',
+      name: 'FAQ',
+      component: FAQ
     },
     {
       path: '/proposal/:id',
@@ -57,8 +65,26 @@ export default new Router({
       name: 'NotFound',
       component: PageNotFound
     }
-  ]
-  // scrollBehavior (to, from, savedPosition) {
-  //   return { x: 0, y: 0 }
-  // }
+ ]
+// scrollBehavior (to, from, savedPosition) {
+//   return { x: 0, y: 0 }
+// }
 })
+router.beforeEach((to, from, next) => {
+  if (store.state.language !== i18n.locale) {
+    store.dispatch('setLanguage', i18n.locale)
+  }
+  next()
+
+  // if (['en', 'ko', 'sp'].includes(lang)) {
+  //   i18n.locale = lang
+  //   if (store.state.language !== i18n.locale) {
+  //     store.dispatch('setLanguage', i18n.locale)
+  //   }
+  // } else {
+  //   i18n.locale = 'en'
+  //   // console.log('unknown language, locale switched to en')
+  // }
+  // next()
+})
+export default router

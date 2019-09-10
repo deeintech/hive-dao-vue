@@ -11,7 +11,7 @@
             </div>
             <div class="pl-4">
               <span class="d-block h5 text-white mr-2 mb-1">{{totalBudget | numeric3}} SBD</span>
-              <span class="text-white">Total budget</span>
+              <span class="text-white">{{$t('common.totalBudget')}}</span>
             </div>
           </div>
         </div>
@@ -28,7 +28,7 @@
             </div>
             <div class="pl-4">
               <span class="d-block h5 text-white mr-2 mb-1">{{dailyBudget | numeric3}} SBD</span>
-              <span class="text-white">Daily budget</span>
+              <span class="text-white">{{$t('common.dailyBudget')}}</span>
             </div>
           </div>
         </div>
@@ -45,7 +45,7 @@
             </div>
             <div class="pl-4">
               <span class="d-block h5 text-white mr-2 mb-1">{{totalProposals | numeric}}</span>
-              <span class="text-white">Total proposals</span>
+              <span class="text-white">{{$t('common.totalProposals')}}</span>
             </div>
           </div>
         </div>

@@ -6,12 +6,12 @@
       <div class="col">
         <div class="row justify-content-center">
           <div class="col-lg-7 text-center">
-            <h6 class="h1 mb-5 font-weight-400 text-white">Page not found</h6>
+            <h6 class="h1 mb-5 font-weight-400 text-white">{{$t('common.pageNotFound')}}</h6>
             <router-link class="btn btn-white btn-icon rounded-pill hover-translate-y-n3" to="/">
               <span class="btn-inner--icon">
-                    <i class="fas fa-home"></i>
-                </span>
-                <span class="btn-inner--text">Return home?</span>
+                  <i class="fas fa-home"></i>
+              </span>
+              <span class="btn-inner--text">{{$t('common.returnHome')}}</span>
             </router-link>
           </div>
         </div>

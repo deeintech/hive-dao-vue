@@ -16,7 +16,8 @@ export default new Vuex.Store({
     accounts: [],
     account: {},
     voters: [],
-    globalProperties: []
+    globalProperties: [],
+    language: 'en'
   },
   mutations: mutations,
   actions: actions,

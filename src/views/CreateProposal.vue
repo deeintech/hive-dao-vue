@@ -1,80 +1,80 @@
 <template>
   <div>
     <div class="container mt-5">
-      <h3>Submit the form for your proposal to go live</h3>
+      <h3>{{$t('createProposal.submitProposalTitle')}}</h3>
       <div class="card">
         <div class="card-body">
           <b-form @submit.prevent="createProposalKeychain">
             <b-form-group
               id="subject_group"
-              label="A short title for your proposal"
+              :label="`${$t('createProposal.titleInputLabel')}`"
               label-for="subject">
               <b-form-input
                 id="subject"
                 v-model="form.subject"
                 type="text"
                 required
-                placeholder="Enter subject">
+                :placeholder="`${$t('createProposal.titleInputPlaceholder')}`">
               </b-form-input>
             </b-form-group>
             <b-form-group
               id="dailypay_group"
-              label="Daily requested amount in SBD"
+              :label="`${$t('createProposal.dailypayInputLabel')}`"
               label-for="dailypay"
-              description="SBD is Steen-backed dollars (1 SBD ~ 1 USD)">
+              :description="`${$t('createProposal.dailypayInputDescription')}`">
               <b-form-input
                 id="dailypay"
                 v-model="form.dailypay"
                 type="number"
                 required
-                placeholder="Enter requested daily pay in SBD">
+               :placeholder="`${$t('createProposal.dailypayInputPlaceholder')}`">
               </b-form-input>
             </b-form-group>
             <b-form-group
               id="permlink_group"
-              label="Proposal permlink"
+              :label="`${$t('createProposal.permlinkInputLabel')}`"
               label-for="permlink"
-              description="Permlink is a URL for proposal description (Steem post), i.e. create-cool-app">
+              :description="`${$t('createProposal.permlinkInputDescription')}`">
               <b-form-input
                 id="permlink"
                 v-model="form.permlink"
                 type="text"
                 required
-                placeholder="Enter proposal permlink">
+                :placeholder="`${$t('createProposal.permlinkInputPlaceholder')}`">
               </b-form-input>
             </b-form-group>
             <b-form-group
               id="creator_group"
-              label="Proposal creator"
+              :label="`${$t('createProposal.creatorInputLabel')}`"
               label-for="creator"
-              description="Creator is a Steem account that publishes a proposal">
+              :description="`${$t('createProposal.creatorInputDescription')}`">
               <b-form-input
                 id="creator"
                 v-model="form.creator"
                 type="text"
                 required
-                placeholder="Enter proposal creator">
+                :placeholder="`${$t('createProposal.creatorInputPlaceholder')}`">
               </b-form-input>
             </b-form-group>
             <b-form-group
               id="receiver_group"
-              label="Proposal receiver"
+              :label="`${$t('createProposal.receiverInputLabel')}`"
               label-for="receiver"
-              description="Receiver is a Steem account that receives funding for proposal">
+              :description="`${$t('createProposal.receiverInputDescription')}`">
               <b-form-input
                 id="receiver"
                 v-model="form.receiver"
                 type="text"
                 required
-                placeholder="Enter proposal receiver">
+                :placeholder="`${$t('createProposal.receiverInputPlaceholder')}`">
               </b-form-input>
             </b-form-group>
-            <label for="start_date">Start date</label>
+            <label for="start_date">{{$t('createProposal.startdateLabel')}}</label>
             <date-picker class="mb-3" name="start_date" id="start_date" v-model="form.start_date" :config="options" required></date-picker>
-            <label for="end_date">End date</label>
+            <label for="end_date">{{$t('createProposal.enddateLabel')}}</label>
             <date-picker class="mb-3" name="end_date" v-model="form.end_date" :config="options" required></date-picker>
-            <p class="text-danger"><small>*Notice, there's 10 SBD submission fee, so make sure to have it in your creator account.</small></p>
-            <button type="sumbit" class="btn btn-primary">Submit with <img class="icon-small ml-1" src="../assets/img/random/keychain.png"/></button>
+            <p class="text-danger"><small>{{$t('createProposal.feeLabel')}}</small></p>
+            <button type="sumbit" class="btn btn-primary">{{$t('common.submitWithButton')}}<img class="icon-small ml-1" src="../assets/img/random/keychain.png"/></button>
           </b-form>
         </div>
       </div>

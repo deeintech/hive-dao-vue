@@ -162,5 +162,10 @@ export default {
   },
   setWorkers ({ commit }, workers) {
     commit('SET_WORKERS', workers)
+  },
+  setLanguage({ commit }, language) {
+    if (typeof language === 'string') {
+      commit('SET_LANGUAGE', language)
+    }
   }
 }

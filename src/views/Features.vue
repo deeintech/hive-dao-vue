@@ -7,11 +7,8 @@
           <div class="row row-grid justify-content-around align-items-center">
             <div class="col-lg-5">
               <div class>
-                <h5 class="h3">A modern way to fund your projects</h5>
-                <p class="lead my-4">
-                  With Steem Proposals System you get financial, as well as professional support from
-                  the biggest blockchain community.
-                </p>
+                <h5 class="h3">{{$t('features.title')}}</h5>
+                <p class="lead my-4">{{$t('features.subtitle')}}</p>
                 <ul class="list-unstyled">
                   <li class="py-2">
                     <div class="d-flex align-items-center">
@@ -21,7 +18,7 @@
                         </div>
                       </div>
                       <div>
-                        <span class="h6 mb-0">Perfect for modern startups</span>
+                        <span class="h6 mb-0">{{$t('features.benefit1')}}</span>
                       </div>
                     </div>
                   </li>
@@ -33,7 +30,7 @@
                         </div>
                       </div>
                       <div>
-                        <span class="h6 mb-0">Built with security in mind</span>
+                        <span class="h6 mb-0">{{$t('features.benefit2')}}</span>
                       </div>
                     </div>
                   </li>
@@ -45,7 +42,7 @@
                         </div>
                       </div>
                       <div>
-                        <span class="h6 mb-0">Quality feedback from likeminded entrepreneurs</span>
+                        <span class="h6 mb-0">{{$t('features.benefit3')}}</span>
                       </div>
                     </div>
                   </li>
@@ -56,8 +53,7 @@
               <img
                 alt="Image placeholder"
                 src="../assets/img/random/mockup.png"
-                class="img-fluid img-center"
-              />
+                class="img-fluid img-center"/>
             </div>
           </div>
         </div>
@@ -71,50 +67,34 @@
           <h3 class="d-inline-block mt-0 mb-5 border-bottom border-warning border-md">The process</h3>
           <div class="row">
             <div class="col-lg-3">
-              <div
-                class="card bg-gradient-primary border-0 text-center py-4 hover-translate-y-n10 hover-shadow-lg"
-              >
+              <div class="card bg-gradient-primary border-0 text-center py-4 hover-translate-y-n10 hover-shadow-lg">
                 <div class="card-body">
-                  <h5 class="h4 text-white">Research</h5>
-                  <p
-                    class="mt-4 mb-0 text-white"
-                  >Make a research on how you can help Steem blockchain to grow. You can start with your current skillset.</p>
+                  <h5 class="h4 text-white">{{$t('features.processStep1Title')}}</h5>
+                  <p class="mt-4 mb-0 text-white">{{$t('features.processStem1Info')}}</p>
                 </div>
               </div>
             </div>
             <div class="col-lg-3">
-              <div
-                class="card bg-dark border-0 text-center py-4 hover-translate-y-n10 hover-shadow-lg"
-              >
+              <div class="card bg-dark border-0 text-center py-4 hover-translate-y-n10 hover-shadow-lg">
                 <div class="card-body">
-                  <h5 class="h4 text-white">Explain</h5>
-                  <p
-                    class="mt-4 mb-0 text-white"
-                  >Compose a detailed post about your proposal with milestones, deadlines and your team background.</p>
+                  <h5 class="h4 text-white">{{$t('features.processStep2Title')}}</h5>
+                  <p class="mt-4 mb-0 text-white">{{$t('features.processStem2Info')}}</p>
                 </div>
               </div>
             </div>
             <div class="col-lg-3">
-              <div
-                class="card bg-gradient-primary border-0 text-center py-4 hover-translate-y-n10 hover-shadow-lg"
-              >
+              <div class="card bg-gradient-primary border-0 text-center py-4 hover-translate-y-n10 hover-shadow-lg">
                 <div class="card-body">
-                  <h5 class="h4 text-white">Receive votes</h5>
-                  <p
-                    class="mt-4 mb-0 text-white"
-                  >Submit your proposal to Steem blockchain. Engage with community to get enough votes and funding.</p>
+                  <h5 class="h4 text-white">{{$t('features.processStep3Title')}}</h5>
+                  <p class="mt-4 mb-0 text-white">{{$t('features.processStem3Info')}}</p>
                 </div>
               </div>
             </div>
             <div class="col-lg-3">
-              <div
-                class="card bg-dark border-0 text-center py-4 hover-translate-y-n10 hover-shadow-lg"
-              >
+              <div class="card bg-dark border-0 text-center py-4 hover-translate-y-n10 hover-shadow-lg">
                 <div class="card-body">
-                  <h5 class="h4 text-white">Build</h5>
-                  <p
-                    class="mt-4 mb-0 text-white"
-                  >Create what you envisioned. Share the results with Steem community. Improve and experiment.</p>
+                  <h5 class="h4 text-white">{{$t('features.processStep4Title')}}</h5>
+                  <p class="mt-4 mb-0 text-white">{{$t('features.processStem4Info')}}</p>
                 </div>
               </div>
             </div>
@@ -128,12 +108,9 @@
       <section class="slice slice-lg">
         <div class="container">
           <div class="text-center">
-            <h1>It's time to change your life</h1>
+            <h1>{{$t('features.cta1Title')}}</h1>
             <div class="fluid-paragraph mt-4">
-              <p class="lead text-muted lh-180">
-                Steem has helped dozens of entrepreneurs to create unique business models and attract thousands of active users to Steem-based
-                applications.
-              </p>
+              <p class="lead text-muted lh-180">{{$t('features.cta1Subtitle')}}</p>
             </div>
           </div>
         </div>
@@ -147,11 +124,9 @@
           <i class="fas fa-angle-up"></i>
         </span>
         <div class="mb-5 text-center">
-          <h3 class="text-white mt-4">Recent proposals</h3>
+          <h3 class="text-white mt-4">{{$t('features.recentProposalTitle')}}</h3>
           <div class="fluid-paragraph mt-3">
-            <p
-              class="lead lh-180 text-white"
-            >Check the most recent proposals to get inspired to create your own</p>
+            <p class="lead lh-180 text-white">{{$t('features.recentProposalSubtitle')}}</p>
           </div>
         </div>
         <div class="container">
@@ -181,7 +156,7 @@
                     <span class="h6">{{proposal.daily_pay.amount | numeric}} SBD</span>
                   </td>
                   <td>
-                    <span class="h6">{{duration(proposal) | numeric3}} days</span>
+                    <span class="h6">{{duration(proposal) | numeric3}} {{$t('common.days')}}</span>
                   </td>
                   <td>
                     <span class="h6">{{vestsToSP(proposal.total_votes) | numeric3}} SP</span>
@@ -193,7 +168,7 @@
         </div>
         <div class="text-center mt-5">
           <router-link to="/proposals" class="text-white">
-            <i class="fas fa-angle-right mr-2"></i>View all proposals
+            <i class="fas fa-angle-right mr-2"></i>{{$t('features.viewAllProposalsLabel')}}
           </router-link>
         </div>
       </section>
@@ -208,7 +183,7 @@
               <i class="fas fa-bullseye"></i>
             </div>
             <span class="d-block mt-4 h3 text-info">{{totalProposals}}</span>
-            <span class="d-block mt-2 h6">Total Proposals</span>
+            <span class="d-block mt-2 h6">{{$t('common.totalProposals')}}</span>
           </div>
         </div>
         <div class="col-lg-3 col-6 mb-5 mb-lg-0">
@@ -217,7 +192,7 @@
               <i class="fas fa-thumbs-up"></i>
             </div>
             <span class="d-block mt-4 h3 text-warning">{{totalProposalsByStatus('expired')}}</span>
-            <span class="d-block mt-2 h6">Completed Proposals</span>
+            <span class="d-block mt-2 h6">{{$t('common.completedProposals')}}</span>
           </div>
         </div>
         <div class="col-lg-3 col-6 mb-5 mb-lg-0">
@@ -226,7 +201,7 @@
               <i class="fas fa-hand-holding-usd"></i>
             </div>
             <span class="d-block mt-4 h3 text-primary">{{totalBudget | numeric3}} SBD</span>
-            <span class="d-block mt-2 h6">Total Budget</span>
+            <span class="d-block mt-2 h6">{{$t('common.totalBudget')}}</span>
           </div>
         </div>
         <div class="col-lg-3 col-6 mb-5 mb-lg-0">
@@ -235,7 +210,7 @@
               <i class="fas fa-user-friends"></i>
             </div>
             <span class="d-block mt-4 h2 text-danger">{{dailyBudget | numeric3}} SBD</span>
-            <span class="d-block mt-2 h6">Daily Budget</span>
+            <span class="d-block mt-2 h6">{{$t('common.dailyBudget')}}</span>
           </div>
         </div>
       </div>
@@ -245,68 +220,34 @@
     <div class="container">
       <div class="mb-5">
           <h3 class=" mt-4 mb-5 text-center">FAQ</h3>
-          <div class="accordion accordion-spaced col-xl-8 offset-md-2">
-             <div class="card">
-                <div v-b-toggle.collapse-0 class="card-header py-4">
-                  <h6 class="mb-0">What is a Steem Blockchain?</h6>
-                </div>
-                <b-collapse id="collapse-0">
-                  <div class="card-body">
-                    <p>
-                      Steem is a social blockchain that grows communities and makes immediate revenue streams possible for users by rewarding
-                      them for sharing content. It’s currently the only blockchain that can power real applications via social apps like Steemit.
-                    </p>
-                  </div>
-                </b-collapse>
-              </div>
+          <div class="accordion accordion-spaced">
             <div class="card">
               <div class="card-header py-4" v-b-toggle.collapse-1>
-                <h6 class="mb-0">What is a Steem Worker Proposal System?</h6>
+                <h6 class="mb-0">{{$t('faq.faqQuestion1')}}</h6>
               </div>
               <b-collapse id="collapse-1">
                 <div class="card-body">
-                  <p>
-                    A worker proposal system allows Steem users to publicly propose work that they are willing to do in exchange
-                    for pay. Steem users can then vote on these proposals in almost the same way they vote for witnesses
-                    (stake weighted votes, but voters can vote for as many proposals as they want). The proposals that get a sufficient
-                    amount of vote weight get funded from a special Steem account controlled by the blockchain.
-                  </p>
+                  <p>{{$t('faq.faqAnswer1')}}</p>
                 </div>
               </b-collapse>
             </div>
             <div class="card">
               <div class="card-header py-4" v-b-toggle.collapse-2>
-                <h6 class="mb-0">Where does the funding come from?</h6>
+                <h6 class="mb-0">{{$t('faq.faqQuestion2')}}</h6>
               </div>
               <b-collapse id="collapse-2">
                 <div class="card-body">
-                  <p>
-                    The funding is generated directly from Steem blockchain creating a true Decentralized Autonomous Organization.
-                  </p>
+                  <p>{{$t('faq.faqAnswer2')}}</p>
                 </div>
               </b-collapse>
             </div>
             <div class="card">
               <div class="card-header py-4" v-b-toggle.collapse-3>
-                <h6 class="mb-0">Is it free to submit a proposal?</h6>
+                <h6 class="mb-0">{{$t('faq.faqQuestion3')}}</h6>
               </div>
               <b-collapse id="collapse-3">
                 <div class="card-body">
-                  <p>
-                    There's a 10 SBD fee that is charged before you submit a proposal. This prevents spamming and creation of projects with no value.
-                  </p>
-                </div>
-              </b-collapse>
-            </div>
-            <div class="card">
-              <div class="card-header py-4" v-b-toggle.collapse-4>
-                <h6 class="mb-0">What is steemproposals.com?</h6>
-              </div>
-              <b-collapse id="collapse-4">
-                <div class="card-body">
-                  <p>
-                    Steemproposals.com is one of the interfaces that diplays proposal system for a Steem blockchain.
-                  </p>
+                  <p>{{$t('faq.faqAnswer3')}}</p>
                 </div>
               </b-collapse>
             </div>
@@ -318,16 +259,11 @@
     <section class="slice slice-lg delimiter-top bg-section-secondary">
       <div class="container">
         <div class="text-center">
-          <h1>It's time to create your proposal</h1>
+          <h1>{{$t('features.cta2Title')}}</h1>
           <div class="fluid-paragraph mt-4">
-            <p
-              class="lead text-muted lh-180"
-            >You never know how great your idea is until you make it happen. You can always go back to your job, you can't always make something worthwhile for the people around you. Don't wait.</p>
-            <router-link
-              to="/createproposal"
-              class="btn btn-dark btn-icon rounded-pill hover-scale-110 mt-5"
-            >
-              <span class="btn-inner--text">Create proposal</span>
+            <p class="lead text-muted lh-180">{{$t('features.cta2Subtitle')}}</p>
+            <router-link to="/proposals/createproposal" class="btn btn-dark btn-icon rounded-pill hover-scale-110 mt-5">
+              <span class="btn-inner--text">{{$t('common.createProposalLabel')}}</span>
               <span class="btn-inner--icon">
                 <i class="fas fa-angle-right"></i>
               </span>
