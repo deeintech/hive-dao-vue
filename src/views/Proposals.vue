@@ -88,8 +88,9 @@
                   <span class="badge badge-dot">
                     <i class="bg-success"></i>
                   </span>
-                  <span v-if="data.item.status">{{data.item.status === 'active' ? $t('common.startedProposalsLabel') : $t('common.upcomingProposalsLabel')}}</span><br/>
-                  <span v-if="data.item.status">({{$t('common.ends')}} {{data.item.end_date | daysLeft}})</span>
+                  <span v-if="data.item.status === 'expired'">{{$t('common.completedProposalsLabel')}}:<br/> ({{data.item.end_date | dateFilter}})</span>
+                  <span v-if="data.item.status !== 'expired'">{{data.item.status === 'active' ? $t('common.startedProposalsLabel') : $t('common.upcomingProposalsLabel')}}</span><br/>
+                  <span v-if="data.item.status !== 'expired'">({{$t('common.ends')}} {{data.item.end_date | daysLeft}})</span>
                 </template>
                 <!-- Description -->
                 <template slot="description" slot-scope="data">
@@ -145,7 +146,7 @@
                 </template>
               </b-table>
 
-              <!-- RETURNING PROPOSAL -->
+              <!-- RETURNING PROPOSAL info -->
               <div class="text-center text-warning text-uppercase mb-2" @click="showReturningModal()" style="cursor:pointer" v-b-tooltip.hover :title="`${$t('proposals.miminumThreshold')} ${vestsToSP(returningProposal.total_votes).toLocaleString()} SP`">
                 {{$t('proposals.insufficientVotes')}}
                 <b-modal ref="modal-returning" scrollable :title="`${$t('proposals.returningProposalTitle')}`" centered hide-footer>
@@ -188,7 +189,7 @@
                 </b-modal>
               </div>
 
-              <!-- INSUFFICIENT VOTES -->
+              <!-- INSUFFICIENT -->
               <b-table
                 class="table table-padded table-inactive align-items-center"
                 :show-empty="true"

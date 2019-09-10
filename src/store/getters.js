@@ -10,7 +10,7 @@ export default {
           newproposals = state.proposals.filter(p => Number(p.total_votes) > Number(votes) && p.status === status)
         }
         if (status === 'all') {
-          newproposals = state.proposals.filter(p => Number(p.total_votes) > Number(votes))
+          newproposals = state.proposals.filter(p => Number(p.total_votes) > Number(votes) && p.status !== 'expired')
         }
         if (status === 'dmitrydao') {
           newproposals = state.proposals.filter(p => Number(p.total_votes) > Number(votes) && p.creator === 'dmitrydao')
@@ -22,7 +22,7 @@ export default {
           newproposals = state.proposals.filter(p => Number(p.total_votes) < Number(votes) && p.status === status)
         }
         if (status === 'all') {
-          newproposals = state.proposals.filter(p => Number(p.total_votes) < Number(votes))
+          newproposals = state.proposals.filter(p => Number(p.total_votes) < Number(votes) && p.status !== 'expired')
         }
         if (status === 'dmitrydao') {
           newproposals = state.proposals.filter(p => Number(p.total_votes) < Number(votes) && p.creator === 'dmitrydao')
