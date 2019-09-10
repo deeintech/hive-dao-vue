@@ -1,5 +1,5 @@
 import en from './locales/en.json'
-import en from './locales/лщ.json'
+import ko from './locales/ko.json'
 
 export default {
   en,
