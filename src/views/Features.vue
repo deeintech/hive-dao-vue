@@ -64,7 +64,7 @@
     <div id="features-features-23">
       <section class>
         <div class="container">
-          <h3 class="d-inline-block mt-0 mb-5 border-bottom border-warning border-md">The process</h3>
+          <h3 class="d-inline-block mt-0 mb-5 border-bottom border-warning border-md">{{$t('features.process')}}</h3>
           <div class="row">
             <div class="col-lg-3">
               <div class="card bg-gradient-primary border-0 text-center py-4 hover-translate-y-n10 hover-shadow-lg">
@@ -219,7 +219,7 @@
     <!-- FAQ -->
     <div class="container">
       <div class="mb-5">
-          <h3 class=" mt-4 mb-5 text-center">FAQ</h3>
+          <h3 class=" mt-4 mb-5 text-center">{{$t('faq.title')}}</h3>
           <div class="accordion accordion-spaced">
             <div class="card">
               <div class="card-header py-4" v-b-toggle.collapse-1>

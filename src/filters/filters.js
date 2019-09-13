@@ -1,3 +1,5 @@
+import { i18n } from '@/plugins/i18n.js'
+
 export function numeric(value) {
    var thousand = 1000
    var million = 1000000
@@ -48,7 +50,7 @@ export function numeric3(value) {
 export function daysLeft(value) {
    let today = new Date()
    let one_day=1000*60*60*24
-   let result = " in " + Math.ceil((new Date(value).getTime() - today.getTime()) / (one_day)) + " days"
+   let result = ` ${i18n.t('common.in')} ${Math.ceil((new Date(value).getTime() - today.getTime()) / (one_day))} ${i18n.t('common.days')}`
    return result
 }
 

@@ -43,7 +43,7 @@
           <div class="container p-md-0">
             <div class="row">
               <div class="col-md-5 my-1 mb-3 d-none d-md-block d-xxl-none">
-                <input v-model="filter" placeholder="Type to Search" class="form-control"/>
+                <input v-model="filter" :placeholder="`${$t('common.search')}`" class="form-control"/>
               </div>
               <div class="col-md-2 mt-1 offset-md-5">
                 <b-input-group>
@@ -240,13 +240,13 @@
                           </a>
                         </h6>
                         <div>
-                          by
+                          {{$t('common.by')}}
                           <router-link
                             class="text-uppercase text-muted"
                             :to="'/proposals/' + data.item.creator"
                           >@{{data.item.creator}}</router-link>
                           <span v-if="data.item.creator !== data.item.receiver">
-                            for
+                            {{$t('common.for')}}
                             <router-link
                               class="text-uppercase text-muted"
                               :to="'/proposals/' + data.item.receiver"
@@ -361,6 +361,7 @@
 <script>
 import Stats from '@/views/Stats.vue'
 import { mapState , mapGetters } from 'vuex'
+import { i18n } from '@/plugins/i18n.js'
 export default {
   name: 'Proposals',
   components: {
@@ -411,30 +412,29 @@ export default {
       fieldsProposals: [
         {
           key: 'total_votes',
-          // label: `${this.$t("totalVotes")}`,
-          label: 'Total votes',
+          label: i18n.t('common.totalVotes'),
           sortable: true
         },
         {
           key: 'description',
-          label: 'Description'
+          label: i18n.t('common.description'),
         },
         {
           key: 'status',
-          label: 'Status',
+          label: i18n.t('common.status'),
           sortable: true
         },
         {
           key: 'duration',
-          label: 'Duration'
+          label: i18n.t('common.duration'),
         },
         {
           key: 'requested',
-          label: 'Requested'
+          label: i18n.t('common.requested'),
         },
         {
           key: 'vote',
-          label: 'Vote'
+          label: i18n.t('common.vote'),
         }
       ],
       proposalsSortBy: 'total_votes',

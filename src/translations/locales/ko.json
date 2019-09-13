@@ -35,7 +35,9 @@
         "upcomingProposalsLabel": "향후 제안",
         "completedProposalsLabel": "완성 된 제안",
         "allProposalsLabel": "모든",
-        "dmitrydaoProposalsLabel": "게시자 : @dmitrydao"
+        "dmitrydaoProposalsLabel": "게시자 : @dmitrydao",
+        "in": "...에서",
+        "finished": "끝마친"
     },
     "keychain": {
         "voteApprove": "3. 투표 :",
