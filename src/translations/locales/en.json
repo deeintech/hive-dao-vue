@@ -47,11 +47,12 @@
     "keychain": {
         "voteApprove": "Approve Vote",
         "voteRemove": "Remove Vote",
-        "inputLabel": "Enter your Steem account name:",
+        "inputLabel": "1. Enter your Steem account name:",
         "placeholder": "name",
         "voteLabel1": "2. Do you want to approve or remove your vote?",
         "voteLabel2": "3. Choose one of the options to vote for this proposal:",
         "voteLabel3": "3. Vote:",
+        "voteLabel4": "2. Choose one of the options to vote for @dmitrydao witness:",
         "voteWithLabel": "Vote with"
     },
     "about": {
@@ -86,9 +87,11 @@
     "dashboard": {
         "title": "Steem Proposals",
         "subtitle": "A list of the latest proposals submitted to a Steem network",
-        "newsText": "Like what you see? Support the devs with your vote!",
+        "newsText": "Support devs with your witness vote!",
         "newsBadge": "Hot",
-        "newsDescription": "Steem Proposal platform was created by<a href=\"https:\/\/steemit.com\/@dmitrydao\">@dmitrydao<\/a>. This proposal covers development efforts of existing system and ensures frequent releases of new features. You can read the full description <a href=\"https:\/\/steemit.com\/steemdao\/@dmitrydao\/steem-proposals-proposal-reimbursement-and-upcoming-features\">here<\/a> and approve your vote below if you find this service useful."
+        "newsDescription": "Steem Proposal platform was created by <a href=\"https:\/\/steemit.com\/@dmitrydao\">@dmitrydao<\/a>. This proposal covers development efforts of existing system and ensures frequent releases of new features. You can read the full description <a href=\"https:\/\/steemit.com\/steemdao\/@dmitrydao\/steem-proposals-proposal-reimbursement-and-upcoming-features\">here<\/a> and approve your vote below if you find this service useful.",
+        "witnessDescription": "Steem Proposal platform was created by <a href=\"https:\/\/steemit.com\/@dmitrydao\">@dmitrydao<\/a>. You can support his development efforts by voting for his witness.",
+        "devsupport": "Development Support"
     },
     "faq": {
         "title": "FAQ",

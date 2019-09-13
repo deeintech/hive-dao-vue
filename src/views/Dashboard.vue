@@ -14,7 +14,7 @@
     <div class="alert-light text-center p-2 proptabs">
         <div class="container">
           <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-8">
                <b-tabs>
                  <template slot="tabs">
                     <b-nav-item><router-link to='/proposals' class="text-dark">{{$t('common.proposalsLabel2')}}</router-link></b-nav-item>
@@ -23,15 +23,15 @@
                   </template>
                 </b-tabs>
             </div>
-            <div class="col-md-5 text-muted d-none d-sm-block">
+            <div class="col-md-4 text-muted d-none d-sm-block">
               <div class="alert my-0" style="cursor:pointer" v-b-modal.modal-dev>
                 {{$t('dashboard.newsText')}}<span class="badge badge-warning ml-2">{{$t('dashboard.newsBadge')}}</span>
               </div>
-              <b-modal id='modal-dev' title="Steem Proposals proposal" centered hide-footer>
+              <b-modal id='modal-dev' :title="`${$t('dashboard.devsupport')}`" centered hide-footer>
                  <div>
-                  <p v-html="$t('dashboard.newsDescription')"></p>
+                  <p v-html="$t('dashboard.witnessDescription')"></p>
                  </div>
-                <b-form @submit.prevent="keychainVote(user, 27, voteStatus)">
+                <b-form @submit.prevent="witnessVoteKeychain(user)">
                   <b-form-group
                     id="user_group"
                     :label="`${$t('keychain.inputLabel')}`"
@@ -45,15 +45,9 @@
                     </b-form-input>
                   </b-form-group>
                   <b-form-group>
-                    <div class="mb-2">{{$t('keychain.voteLabel1')}}</div>
-                    <b-form-checkbox v-model="voteStatus" name="vote-button" switch>
-                      <b>{{ voteStatus ? $t('keychain.voteApprove') : $t('keychain.voteRemove') }}</b>
-                    </b-form-checkbox>
-                  </b-form-group>
-                  <b-form-group>
-                    <div class="mb-2">{{$t('keychain.voteLabel2')}}</div>
+                    <div class="mb-2">{{$t('keychain.voteLabel4')}}</div>
                     <button class="btn-block btn btn-light" type="submmit" variant="light">{{$t('keychain.voteWithLabel')}} <img class="icon-small ml-1" src="../assets/img/random/keychain2.png"/></button>
-                    <button class="btn-block btn btn-light" @click="steemconnectVote(27, voteStatus)" type="button" variant="light">{{$t('keychain.voteWithLabel')}} <img class="icon-small ml-1" src="../assets/img/random/steemconnect.png"/></button>
+                    <button class="btn-block btn btn-light" @click="witnessVoteSteemconnect()" type="button" variant="light">{{$t('keychain.voteWithLabel')}} <img class="icon-small ml-1" src="../assets/img/random/steemconnect.png"/></button>
                   </b-form-group>
                 </b-form>
               </b-modal>
@@ -83,6 +77,22 @@ export default {
     },
     steemconnectVote (id, approve) {
       window.open(`https://beta.steemconnect.com/sign/update-proposal-votes?proposal_ids=[${id}]&approve=${approve}`)
+    },
+    witnessVoteKeychain (user) {
+      if (window.steem_keychain && user !== '') {
+        steem_keychain.requestWitnessVote(user, 'dmitrydao', true, function (response) {
+          if (response.success) {
+            return response
+          } else {
+            return response.success
+          }
+        })
+      } else {
+        return []
+      }
+    },
+    witnessVoteSteemconnect () {
+      window.open(`https://steemconnect.com/sign/account-witness-vote?witness=dmitrydao&approve=1`)
     }
   },
   data () {
