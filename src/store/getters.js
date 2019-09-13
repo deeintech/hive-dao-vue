@@ -103,9 +103,13 @@ export default {
       let voters = state.voters.filter(item => item.proposal.id === proposalId)
       voters.forEach(v => {
         let account = state.accounts.find(account => account.name === v.voter)
+        let proxySP = 0
+        let voterSP = 0
         if(account !== undefined) {
-          let voterSP = parseFloat(account.vesting_shares)*steemPerMVest/1000
-          let proxySP = parseFloat(account.proxied_vsf_votes[0])*steemPerMVest/1000000000
+          voterSP = parseFloat(account.vesting_shares)*steemPerMVest/1000
+          account.proxied_vsf_votes.forEach(votes => {
+            proxySP += parseFloat(votes)*steemPerMVest/1000000000
+          })
           let totalAccountSP = voterSP + proxySP
           totalSP += voterSP + proxySP
           newVoters.push({voter: v.voter, sp: voterSP, proxySP: proxySP, totalAccountSP: totalAccountSP, totalSP: totalSP})
