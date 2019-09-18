@@ -143,7 +143,7 @@
             </div>
             <a class="text-dark" :href="`https://steemit.com/@${voter.voter}`" target="_blank">@{{voter.voter}}</a> 
             <b-badge v-if="voter.proxyAccount === ''" variant="light" class="p-2">{{voter.sp | numeric3}} SP + <br/>{{voter.proxySP | numeric3}} SP {{$t('common.proxy')}}</b-badge>
-            <b-badge v-else variant="light" class="p-2">0 SP <br/> ({{voter.totalSP | numeric3}} SP proxied to {{voter.proxyAccount}})</b-badge>
+            <b-badge v-else variant="light" class="p-2">0 SP <br/> ({{voter.totalSP | numeric3}} SP {{$t('common.proxied')}} @{{voter.proxyAccount}})</b-badge>
           </b-list-group-item>
          </b-list-group>
        </div>
