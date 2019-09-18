@@ -32,7 +32,7 @@
                       </a>
                     </div>
                     <a class="text-dark" :href="`https://steemit.com/@${voter.voter}`" target="_blank">@{{voter.voter}}</a> 
-                    <b-badge variant="light" class="p-2">{{voter.sp | numeric3}} SP + <br/>{{voter.proxySP | numeric3}} SP ({{$t('common.proxy')}})</b-badge>
+                     <b-badge variant="light" class="p-2">{{voter.sp | numeric3}} SP + <br/>{{voter.proxySP | numeric3}} SP {{$t('common.proxy')}}</b-badge>
                   </b-list-group-item>
                 </b-list-group>
               </div>
