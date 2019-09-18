@@ -11,6 +11,7 @@
         "ends": "ends",
         "starts": "starts",
         "proxy": "proxy",
+        "proxied": "proxied to",
         "total": "total",
         "by": "by",
         "for": "for",

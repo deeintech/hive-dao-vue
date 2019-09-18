@@ -112,7 +112,7 @@ export default {
           })
           let totalAccountSP = voterSP + proxySP
           totalSP += voterSP + proxySP
-          newVoters.push({voter: v.voter, sp: voterSP, proxySP: proxySP, totalAccountSP: totalAccountSP, totalSP: totalSP})
+          newVoters.push({voter: v.voter, sp: voterSP, proxySP: proxySP, totalAccountSP: totalAccountSP, totalSP: totalSP, proxyAccount: account.proxy})
         }
       })
       return newVoters.sort((a, b) => b.totalAccountSP - a.totalAccountSP)
