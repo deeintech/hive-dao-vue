@@ -111,10 +111,10 @@ export default {
             proxySP += parseFloat(votes)*steemPerMVest/1000000000
           })
           let totalAccountSP = voterSP + proxySP
-          if (account.proxy === '' && voterSP !== 0) {
+          if (account.proxy === '') {
             totalSP += voterSP + proxySP
-            newVoters.push({voter: v.voter, sp: voterSP, proxySP: proxySP, totalAccountSP: totalAccountSP, totalSP: totalSP})
           }
+          newVoters.push({voter: v.voter, sp: voterSP, proxySP: proxySP, totalAccountSP: totalAccountSP, totalSP: totalSP, proxyAccount: account.proxy})
         }
       })
       return newVoters.sort((a, b) => b.totalAccountSP - a.totalAccountSP)

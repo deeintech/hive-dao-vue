@@ -33,8 +33,7 @@ export default {
   data () {
     return {
       languages: [
-        { name: 'EN', locale: 'en' },
-        { name: 'KR', locale: 'ko' }
+        { name: 'EN', locale: 'en' }
       ]
     }
   },
