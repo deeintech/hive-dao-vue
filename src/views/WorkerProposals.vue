@@ -223,12 +223,12 @@ export default {
   name: 'WorkerProposals',
   props: ['worker'],
   computed: {
-    ...mapState(['account']),
+    ...mapState(['account', 'steemPerMvest']),
     ...mapGetters({
       workerProposalsByStatus: 'workerProposalsByStatus',
       totalProposals: 'totalWorkerProposalsByStatus',
       duration: 'totalProposalDuration',
-      steemPerMVest: 'steemPerMVest'
+      vestsToSP: 'vestsToSP'
     })
   },
   methods: {
@@ -237,9 +237,6 @@ export default {
     },
     avatarName (value) {
       return value.substring(0, 2)
-    },
-    vestsToSP (votes) {
-      return votes * this.steemPerMVest / 1000000000
     }
   },
   created () {

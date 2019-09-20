@@ -49,13 +49,14 @@
     "keychain": {
         "voteApprove": "Approve Vote",
         "voteRemove": "Remove Vote",
-        "inputLabel": "1. Enter your Steem account name:",
+        "inputLabel": "Enter your Steem account name:",
         "placeholder": "name",
-        "voteLabel1": "2. Do you want to approve or remove your vote?",
-        "voteLabel2": "3. Choose one of the options to vote for this proposal:",
-        "voteLabel3": "3. Vote:",
-        "voteLabel4": "2. Choose one of the options to vote for @dmitrydao witness:",
-        "voteWithLabel": "Vote with"
+        "voteLabel1": "Make your decision:",
+        "voteLabel2": "Choose one of the options to vote for this proposal:",
+        "voteLabel3": "Submit your vote:",
+        "voteLabel4": "Choose one of the options to vote for @dmitrydao witness:",
+        "voteWithLabel": "Vote with",
+        "witnessVote": "Support development efforts with your witness vote"
     },
     "about": {
         "subtitle": "Some basic info on Steem Proposals",

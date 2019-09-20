@@ -25,7 +25,7 @@
               <div class="col-12 d-flex justify-content-center">
                 <b-list-group v-if="accounts.length">
                   <h5>{{$t('vote.supportedByCommunity')}}:</h5>
-                  <b-list-group-item v-for="(voter, index) in votersByProposalId(proposalId)" :key="index" class="d-flex justify-content-between align-items-center">
+                  <b-list-group-item v-for="(voter, index) in proposalVoters" :key="index" class="d-flex justify-content-between align-items-center">
                     <div class="avatar rounded-circle">
                       <a :href="`https://steemit.com/@${voter.voter}`" target="_blank">
                         <img :src="`https://steemitimages.com/u/${voter.voter}/avatar`" />
@@ -99,7 +99,7 @@
                   <div class="row">
                     <div class="media align-items-center col-2 d-sm-none d-md-block mr-3">
                       <div class="avatar rounded-circle">
-                        <router-link target="_blank" :to="'/proposals/' + data.item.creator">
+                        <router-link :to="'/proposals/' + data.item.creator">
                           <img :src="`https://steemitimages.com/u/${data.item.creator}/avatar`" />
                         </router-link>
                       </div>
@@ -370,14 +370,13 @@ export default {
     Stats
   },
   computed: {
-    ...mapState(['voters', 'accounts', 'dailyBudget', 'globalProperties', 'language']),
+    ...mapState(['voters', 'accounts', 'dailyBudget', 'globalProperties', 'language', 'steemPerMvest', 'proposalVoters']),
     ...mapGetters({
       proposals: 'proposalsByVotesStatus',
       totalProposalsByVotesStatus: 'totalProposalsByVotesStatus',
       totalProposals: 'totalProposals',
       duration: 'totalProposalDuration',
       totalRequested: 'totalRequested',
-      votersByProposalId: 'votersByProposalId',
       returningProposal: 'returningProposal',
       totalProposalSP: 'totalProposalSP',
       vestsToSP: 'vestsToSP'
