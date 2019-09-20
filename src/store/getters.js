@@ -31,16 +31,19 @@ export default {
       }
     }
   },
-  vestsToSP: (state, getters) => (votes) => {
-    return votes * getters.steemPerMVest / 1000000000
+  vestsToSP: (state) => (votes) => {
+      let vests = votes * state.steemPerMVest / 1000000000
+      return vests
   },
-  totalProposalSP: (state, getters) => (id) => {
-    let voters = getters.votersByProposalId(id)
-    let totalSP = 0
-    if (voters && voters !== undefined) {
-      totalSP = Math.max(...voters.map(v => v.totalSP), 0)
+  totalProposalSP: (state) => {
+    let voters = state.proposalVoters
+    if (voters.length) {
+      let totalSP = 0
+      if (voters && voters !== undefined) {
+        totalSP = Math.max(...voters.map(v => v.totalSP), 0)
+      }
+      return totalSP
     }
-    return totalSP
   },
   totalRequested: (state, getters) => (proposal) => {
     return proposal.daily_pay.amount/1000*getters.totalProposalDuration(proposal)
@@ -83,46 +86,15 @@ export default {
   totalWorkerProposalsByStatus: (state) => (worker, status) => {
     return state.proposals.filter(proposal => proposal.creator === worker && proposal.status === status).length
   },
-  accountSP: (state, getters) => (name) => {
+  accountSP: (state) => (name) => {
     let account = state.accounts.find(account => account.name === name)
-    let steemPerMVest = getters.steemPerMVest
+    let steemPerMVest = state.steemPerMVest
     let totalSP, voterSP, proxySP = 0
     if(account !== undefined) {
       voterSP = parseFloat(account.vesting_shares)*steemPerMVest/1000
       proxySP = parseFloat(account.proxied_vsf_votes[0])*steemPerMVest/1000000000
       totalSP = voterSP + proxySP
       return totalSP
-    }
-  },
-  // voters
-  votersByProposalId: (state, getters) => (proposalId) => {
-    if(state.voters !== undefined && state.voters.length && state.accounts !== undefined && state.accounts.length) {
-      let newVoters = []
-      let totalSP = 0
-      let steemPerMVest = getters.steemPerMVest
-      let voters = state.voters.filter(item => item.proposal.id === proposalId)
-      voters.forEach(v => {
-        let account = state.accounts.find(account => account.name === v.voter)
-        let proxySP = 0
-        let voterSP = 0
-        if(account !== undefined) {
-          voterSP = parseFloat(account.vesting_shares)*steemPerMVest/1000
-          account.proxied_vsf_votes.forEach(votes => {
-            proxySP += parseFloat(votes)*steemPerMVest/1000000000
-          })
-          let totalAccountSP = voterSP + proxySP
-          if (account.proxy === '') {
-            totalSP += voterSP + proxySP
-          }
-          newVoters.push({voter: v.voter, sp: voterSP, proxySP: proxySP, totalAccountSP: totalAccountSP, totalSP: totalSP, proxyAccount: account.proxy})
-        }
-      })
-      return newVoters.sort((a, b) => b.totalAccountSP - a.totalAccountSP)
-    }
-  },
-  totalVotersByProposalId: (state, getters) => (id) => {
-    if (getters.votersByProposalId(id) !== undefined) {
-      return getters.votersByProposalId(id).length
     }
   },
   // workers
@@ -132,13 +104,5 @@ export default {
   },
   // high level data
   totalProposals: (state) => state.proposals.length,
-  totalWorkers: (state) => state.workers.length,
-  steemPerMVest: (state) => {
-    if (state.globalProperties && state.globalProperties.total_vesting_fund_steem != undefined && state.globalProperties.total_vesting_shares != undefined) {
-      let  total_vesting_fund_steem = parseFloat(state.globalProperties.total_vesting_fund_steem.amount)
-      let  total_vesting_shares = parseFloat(state.globalProperties.total_vesting_shares.amount)
-      let  mveststeem = total_vesting_fund_steem / (total_vesting_shares / 1000000)
-      return mveststeem
-    }
-  }
+  totalWorkers: (state) => state.workers.length
 }

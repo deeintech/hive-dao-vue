@@ -8,15 +8,18 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    proposals: [],
+    account: {},
     proposal: {},
+    proposals: [],
+    accounts: [],
     workers: [],
+    voters: [],
+    proposalVoters: [],
+    globalProperties: [],
     totalBudget: 0,
     dailyBudget: 0,
-    accounts: [],
-    account: {},
-    voters: [],
-    globalProperties: [],
+    steemPerMVest: 0,
+    totalProposalVoters: 0,
     language: 'en'
   },
   mutations: mutations,

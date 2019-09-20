@@ -72,7 +72,7 @@ export default {
       .then(response => {
         if (response.data.result.length) {
           let voters = response.data.result
-          let accounts = voters.map(voter => voter['voter'])
+          let accounts = voters.filter(v => v.proposal.id === proposalId).map(voter => voter['voter'])
           commit('SET_VOTERS', voters)
           dispatch('fetchAccounts', accounts)
           return voters
@@ -82,7 +82,7 @@ export default {
         return []
       })
   },
-  async fetchAccounts ({ commit }, voters) {
+  async fetchAccounts ({ commit, dispatch }, voters) {
     const url = process.env.VUE_APP_STEEMIT_MAINNET
     const headers = {
       'Content-Type': 'application/json'
@@ -99,6 +99,8 @@ export default {
       .then(response => {
         let accounts = response.data.result
         commit('SET_ACCOUNTS', accounts)
+        dispatch('setProposalVoters', voters)
+        commit('SET_TOTAL_PROPOSAL_VOTERS', voters.length)
         return accounts
       })
       .catch(() => {
@@ -140,7 +142,7 @@ export default {
         return []
       })
   },
-  async fetchSteemGlobalPropoerties ({ commit }, globalProperties) {
+  async fetchSteemGlobalPropoerties ({ commit, dispatch }, globalProperties) {
     const url = process.env.VUE_APP_STEEMIT_MAINNET
     const headers = {
       'Content-Type': 'application/json'
@@ -154,6 +156,7 @@ export default {
       .then(response => {
         globalProperties = response.data.result
         commit('SET_GLOBAL_PROPERTIES', globalProperties)
+        dispatch('setSteemPerMvest', globalProperties)
         return globalProperties
       })
       .catch(() => {
@@ -167,5 +170,14 @@ export default {
     if (typeof language === 'string') {
       commit('SET_LANGUAGE', language)
     }
+  },
+  setProposalVoters ({ commit }, id) {
+    commit('SET_PROPOSAL_VOTERS', id)
+  },
+  setSteemPerMvest ({ commit }, globalProperties) {
+    let total_vesting_fund_steem = parseFloat(globalProperties.total_vesting_fund_steem.amount)
+    let total_vesting_shares = parseFloat(globalProperties.total_vesting_shares.amount)
+    let steemPerMvest = total_vesting_fund_steem / (total_vesting_shares / 1000000)
+    commit('SET_STEEM_PER_MVEST', steemPerMvest)
   }
 }
