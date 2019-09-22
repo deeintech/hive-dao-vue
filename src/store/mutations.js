@@ -23,12 +23,12 @@ export default {
       container.proposal_id = p.proposal_id
       container.receiver = p.receiver
       container.creator = p.creator
-      container.daily_pay = (p.daily_pay.amount / 1000).toFixed(0)
+      container.daily_pay = p.daily_pay.amount / 1000
       container.permlink = `https://steemit.com/@${p.creator}/${p.permlink}`
       container.start_date = p.start_date
       container.end_date = p.end_date
       container.duration = duration
-      container.total_requested = (p.daily_pay.amount/1000*duration).toFixed(0)
+      container.total_requested = p.daily_pay.amount/1000*duration
       container.status = p.status
       container.subject = p.subject
       container.total_votes = p.total_votes * state.steemPerMVest / 1000000000
@@ -63,7 +63,29 @@ export default {
     })
     state.proposals = newproposals 
   },
-  SET_PROPOSAL: (state, proposal) => { state.proposal = proposal },
+  SET_PROPOSAL: (state, proposal) => { 
+    const dt2 = new Date(proposal['end_date'])
+    const dt1 = new Date(proposal['start_date'])
+    const oneDay = 1000 * 60 * 60 * 24
+    const duration = Math.round((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - 
+    Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())) / oneDay)
+
+    Object.keys(proposal).map(p => {
+      if (p === 'total_votes') {
+        proposal['total_votes'] = proposal['total_votes'] * state.steemPerMVest / 1000000000
+      }
+      if (p === 'permlink') {
+        proposal['permlink'] = `https://steemit.com/@${proposal['creator']}/${proposal['permlink']}`
+      }
+      else {
+        proposal[p] = proposal[p]
+      }
+      proposal['duration'] = duration
+      proposal['daily_pay'] = parseFloat(proposal['daily_pay'])
+      proposal['total_requested'] = proposal['daily_pay']*duration
+    })
+    state.proposal = proposal 
+  },
   SET_RETURNING_PROPOSAL: (state, proposal) => {
     Object.keys(proposal).map(p => {
       if (p === 'total_votes') {

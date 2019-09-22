@@ -157,7 +157,7 @@
                     <div class="icon icon-shape icon-primary icon-sm rounded-circle mr-3">
                       <i class="fas fa-calendar"></i>
                     </div>
-                    <span class="h6 mb-0"><strong>{{proposal.duration | numeric3}} {{$t('common.days')}}</strong> ({{proposal.start_date | dateFilter}} - {{proposal.end_date | dateFilter}})</span>
+                    <span class="h6 mb-0"><strong>{{proposal.duration || 0}} {{$t('common.days')}}</strong> ({{proposal.start_date | dateFilter}} - {{proposal.end_date | dateFilter}})</span>
                   </div>
                 </li>
                 <li class="py-2">
