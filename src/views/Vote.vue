@@ -140,7 +140,7 @@
                       </div>
                     </div>
                     <div>
-                      <span class="h6 mb-0"><strong>{{$t('vote.details')}} </strong> <a :href="`https://steemit.com/@${proposal.creator}/${proposal.permlink}`" target="_blank">{{$t('vote.steemitPost')}}</a></span>
+                      <span class="h6 mb-0"><strong>{{$t('vote.details')}} </strong> <a :href="proposal.permlink" target="_blank">{{$t('vote.steemitPost')}}</a></span>
                     </div>
                   </div>
                 </li>

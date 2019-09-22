@@ -21,7 +21,7 @@ export default {
       container.receiver = p.receiver
       container.creator = p.creator
       container.daily_pay = p.daily_pay.amount / 1000
-      container.permlink = p.permlink
+      container.permlink = `https://steemit.com/@${p.creator}/${p.permlink}`
       container.start_date = p.start_date
       container.end_date = p.end_date
       container.duration = duration
@@ -50,7 +50,11 @@ export default {
     Object.keys(proposal).map(p => {
       if (p === 'total_votes') {
         proposal['total_votes'] = proposal['total_votes'] * state.steemPerMVest / 1000000000
-      } else {
+      }
+      if (p === 'permlink') {
+        proposal['permlink'] = `https://steemit.com/@${proposal['creator']}/${proposal['permlink']}`
+      }
+       else {
         proposal[p] = proposal[p]
       }
     })

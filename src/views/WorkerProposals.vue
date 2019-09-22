@@ -51,7 +51,7 @@
                         v-for="proposal in workerProposalsByStatus(`${this.worker}`,'active')"
                         :key="proposal.id"
                       >
-                        <a class="text-dark text-dark" :href="`https://steemit.com/@${proposal.creator}/${proposal.permlink}`" target="_blank">
+                        <a class="text-dark text-dark" :href="proposal.permlink" target="_blank">
                           <div class="pi-controls">
                             <div
                               class="status status-green"
@@ -110,7 +110,7 @@
                         class="pipeline-item"
                         v-for="proposal in workerProposalsByStatus(`${this.worker}`,'inactive')"
                         :key="proposal.id">
-                        <a class="text-dark text-dark" :href="`https://steemit.com/@${proposal.creator}/${proposal.permlink}`" target="_blank">
+                        <a class="text-dark text-dark" :href="proposal.permlink" target="_blank">
                             <div class="pi-controls">
                               <div
                                 class="status status-red"
@@ -167,7 +167,7 @@
                         class="pipeline-item"
                         v-for="proposal in workerProposalsByStatus(`${this.worker}`,'expired')"
                         :key="proposal.id">
-                        <a class="text-dark text-dark" :href="`https://steemit.com/@${proposal.creator}/${proposal.permlink}`" target="_blank">
+                        <a class="text-dark text-dark" :href="proposal.permlink" target="_blank">
                           <div>
                             <div class="pi-controls">
                               <div

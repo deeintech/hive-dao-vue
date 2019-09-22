@@ -146,7 +146,7 @@
                       <div class="media-body">
                         <a
                           class="h5 mb-0"
-                          :href="`https://steemit.com/@${proposal.creator}/${proposal.permlink}`"
+                          :href="proposal.permlink"
                           target="_blank"
                         >{{ (proposal.subject.length > 30) ? (proposal.subject.slice(0,30) + '..') : proposal.subject }}</a>
                       </div>

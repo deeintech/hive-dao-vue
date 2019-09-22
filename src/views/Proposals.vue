@@ -108,7 +108,7 @@
                         <h6 class="text-wrap">
                           <a
                             class="text-dark"
-                            :href="`https://steemit.com/@${data.item.creator}/${data.item.permlink}`"
+                            :href="data.item.permlink"
                             target="_blank">{{(data.item.subject)}}
                           </a>
                         </h6>
@@ -159,7 +159,7 @@
                     </p>
                     <p>
                       {{$t('proposals.returningProposalInfo3')}} <a :href="`https://steemit.com/@${returningProposal.creator}`" target="_blank">@{{returningProposal.creator}}</a>. 
-                      {{$t('proposals.returningProposalInfo4')}} <a :href="`https://steemit.com/@${returningProposal.creator}/${returningProposal.permlink}`" target="_blank">{{$t('common.here')}}</a>.
+                      {{$t('proposals.returningProposalInfo4')}} <a :href="returningProposal.permlink" target="_blank">{{$t('common.here')}}</a>.
                     </p>
                     <p> {{$t('proposals.returningProposalInfo5')}} </p>
                   </div>
@@ -237,7 +237,7 @@
                         <h6 class="text-wrap">
                           <a
                             class="text-dark"
-                            :href="`https://steemit.com/@${data.item.creator}/${data.item.permlink}`"
+                            :href="data.item.permlink"
                             target="_blank">{{data.item.subject}}
                           </a>
                         </h6>
@@ -301,7 +301,7 @@
                         <h6 class="ticket-title">{{p.creator}}</h6>
                       </router-link>
                       <a
-                        :href="`https://steemit.com/@${p.creator}/${p.permlink}`"
+                        :href="p.permlink"
                         target="_blank">
                         <div class="text-wrap text-dark">{{p.subject}}</div>
                       </a>
@@ -339,7 +339,7 @@
                         <h6 class="ticket-title">{{p.creator}}</h6>
                       </router-link>
                       <a
-                        :href="`https://steemit.com/@${p.creator}/${p.permlink}`"
+                        :href="p.permlink"
                         target="_blank">
                         <div class="text-wrap text-dark">{{p.subject}}</div>
                       </a>
