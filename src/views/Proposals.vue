@@ -45,7 +45,7 @@
           <div class="container p-md-0">
             <div class="row">
               <div class="col-md-5 my-1 mb-3 d-none d-md-block d-xxl-none">
-                <input v-model="filter" :placeholder="`${$t('common.search')}`" class="form-control"/>
+                <input v-model="filter" :placeholder="`${$t('common.search')}`" class="form-control" type="search"/>
               </div>
               <div class="col-md-2 mt-1 offset-md-5">
                 <b-input-group>
@@ -81,7 +81,7 @@
                 <template
                   slot="total_votes"
                   slot-scope="data">
-                  <span style="cursor:pointer" @click="loadVoters(data.item.id)">{{vestsToSP(data.item.total_votes) | numeric3}} SP</span>
+                  <span style="cursor:pointer" @click="loadVoters(data.item.id)">{{data.item.total_votes | numeric3}} SP</span>
                 </template>
                 <!-- Status -->
                 <template
@@ -131,15 +131,15 @@
                 </template>
                 <!-- Duration -->
                 <template slot="duration" slot-scope="data">
-                  {{duration(data.item) | numeric3}} {{$t('common.days')}}
+                  {{data.item.duration | numeric3}} {{$t('common.days')}}
                 </template>
                 <!-- Requested -->
                 <template slot="requested" slot-scope="data">
                   <div>
-                    {{totalRequested(data.item) | numeric3}} SBD
+                    {{data.item.total_requested | numeric3}} SBD
                   </div>
                   <div>
-                    {{data.item.daily_pay.amount/1000 | numeric3}} SBD
+                    {{data.item.daily_pay | numeric3}} SBD
                   </div>
                 </template>
                 <!-- Voting -->
@@ -149,12 +149,12 @@
               </b-table>
 
               <!-- RETURNING PROPOSAL info -->
-              <div class="text-center text-warning text-uppercase mb-2" @click="showReturningModal()" style="cursor:pointer" v-b-tooltip.hover :title="`${$t('proposals.miminumThreshold')} ${vestsToSP(returningProposal.total_votes).toLocaleString()} SP`">
+              <div class="text-center text-warning text-uppercase mb-2" @click="showReturningModal()" style="cursor:pointer" v-b-tooltip.hover :title="`${$t('proposals.miminumThreshold')} ${Number(returningProposal.total_votes).toLocaleString()} SP`">
                 {{$t('proposals.insufficientVotes')}}
                 <b-modal ref="modal-returning" scrollable :title="`${$t('proposals.returningProposalTitle')}`" centered hide-footer>
                   <div>
                     <p>
-                      {{$t('proposals.returningProposalInfo1')}} ({{vestsToSP(returningProposal.total_votes) | numeric3}} SP).
+                      {{$t('proposals.returningProposalInfo1')}} ({{returningProposal.total_votes | numeric3}} SP).
                       {{$t('proposals.returningProposalInfo2')}} <a href="https://steemitwallet.com/@steem.dao" target="_blank">(@steem.dao)</a>.
                     </p>
                     <p>
@@ -210,7 +210,7 @@
                 <template
                   slot="total_votes"
                   slot-scope="data">
-                  <span style="cursor:pointer" @click="loadVoters(data.item.id)">{{vestsToSP(data.item.total_votes) | numeric3}} SP</span>
+                  <span style="cursor:pointer" @click="loadVoters(data.item.id)">{{data.item.total_votes | numeric3}} SP</span>
                 </template>
                 <!-- Status -->
                 <template
@@ -260,15 +260,15 @@
                 </template>
                 <!-- Duration -->
                 <template slot="duration" slot-scope="data">
-                  {{duration(data.item)}} {{$t('common.days')}}
+                  {{data.item.duration}} {{$t('common.days')}}
                 </template>
                 <!-- Requested -->
                 <template slot="requested" slot-scope="data">
                   <div>
-                    {{totalRequested(data.item) | numeric3}} SBD
+                    {{data.item.total_requested | numeric3}} SBD
                   </div>
                   <div>
-                    {{data.item.daily_pay.amount/1000 | numeric3}} SBD
+                    {{data.item.daily_pay | numeric3}} SBD
                   </div>
                 </template>
                 <!-- Voting modal -->
@@ -285,7 +285,7 @@
               <div class="support-tickets">
                 <div class="support-ticket" v-for="p in proposals('passing', status)" :key="p.key">
                   <div class="st-meta">
-                    <div class="badge badge-success-inverted">{{vestsToSP(p.total_votes) | numeric3}} SP</div>
+                    <div class="badge badge-success-inverted">{{p.total_votes | numeric3}} SP</div>
                     <span class="badge badge-dot">
                       <i :class="`bg-${p.status}`"></i>
                     </span>
@@ -309,8 +309,8 @@
                   </div>
                   <div class="st-foot">
                     <span class="label">{{$t('common.dailyPay')}}:</span>
-                    <span class="value">{{p.daily_pay.amount | numeric}} SBD</span>
-                    <span class="value float-right">{{duration(p) | numeric3}} {{$t('common.days')}}</span>
+                    <span class="value">{{p.daily_pay | numeric}} SBD</span>
+                    <span class="value float-right">{{p.duration | numeric3}} {{$t('common.days')}}</span>
                     <span class="label float-right mr-2">{{$t('common.duration')}}:</span>
                   </div>
                 </div>
@@ -323,7 +323,7 @@
               <div class="support-tickets">
                 <div class="support-ticket" v-for="p in proposals('insufficient', status)" :key="p.key">
                   <div class="st-meta">
-                    <div class="badge badge-success-inverted">{{vestsToSP(p.total_votes) | numeric3}} SP</div>
+                    <div class="badge badge-success-inverted">{{p.total_votes | numeric3}} SP</div>
                     <span class="badge badge-dot">
                       <i :class="`bg-${p.status}`"></i>
                     </span>
@@ -347,8 +347,8 @@
                   </div>
                   <div class="st-foot">
                     <span class="label">{{$t('common.dailyPay')}}:</span>
-                    <span class="value">{{p.daily_pay.amount | numeric}} SBD</span>
-                    <span class="value float-right">{{duration(p) | numeric3}} {{$t('common.days')}}</span>
+                    <span class="value">{{p.daily_pay | numeric}} SBD</span>
+                    <span class="value float-right">{{p.duration | numeric3}} {{$t('common.days')}}</span>
                     <span class="label float-right mr-2">{{$t('common.duration')}}:</span>
                   </div>
                 </div>
@@ -370,16 +370,11 @@ export default {
     Stats
   },
   computed: {
-    ...mapState(['voters', 'accounts', 'dailyBudget', 'globalProperties', 'language', 'steemPerMvest', 'proposalVoters']),
+    ...mapState(['voters', 'accounts', 'dailyBudget', 'globalProperties', 'language', 'proposalVoters', 'returningProposal']),
     ...mapGetters({
       proposals: 'proposalsByVotesStatus',
       totalProposalsByVotesStatus: 'totalProposalsByVotesStatus',
-      totalProposals: 'totalProposals',
-      duration: 'totalProposalDuration',
-      totalRequested: 'totalRequested',
-      returningProposal: 'returningProposal',
-      totalProposalSP: 'totalProposalSP',
-      vestsToSP: 'vestsToSP'
+      totalProposals: 'totalProposals'
     })
   },
   methods: {
@@ -441,7 +436,7 @@ export default {
       proposalsSortBy: 'total_votes',
       proposalsSortDesc: true,
       proposalsSortDirection: 'asc',
-      filter: null,
+      filter: '',
       votesStatus: 'passing',
       status: 'all',
       voteStatus: true,

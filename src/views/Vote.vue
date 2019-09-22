@@ -125,12 +125,12 @@
               <div class="mb-3" style="cursor:pointer" @click="loadVoters()">
                 <strong class="h3">{{totalProposalVoters || 0}}</strong><span> {{$t('vote.supportersLabel')}}</span>
               </div>
-              <b-progress id="tooltip1" height="2rem" variant="primary" :max="100">
+              <!-- <b-progress id="tooltip1" height="2rem" variant="primary" :max="100">
                 <b-progress-bar :class="totalValue() < 10 ? 'text-dark pl-2' : 'text-white pl-2'" :value="totalValue() || 0" :label="`${totalValue() || 0}%`"></b-progress-bar>
               </b-progress>
               <b-tooltip target="tooltip1" triggers="hover">
                 <p v-if="returningProposal">{{$t('vote.totalVotesValue')}} {{totalProposalSP() | numeric3}} SP</p>
-              </b-tooltip>
+              </b-tooltip> -->
               <ul class="list-unstyled mt-4">
                 <li class="py-2">
                   <div class="d-flex align-items-center">
@@ -149,7 +149,7 @@
                     <div class="icon icon-shape icon-warning icon-sm rounded-circle mr-3">
                       <i class="fas fa-wallet"></i>
                     </div>
-                    <span class="h6 mb-0"><strong>{{$t('vote.requestedFunding')}}: </strong> {{totalRequested(proposal) | numeric3}} SBD</span>
+                    <span class="h6 mb-0"><strong>{{$t('vote.requestedFunding')}}: </strong> {{proposal.total_requested | numeric3}} SBD</span>
                   </div>
                 </li>
                  <li class="py-2">
@@ -157,7 +157,7 @@
                     <div class="icon icon-shape icon-primary icon-sm rounded-circle mr-3">
                       <i class="fas fa-calendar"></i>
                     </div>
-                    <span class="h6 mb-0"><strong>{{duration(proposal) | numeric3}} {{$t('common.days')}}</strong> ({{proposal.start_date | dateFilter}} - {{proposal.end_date | dateFilter}})</span>
+                    <span class="h6 mb-0"><strong>{{proposal.duration | numeric3}} {{$t('common.days')}}</strong> ({{proposal.start_date | dateFilter}} - {{proposal.end_date | dateFilter}})</span>
                   </div>
                 </li>
                 <li class="py-2">
@@ -185,13 +185,7 @@ export default {
   name: 'ProposalVote',
   props: ['id'],
   computed: {
-    ...mapState(['proposal', 'voters', 'accounts', 'totalProposalVoters', 'proposalVoters', 'steemPerMVest']),
-    ...mapGetters({
-      duration: 'totalProposalDuration',
-      totalRequested: 'totalRequested2',
-      returningProposal: 'returningProposal',
-      vestsToSP: 'vestsToSP'
-    })
+    ...mapState(['proposal', 'voters', 'accounts', 'totalProposalVoters', 'proposalVoters', 'returningProposal'])
   },
   data () {
     return {
@@ -233,15 +227,17 @@ export default {
       this.$store.dispatch('fetchProposalById', Number(this.id))
     },
     totalValue () {
+      let proposalSP = this.proposal.total_votes
+      let returningSP = this.returningProposal.total_votes
+      let value = 0
       if (this.proposal && this.returningProposal) {
-        let proposalSP = this.totalProposalSP()
-        let returningSP = this.vestsToSP(this.returningProposal.total_votes)
-        let value = Number(proposalSP / returningSP * 100).toFixed(2)
+        value = Number( proposalSP / returningSP * 100).toFixed(2)
         return Number(value)
       }
     },
     totalProposalSP () {
-      let totalSP = Math.max(...this.proposalVoters.map(v => v.totalSP), 0)
+      let totalSP = 0
+      totalSP = Math.max(...this.proposalVoters.map(v => v.totalSP), 0)
       return totalSP
     },
     loadVoters () {

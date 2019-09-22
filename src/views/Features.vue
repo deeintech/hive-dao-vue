@@ -153,13 +153,13 @@
                     </div>
                   </td>
                   <td>
-                    <span class="h6">{{proposal.daily_pay.amount | numeric}} SBD</span>
+                    <span class="h6">{{proposal.daily_pay | numeric}} SBD</span>
                   </td>
                   <td>
-                    <span class="h6">{{duration(proposal) | numeric3}} {{$t('common.days')}}</span>
+                    <span class="h6">{{proposal.duration | numeric3}} {{$t('common.days')}}</span>
                   </td>
                   <td>
-                    <span class="h6">{{vestsToSP(proposal.total_votes) | numeric3}} SP</span>
+                    <span class="h6">{{proposal.total_votes | numeric3}} SP</span>
                   </td>
                 </tr>
               </tbody>
@@ -284,9 +284,7 @@ export default {
     ...mapGetters({
       proposals: 'proposalsByStatus',
       totalProposals: 'totalProposals',
-      totalProposalsByStatus: 'totalProposalsByStatus',
-      vestsToSP: 'vestsToSP',
-      duration: 'totalProposalDuration'
+      totalProposalsByStatus: 'totalProposalsByStatus'
     }),
   },
   methods: {

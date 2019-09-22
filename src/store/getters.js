@@ -31,34 +31,7 @@ export default {
       }
     }
   },
-  vestsToSP: (state) => (votes) => {
-      let vests = votes * state.steemPerMVest / 1000000000
-      return vests
-  },
-  totalProposalSP: (state) => {
-    let voters = state.proposalVoters
-    if (voters.length) {
-      let totalSP = 0
-      if (voters && voters !== undefined) {
-        totalSP = Math.max(...voters.map(v => v.totalSP), 0)
-      }
-      return totalSP
-    }
-  },
-  totalRequested: (state, getters) => (proposal) => {
-    return proposal.daily_pay.amount/1000*getters.totalProposalDuration(proposal)
-  },
-  totalRequested2: (state, getters) => (proposal) => {
-    let requested = parseFloat(proposal.daily_pay)*getters.totalProposalDuration(proposal)
-    return requested
-  },
   totalProposals: (state) => state.proposals.length,
-  returningProposal: (state) => {
-    let returning = state.proposals.filter(p => p.receiver === 'steem.dao')
-    if (returning.length && returning[0]) {
-      return returning[0]
-    }
-  },
   totalProposalsByVotesStatus: (state, getters) => (status) => {
     if (getters.proposalsByVotesStatus(status)) {
       return getters.proposalsByVotesStatus(status).length
@@ -69,13 +42,6 @@ export default {
   },
   totalProposalsByStatus: (state) => (status) => {
     return state.proposals.filter(p => p.status === status).length
-  },
-  totalProposalDuration: (state) => (proposal) => {
-    const dt2 = new Date(proposal.end_date)
-    const dt1 = new Date(proposal.start_date)
-    const oneDay = 1000 * 60 * 60 * 24
-    const days = Math.round((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())) / oneDay)
-    return days || 0
   },
   workerProposals: (state) => (worker) => {
     return state.proposals.filter(proposal => proposal.creator === worker)

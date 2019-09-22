@@ -16,20 +16,20 @@ export default {
     Footer
   },
   methods: {
-    fetchProposals () {
-      this.$store.dispatch('fetchProposals', 100)
-    },
     setBudget () {
       this.$store.dispatch('setBudget')
     },
-    fetchSteemGlobalPropoerties () {
-      this.$store.dispatch('fetchSteemGlobalPropoerties')
+    fetchSteemGlobalProperties () {
+      this.$store.dispatch('fetchSteemGlobalProperties')
+    },
+    setReturningProposal () {
+      this.$store.dispatch('setReturningProposal')
     }
   },
   created () {
-    this.fetchProposals()
+    this.fetchSteemGlobalProperties()
     this.setBudget()
-    this.fetchSteemGlobalPropoerties()
+    this.setReturningProposal()
   }
 }
 </script>

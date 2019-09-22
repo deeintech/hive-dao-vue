@@ -10,6 +10,7 @@ export default new Vuex.Store({
   state: {
     account: {},
     proposal: {},
+    returningProposal: {},
     proposals: [],
     accounts: [],
     workers: [],

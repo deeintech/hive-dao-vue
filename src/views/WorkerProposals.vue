@@ -73,13 +73,13 @@
                             <span class="extra-info text-wrap">
                               <ul>
                                 <li>
-                                  <strong>{{vestsToSP(proposal.total_votes) | numeric3}} SP</strong>
+                                  <strong>{{proposal.total_votes | numeric3}} SP</strong>
                                 </li>
                                 <li>
-                                  <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD / {{$t('common.day')}}
+                                  <strong>{{proposal.daily_pay | numeric}}</strong> SBD / {{$t('common.day')}}
                                 </li>
                                 <li>
-                                  <strong>{{proposal.daily_pay.amount/1000*duration(proposal) | numeric3}}</strong> SBD {{$t('common.total')}}
+                                  <strong>{{proposal.daily_pay*proposal.duration | numeric3}}</strong> SBD {{$t('common.total')}}
                                 </li>
                                 <li>
                                   <strong>{{proposal.start_date | dateFilter}}</strong> - <strong>{{proposal.end_date | dateFilter}}</strong>
@@ -130,13 +130,13 @@
                               <span class="extra-info text-wrap">
                                 <ul>
                                   <li>
-                                    <strong>{{vestsToSP(proposal.total_votes) | numeric3}} SP</strong>
+                                    <strong>{{proposal.total_votes | numeric3}} SP</strong>
                                   </li>
                                   <li>
-                                    <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD / {{$t('common.day')}}
+                                    <strong>{{proposal.daily_pay | numeric}}</strong> SBD / {{$t('common.day')}}
                                   </li>
                                   <li>
-                                    <strong>{{proposal.daily_pay.amount/1000*duration(proposal) | numeric3}}</strong> SBD {{$t('common.total')}}
+                                    <strong>{{proposal.daily_pay/1000*proposal.duration | numeric3}}</strong> SBD {{$t('common.total')}}
                                   </li>
                                   <li>
                                     <strong>{{proposal.start_date | dateFilter}}</strong> - <strong>{{proposal.end_date | dateFilter}}</strong>
@@ -188,13 +188,13 @@
                               <span class="extra-info text-wrap">
                                 <ul>
                                   <li>
-                                    <strong>{{vestsToSP(proposal.total_votes) | numeric3}} SP</strong>
+                                    <strong>{{proposal.total_votes | numeric3}} SP</strong>
                                   </li>
                                   <li>
-                                    <strong>{{proposal.daily_pay.amount | numeric}}</strong> SBD / {{$t('common.day')}}
+                                    <strong>{{proposal.daily_pay | numeric}}</strong> SBD / {{$t('common.day')}}
                                   </li>
                                   <li>
-                                    <strong>{{proposal.daily_pay.amount/1000*duration(proposal) | numeric3}}</strong> SBD {{$t('common.total')}}
+                                    <strong>{{proposal.daily_pay/1000*proposal.duration | numeric3}}</strong> SBD {{$t('common.total')}}
                                   </li>
                                   <li>
                                     <strong>{{proposal.start_date | dateFilter}}</strong> - <strong>{{proposal.end_date | dateFilter}}</strong>
@@ -226,9 +226,7 @@ export default {
     ...mapState(['account', 'steemPerMvest']),
     ...mapGetters({
       workerProposalsByStatus: 'workerProposalsByStatus',
-      totalProposals: 'totalWorkerProposalsByStatus',
-      duration: 'totalProposalDuration',
-      vestsToSP: 'vestsToSP'
+      totalProposals: 'totalWorkerProposalsByStatus'
     })
   },
   methods: {

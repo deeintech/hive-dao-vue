@@ -45,8 +45,12 @@ export default {
     await axios.post(url, body, headers)
       .then(response => {
         let proposal = response.data.result[0]
-        commit('SET_PROPOSAL', proposal)
-        dispatch('fetchProposalVoters', id)
+        if (id === 0) {
+          commit('SET_RETURNING_PROPOSAL', proposal)
+        } else {
+          commit('SET_PROPOSAL', proposal)
+          dispatch('fetchProposalVoters', id)
+        }
         return proposal
       })
       .catch(() => {
@@ -142,7 +146,7 @@ export default {
         return []
       })
   },
-  async fetchSteemGlobalPropoerties ({ commit, dispatch }, globalProperties) {
+  async fetchSteemGlobalProperties ({ commit, dispatch }, globalProperties) {
     const url = process.env.VUE_APP_STEEMIT_MAINNET
     const headers = {
       'Content-Type': 'application/json'
@@ -157,6 +161,8 @@ export default {
         globalProperties = response.data.result
         commit('SET_GLOBAL_PROPERTIES', globalProperties)
         dispatch('setSteemPerMvest', globalProperties)
+        dispatch('setReturningProposal')
+         .then( () => dispatch('fetchProposals', 100))
         return globalProperties
       })
       .catch(() => {
@@ -179,5 +185,8 @@ export default {
     let total_vesting_shares = parseFloat(globalProperties.total_vesting_shares.amount)
     let steemPerMvest = total_vesting_fund_steem / (total_vesting_shares / 1000000)
     commit('SET_STEEM_PER_MVEST', steemPerMvest)
+  },
+  setReturningProposal ({ dispatch }) {
+    dispatch('fetchProposalById', 0)
   }
 }
