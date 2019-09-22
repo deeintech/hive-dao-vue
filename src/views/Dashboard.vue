@@ -29,7 +29,7 @@
               </div>
               <b-modal id='modal-dev' :title="`${$t('dashboard.devsupport')}`" centered hide-footer>
                  <div>
-                  <p v-html="$t('dashboard.witnessDescription')"></p>
+                  <p v-html="$t('keychain.devSupport')"></p>
                  </div>
                 <b-form @submit.prevent="witnessVoteKeychain(user)">
                   <b-form-group

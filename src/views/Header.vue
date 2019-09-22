@@ -12,11 +12,11 @@
         <b-nav-item><router-link class="text-white" to="/">{{$t('common.homeLabel')}}</router-link></b-nav-item>
         <b-nav-item><router-link class="text-white" to="/proposals">{{$t('common.proposalsLabel2')}}</router-link></b-nav-item>
         <b-nav-item><router-link class="text-white" to="/about">{{$t('common.aboutLabel')}}</router-link></b-nav-item>
-        <select v-model="$i18n.locale" class="form-control-sm selector-plain mt-1 pr-1 pl-2 mr-4">
+        <!-- <select v-model="$i18n.locale" class="form-control-sm selector-plain mt-1 pr-1 pl-2 mr-4">
           <option v-for="(lang, i) in languages" :key="i" :value="lang.locale">
             {{lang.name}}
           </option>
-        </select>
+        </select> -->
       </b-nav>
     </b-collapse>
   </b-navbar>

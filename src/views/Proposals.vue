@@ -13,6 +13,59 @@
           </div>
         <div class="mb-5" v-if="totalProposals > 0">
 
+          <!-- Voting modal -->
+          <b-modal ref="modal-voting" :title="`${$t('vote.supportingProposal')}`" centered hide-footer>
+            <div v-if="proposalId === 0" class="mb-5">
+              <p>{{$t('proposals.returningProposalInfo1')}} {{$t('proposals.returningProposalInfo2')}}</p>
+              <p>{{$t('proposals.returningProposalInfo5')}}</p>
+            </div>
+            <div class="timeline timeline-one-side" data-timeline-content="axis">
+              <b-form @submit.prevent="keychainVote(user, voteStatus)">
+              <div class="timeline-block">
+                <span class="timeline-step timeline-step-sm border-dark"></span>
+                <div class="timeline-content pt-1">
+                  <h6>{{$t('keychain.inputLabel')}}</h6>
+                  <b-form-group>
+                    <b-form-input
+                      id="user"
+                      @input="updateModel('user', $event)"
+                      type="text"
+                      size="sm"
+                      required
+                      :placeholder="`${$t('keychain.placeholder')}`">
+                    </b-form-input>
+                  </b-form-group>
+                </div>
+              </div>
+              <div class="timeline-block">
+                <span class="timeline-step timeline-step-sm border-dark"></span>
+                <div class="timeline-content pt-2">
+                  <h6>{{$t('keychain.voteLabel1')}}</h6>
+                  <b-form-group>
+                    <b-form-checkbox @change="updateModel('voteStatus', !voteStatus)" name="vote-button" switch checked="true">
+                      <b>{{ voteStatus ? $t('keychain.voteApprove') : $t('keychain.voteRemove') }}</b>
+                    </b-form-checkbox>
+                  </b-form-group>
+                </div>
+              </div>
+              <div class="timeline-block">
+                <span class="timeline-step timeline-step-sm border-dark"></span>
+                <div class="timeline-content pt-2">
+                  <h6>{{$t('keychain.voteLabel3')}}</h6>
+                  <b-form-group>
+                    <button class="btn btn-light btn-sm" type="submit" variant="light">{{$t('keychain.voteWithLabel')}} <img class="icon-small ml-1" src="../assets/img/random/keychain.png"/></button>
+                  </b-form-group>
+                </div>
+              </div>
+              </b-form>
+            </div>
+            <hr class="mb-3"/>
+            <div class="d-flex justify-content-between">
+              <router-link class="text-dark" :to="`proposal/${proposalId}`" target="_blank">{{$t('common.shareOnSocial')}} <i class="far fa-share-square"></i></router-link>
+              <div style="cursor:pointer" v-b-tooltip.hover :title="`${$t('keychain.devSupport')}`" class="text-dark" @click="witnessVoteKeychain(user)">{{$t('keychain.witnessVote2')}} <i class="fas fa-laptop-code"></i></div>
+            </div>
+          </b-modal>
+          
           <!-- Voters modal -->
           <b-modal size="md" scrollable ref="modal-voters2" :title="`${$t('proposals.proposalVoters')}`" centered hide-footer>
             <div class="row">
@@ -105,13 +158,15 @@
                       </div>
                     </div>
                     <div class="col-9">
-                        <h6 class="text-wrap">
+                        <div class="text-wrap">
                           <a
-                            class="text-dark"
+                            class="text-dark h6"
                             :href="data.item.permlink"
                             target="_blank">{{(data.item.subject)}}
                           </a>
-                        </h6>
+                          <span class="badge badge-success" v-if="data.item.refunding === true">REFUND PROPOSAL</span>
+                          <span class="badge badge-warning" v-if="data.item.burning === true">BURNING PROPOSAL</span>
+                        </div>
                         <div>
                           {{$t('common.by')}}
                           <router-link
@@ -134,59 +189,22 @@
                   {{data.item.duration | numeric3}} {{$t('common.days')}}
                 </template>
                 <!-- Requested -->
-                <template slot="dailyPay" slot-scope="data">
-                  <div v-b-tooltip.hover :title="`${Number(data.item.total_requested).toLocaleString()} SBD ${$t('common.totalRequested')}`">{{data.item.daily_pay | numeric3}} SBD</div>
+                <template slot="requested" slot-scope="data">
+                  <div>{{data.item.total_requested | numeric}} SBD</div>
+                  <div>{{data.item.daily_pay | numeric}} SBD / {{$t('common.day')}}</div>
                 </template>
-                 <template slot="funding" slot-scope="data">
-                  <div v-b-tooltip.hover :title="`${data.item.funding.availableBudget} SBD ${$t('common.availableBudget')}`">{{data.item.funding.fundingStatus}}%</div>
+                <template slot="funding" slot-scope="data">
+                  <div v-b-tooltip.hover :title="`${Number(data.item.funding.availableBudget).toLocaleString()} SBD ${$t('common.availableBudget')}`">{{data.item.funding.fundingStatus}}%</div>
                 </template>
                 <!-- Voting -->
                 <template slot="vote" slot-scope="data">
-                  <router-link class="text-white" :to="`proposal/${data.item.id}`"><button class="btn btn-sm btn-light text-dark"><i class="far fa-thumbs-up"></i></button></router-link>
+                  <button class="btn btn-sm btn-light text-dark" @click="showVotingModal(data.item.id)"><i class="far fa-thumbs-up"></i></button>
                 </template>
               </b-table>
 
               <!-- RETURNING PROPOSAL info -->
-              <div class="text-center text-warning text-uppercase mb-2" @click="showReturningModal()" style="cursor:pointer" v-b-tooltip.hover :title="`${$t('proposals.miminumThreshold')} ${Number(returningProposal.total_votes).toLocaleString()} SP`">
+              <div class="text-center text-warning text-uppercase mb-2">
                 {{$t('proposals.insufficientVotes')}}
-                <b-modal ref="modal-returning" scrollable :title="`${$t('proposals.returningProposalTitle')}`" centered hide-footer>
-                  <div>
-                    <p>
-                      {{$t('proposals.returningProposalInfo1')}} ({{returningProposal.total_votes | numeric3}} SP).
-                      {{$t('proposals.returningProposalInfo2')}} <a href="https://steemitwallet.com/@steem.dao" target="_blank">(@steem.dao)</a>.
-                    </p>
-                    <p>
-                      {{$t('proposals.returningProposalInfo3')}} <a :href="`https://steemit.com/@${returningProposal.creator}`" target="_blank">@{{returningProposal.creator}}</a>. 
-                      {{$t('proposals.returningProposalInfo4')}} <a :href="returningProposal.permlink" target="_blank">{{$t('common.here')}}</a>.
-                    </p>
-                    <p> {{$t('proposals.returningProposalInfo5')}} </p>
-                  </div>
-                  <b-form>
-                    <b-form-group
-                      id="user_group"
-                      :label="`${$t('keychain.inputLabel')}`"
-                      label-for="user">
-                      <b-form-input
-                        id="user"
-                        v-model="user"
-                        type="text"
-                        required
-                        :placeholder="`${$t('keychain.placeholder')}`">
-                      </b-form-input>
-                    </b-form-group>
-                    <b-form-group>
-                      <div class="mb-2">{{$t('keychain.voteLabel1')}}</div>
-                      <b-form-checkbox v-model="voteStatus" name="vote-button" switch>
-                        <b>{{ voteStatus ? $t('keychain.voteApprove') : $t('keychain.voteRemove') }}</b>
-                      </b-form-checkbox>
-                    </b-form-group>
-                    <b-form-group>
-                      <div class="mb-2">{{$t('keychain.voteLabel3')}}</div>
-                      <button class="btn-block btn btn-light" @click="keychainVote(user, returningProposal.id, voteStatus)" type="button" variant="light">{{$t('keychain.voteWithLabel')}} <img class="icon-small ml-1" src="../assets/img/random/keychain2.png"/></button>
-                      <button class="btn-block btn btn-light" @click="steemconnectVote(returningProposal.id, voteStatus)" type="button" variant="light">{{$t('keychain.voteWithLabel')}} <img class="icon-small ml-1" src="../assets/img/random/steemconnect.png"/></button>
-                    </b-form-group>
-                  </b-form>
-                </b-modal>
               </div>
 
               <!-- INSUFFICIENT -->
@@ -232,13 +250,15 @@
                       </div>
                     </div>
                     <div class="col-9">
-                        <h6 class="text-wrap">
+                        <div class="text-wrap">
                           <a
-                            class="text-dark"
+                            class="text-dark h6"
                             :href="data.item.permlink"
-                            target="_blank">{{data.item.subject}}
+                            target="_blank">{{(data.item.subject)}}
                           </a>
-                        </h6>
+                          <span class="badge badge-success" v-if="data.item.refunding === true">REFUND PROPOSAL</span>
+                          <span class="badge badge-warning" v-if="data.item.burning === true">BURNING PROPOSAL</span>
+                        </div>
                         <div>
                           {{$t('common.by')}}
                           <router-link
@@ -261,15 +281,17 @@
                   {{data.item.duration}} {{$t('common.days')}}
                 </template>
                 <!-- Requested -->
-                <template slot="dailyPay" slot-scope="data">
-                  <div v-b-tooltip.hover :title="`${Number(data.item.total_requested).toLocaleString()} SBD ${$t('common.totalRequested')}`"> {{data.item.daily_pay | numeric3}} SBD</div>
+                <template slot="requested" slot-scope="data">
+                  <div>{{data.item.total_requested | numeric}} SBD</div>
+                  <div>{{data.item.daily_pay | numeric}} SBD / {{$t('common.day')}}</div>
                 </template>
                 <template slot="funding" slot-scope="data">
                   <div v-b-tooltip.hover :title="`${Number(data.item.funding.availableBudget).toLocaleString()} SBD ${$t('common.availableBudget')}`">{{data.item.funding.fundingStatus}}%</div>
                 </template>
-                <!-- Voting modal -->
+                <!-- Voting -->
                 <template slot="vote" slot-scope="data">
-                  <router-link class="text-white" :to="`proposal/${data.item.id}`"><button class="btn btn-sm btn-light text-dark"><i class="far fa-thumbs-up"></i></button></router-link>
+                  <button v-if="data.item.id === 0" class="btn btn-sm btn-light text-dark" @click="showReturningModal()"><i class="far fa-thumbs-up"></i></button>
+                  <button v-if="data.item.id !== 0" class="btn btn-sm btn-light text-dark" @click="showVotingModal(data.item.id)"><i class="far fa-thumbs-up"></i></button>
                 </template>
               </b-table>
             </div>
@@ -312,8 +334,8 @@
                 </div>
               </div>
             </div>
-            <div class="text-warning text-center text-uppercase mb-2" v-b-modal.modal-returning>
-              {{$t('proposals.insufficientVotes')}}
+            <div class="text-warning text-center text-uppercase mb-2">
+              {{$t('proposals.insufficientVotes')}} ({{returningProposal.total_votes | numeric3}} SP)
             </div>
              <div class="support-index mt-3">
               <div class="support-tickets">
@@ -374,9 +396,9 @@ export default {
     })
   },
   methods: {
-    keychainVote (user, id, approve) {
+    keychainVote (user, voteStatus) {
       if (window.steem_keychain && user !== '') {
-        steem_keychain.requestBroadcast(user, [["update_proposal_votes", {"voter":user,"proposal_ids":[`${id}`],"approve":`${approve}`}]], 'Active', function (response) {
+        steem_keychain.requestBroadcast(user, [["update_proposal_votes", {"voter":user,"proposal_ids":[`${this.proposalId}`],"approve":`${voteStatus}`}]], 'Active', function (response) {
           if (response.success) {
             return response
           } else {
@@ -387,16 +409,35 @@ export default {
         return []
       }
     },
-    steemconnectVote (id, approve) {
-      window.open(`https://beta.steemconnect.com/sign/update-proposal-votes?proposal_ids=[${id}]&approve=${approve}`)
+    witnessVoteKeychain (user) {
+      if (window.steem_keychain && user !== '') {
+        steem_keychain.requestWitnessVote(user, 'dmitrydao', true, function (response) {
+          if (response.success) {
+            return response
+          } else {
+            return response.success
+          }
+        })
+      } else {
+        return []
+      }
     },
     loadVoters (id) {
       this.proposalId = id
       this.$refs['modal-voters2'].show()
       this.$store.dispatch('fetchProposalVoters', id)
     },
-    showReturningModal () {
-      this.$refs['modal-returning'].show()
+    showVotingModal (id) {
+      this.proposalId = id
+      this.$refs['modal-voting'].show()
+    },
+    updateModel (model, value) {
+      if (model === 'user') {
+        this.user = value
+      }
+      if (model === 'voteStatus') {
+        this.voteStatus = value
+      }
     }
   },
   data () {
@@ -421,8 +462,8 @@ export default {
           label: i18n.t('common.duration'),
         },
         {
-          key: 'dailyPay',
-          label: i18n.t('common.dailyPay'),
+          key: 'requested',
+          label: i18n.t('common.requested'),
         },
         {
           key: 'funding',

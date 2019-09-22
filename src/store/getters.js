@@ -7,10 +7,10 @@ export default {
       let newproposals = []
       if (votesStatus === 'passing') {
         if (status !== 'all' && status !== 'dmitrydao') {
-          newproposals = state.proposals.filter(p => Number(p.total_votes) > Number(votes) && p.status === status)
+          newproposals = state.proposals.filter(p => Number(p.total_votes) >= Number(votes) && p.status === status)
         }
         if (status === 'all') {
-          newproposals = state.proposals.filter(p => Number(p.total_votes) > Number(votes) && p.status !== 'expired')
+          newproposals = state.proposals.filter(p => Number(p.total_votes) >= Number(votes) && p.status !== 'expired')
         }
         if (status === 'dmitrydao') {
           newproposals = state.proposals.filter(p => Number(p.total_votes) > Number(votes) && p.creator === 'dmitrydao')

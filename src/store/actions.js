@@ -45,12 +45,8 @@ export default {
     await axios.post(url, body, headers)
       .then(response => {
         let proposal = response.data.result[0]
-        if (id === 0) {
-          commit('SET_RETURNING_PROPOSAL', proposal)
-        } else {
-          commit('SET_PROPOSAL', proposal)
-          dispatch('fetchProposalVoters', id)
-        }
+        commit('SET_PROPOSAL', proposal)
+        dispatch('fetchProposalVoters', id)
         return proposal
       })
       .catch(() => {
@@ -161,8 +157,7 @@ export default {
         globalProperties = response.data.result
         commit('SET_GLOBAL_PROPERTIES', globalProperties)
         dispatch('setSteemPerMvest', globalProperties)
-        dispatch('setReturningProposal')
-         .then( () => dispatch('fetchProposals', 100))
+         .then(() => dispatch('fetchProposals', 100))
         return globalProperties
       })
       .catch(() => {
@@ -186,7 +181,7 @@ export default {
     let steemPerMvest = total_vesting_fund_steem / (total_vesting_shares / 1000000)
     commit('SET_STEEM_PER_MVEST', steemPerMvest)
   },
-  setReturningProposal ({ dispatch }) {
-    dispatch('fetchProposalById', 0)
+  setReturningProposal ({ commit }, proposal) {
+    commit('SET_RETURNING_PROPOSAL', proposal)
   }
 }

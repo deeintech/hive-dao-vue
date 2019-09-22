@@ -47,17 +47,19 @@ export default {
           fundingStatus: 100
          }
       }
+      // partial funding
+      // ..
 
       // returning/ burning status
       if (p.receiver === 'steem.dao') {
-        container.returning_status = true
+        container.refunding = true
       } else {
-        container.returning_status = false
+        container.refunding = false
       }
       if (p.receiver === 'null') {
-        container.burning_status = true
+        container.burning = true
       } else {
-        container.burning_status = false
+        container.burning = false
       }
       return container
     })
@@ -87,18 +89,20 @@ export default {
     state.proposal = proposal 
   },
   SET_RETURNING_PROPOSAL: (state, proposal) => {
-    Object.keys(proposal).map(p => {
-      if (p === 'total_votes') {
-        proposal['total_votes'] = proposal['total_votes'] * state.steemPerMVest / 1000000000
-      }
-      if (p === 'permlink') {
-        proposal['permlink'] = `https://steemit.com/@${proposal['creator']}/${proposal['permlink']}`
-      }
-       else {
-        proposal[p] = proposal[p]
-      }
-    })
-    state.returningProposal = proposal
+    if (proposal !== undefined) {
+      Object.keys(proposal).map(p => {
+        if (p === 'total_votes') {
+          proposal['total_votes'] = proposal['total_votes'] * state.steemPerMVest / 1000000000
+        }
+        if (p === 'permlink') {
+          proposal['permlink'] = `https://steemit.com/@${proposal['creator']}/${proposal['permlink']}`
+        }
+         else {
+          proposal[p] = proposal[p]
+        }
+      })
+      state.returningProposal = proposal
+    }
   },
   SET_VOTERS: (state, voters) => { state.voters = voters },
   SET_GLOBAL_PROPERTIES: (state, properties) => { state.globalProperties = properties },

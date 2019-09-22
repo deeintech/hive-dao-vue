@@ -6,19 +6,19 @@ export function numeric(value) {
    var billion = 1000000000
    var trillion = 1000000000000
    if (value < thousand) {
-      return String(value)
+      return String(value.toFixed(0))
    }
    if (value >= thousand && value <= million) {
-      return Math.abs(value / thousand)
+      return Math.abs(value / thousand).toFixed(2) + 'k'
    }
    if (value >= million && value <= billion) {
-      return Math.abs(value / million).toFixed(3)
+      return Math.abs(value / million).toFixed(2) + 'm'
    }
    if (value >= billion && value <= trillion) {
-      return Math.abs(value / billion).toFixed(3)
+      return Math.abs(value / billion).toFixed(2) + 'b'
    }
    else {
-      return Math.abs(value / trillion).toFixed(3)
+      return Math.abs(value / trillion).toFixed(0) + 't'
    }
 }
 
