@@ -134,13 +134,11 @@
                   {{data.item.duration | numeric3}} {{$t('common.days')}}
                 </template>
                 <!-- Requested -->
-                <template slot="requested" slot-scope="data">
-                  <div>
-                    {{data.item.total_requested | numeric3}} SBD
-                  </div>
-                  <div>
-                    {{data.item.daily_pay | numeric3}} SBD
-                  </div>
+                <template slot="dailyPay" slot-scope="data">
+                  <div v-b-tooltip.hover :title="`${Number(data.item.total_requested).toLocaleString()} SBD ${$t('common.totalRequested')}`">{{data.item.daily_pay | numeric3}} SBD</div>
+                </template>
+                 <template slot="funding" slot-scope="data">
+                  <div v-b-tooltip.hover :title="`${data.item.funding.availableBudget} SBD ${$t('common.availableBudget')}`">{{data.item.funding.fundingStatus}}%</div>
                 </template>
                 <!-- Voting -->
                 <template slot="vote" slot-scope="data">
@@ -263,13 +261,11 @@
                   {{data.item.duration}} {{$t('common.days')}}
                 </template>
                 <!-- Requested -->
-                <template slot="requested" slot-scope="data">
-                  <div>
-                    {{data.item.total_requested | numeric3}} SBD
-                  </div>
-                  <div>
-                    {{data.item.daily_pay | numeric3}} SBD
-                  </div>
+                <template slot="dailyPay" slot-scope="data">
+                  <div v-b-tooltip.hover :title="`${Number(data.item.total_requested).toLocaleString()} SBD ${$t('common.totalRequested')}`"> {{data.item.daily_pay | numeric3}} SBD</div>
+                </template>
+                <template slot="funding" slot-scope="data">
+                  <div v-b-tooltip.hover :title="`${Number(data.item.funding.availableBudget).toLocaleString()} SBD ${$t('common.availableBudget')}`">{{data.item.funding.fundingStatus}}%</div>
                 </template>
                 <!-- Voting modal -->
                 <template slot="vote" slot-scope="data">
@@ -425,8 +421,12 @@ export default {
           label: i18n.t('common.duration'),
         },
         {
-          key: 'requested',
-          label: i18n.t('common.requested'),
+          key: 'dailyPay',
+          label: i18n.t('common.dailyPay'),
+        },
+        {
+          key: 'funding',
+          label: i18n.t('common.funding'),
         },
         {
           key: 'vote',

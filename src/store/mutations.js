@@ -6,9 +6,11 @@ export default {
   SET_DAILY_BUDGET: (state, dailyBudget) => { state.dailyBudget = dailyBudget },
   SET_PROPOSALS: (state, proposals) => { 
     let newproposals = []
-    newproposals = proposals.map(p => {
+    let dailyBudget = state.dailyBudget
+    let totalAvailableBudget = dailyBudget
+    
+    newproposals = proposals.sort((a, b) => b.total_votes - a.total_votes).map(p => {
       const container = {}
-      
       // duration
       const dt2 = new Date(p.end_date)
       const dt1 = new Date(p.start_date)
@@ -16,19 +18,35 @@ export default {
       const duration = Math.round((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - 
       Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())) / oneDay)
 
+      // core properties
       container.id = p.id
       container.proposal_id = p.proposal_id
       container.receiver = p.receiver
       container.creator = p.creator
-      container.daily_pay = p.daily_pay.amount / 1000
+      container.daily_pay = (p.daily_pay.amount / 1000).toFixed(0)
       container.permlink = `https://steemit.com/@${p.creator}/${p.permlink}`
       container.start_date = p.start_date
       container.end_date = p.end_date
       container.duration = duration
-      container.total_requested = p.daily_pay.amount/1000*duration
+      container.total_requested = (p.daily_pay.amount/1000*duration).toFixed(0)
       container.status = p.status
       container.subject = p.subject
       container.total_votes = p.total_votes * state.steemPerMVest / 1000000000
+
+      // funding
+      totalAvailableBudget -= container.daily_pay
+      if (totalAvailableBudget < 0) {
+        container.funding = {
+          availableBudget: totalAvailableBudget.toFixed(0),
+          fundingStatus: 0
+         }
+      }
+      if (totalAvailableBudget > 0) {
+        container.funding = {
+          availableBudget: totalAvailableBudget.toFixed(0),
+          fundingStatus: 100
+         }
+      }
 
       // returning/ burning status
       if (p.receiver === 'steem.dao') {
