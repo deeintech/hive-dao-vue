@@ -302,7 +302,7 @@
               <div class="support-tickets">
                 <div class="support-ticket" v-for="p in proposals('passing', status)" :key="p.key">
                   <div class="st-meta">
-                    <div class="badge badge-success-inverted">{{p.total_votes | numeric3}} SP</div>
+                    <div class="badge badge-success-inverted" @click="loadVoters(p.id)">{{p.total_votes | numeric3}} SP</div>
                     <span class="badge badge-dot">
                       <i :class="`bg-${p.status}`"></i>
                     </span>
