@@ -16,8 +16,8 @@
           <!-- Voting modal -->
           <b-modal ref="modal-voting" :title="`${$t('vote.supportingProposal')}`" centered hide-footer>
             <div v-if="proposalId === 0" class="mb-5">
-              <p>{{$t('proposals.returningProposalInfo1')}} {{$t('proposals.returningProposalInfo2')}}</p>
-              <p>{{$t('proposals.returningProposalInfo5')}}</p>
+              <p>{{$t('proposals.returnProposalInfo1')}} {{$t('proposals.returnProposalInfo2')}}</p>
+              <p>{{$t('proposals.returnProposalInfo5')}}</p>
             </div>
             <div class="timeline timeline-one-side" data-timeline-content="axis">
               <b-form @submit.prevent="keychainVote(user, voteStatus)">
@@ -164,8 +164,8 @@
                             :href="data.item.permlink"
                             target="_blank">{{(data.item.subject)}}
                           </a>
-                          <span class="badge badge-success" v-if="data.item.refunding === true">REFUND PROPOSAL</span>
-                          <span class="badge badge-warning" v-if="data.item.burning === true">BURNING PROPOSAL</span>
+                          <span class="badge badge-success" v-if="data.item.refunding === true" style="cursor:pointer" v-b-tooltip.hover :title="`${$t('proposals.returnProposalInfo1')}`"> {{$t('proposals.returnProposal')}}</span>
+                          <span class="badge badge-warning" v-if="data.item.burning === true" style="cursor:pointer" v-b-tooltip.hover :title="`${$t('proposals.burnProposalInfo')}`">{{$t('proposals.burnProposal')}}</span>
                         </div>
                         <div>
                           {{$t('common.by')}}
@@ -256,8 +256,8 @@
                             :href="data.item.permlink"
                             target="_blank">{{(data.item.subject)}}
                           </a>
-                          <span class="badge badge-success" v-if="data.item.refunding === true">REFUND PROPOSAL</span>
-                          <span class="badge badge-warning" v-if="data.item.burning === true">BURNING PROPOSAL</span>
+                          <span class="badge badge-success" v-if="data.item.refunding === true" style="cursor:pointer" v-b-tooltip.hover :title="`${$t('proposals.returnProposalInfo1')}`"> {{$t('proposals.returnProposal')}}</span>
+                          <span class="badge badge-warning" v-if="data.item.burning === true" style="cursor:pointer" v-b-tooltip.hover :title="`${$t('proposals.burnProposalInfo')}`">{{$t('proposals.burnProposal')}}</span>
                         </div>
                         <div>
                           {{$t('common.by')}}
@@ -340,7 +340,7 @@
               <div class="support-tickets">
                 <div class="support-ticket" v-for="p in proposals('insufficient', status)" :key="p.key">
                   <div class="st-meta">
-                    <div class="badge badge-success-inverted">{{p.total_votes | numeric3}} SP</div>
+                    <div class="badge badge-success-inverted" @click="loadVoters(p.id)">{{p.total_votes | numeric3}} SP</div>
                     <span class="badge badge-dot">
                       <i :class="`bg-${p.status}`"></i>
                     </span>

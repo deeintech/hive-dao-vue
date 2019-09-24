@@ -175,11 +175,11 @@
         "insufficientVotes": "INSUFFICIENT VOTES",
         "miminumThreshold": "The minimum votes' threshold to receive funding is",
         "proposalVoters": "Proposal voters",
-        "returningProposalTitle": "This is a returning proposal",
-        "returningProposalInfo1": "Returning proposal acts as a certain threshold you need to pass to receive funding. ",
-        "returningProposalInfo2": "Essentially, it returns money back to Steem Proposal System's account(@steem.dao). ",
-        "returningProposalInfo3": "The current returning proposal was created by",
-        "returningProposalInfo4": "You can check the full description",
-        "returningProposalInfo5": "It is advisable to upvote this proposal only if your goal is to increase the passing threshold. You can approve\/remove your vote using the form below."
+        "returnProposal": "RETURN PROPOSAL",
+        "returnProposalInfo1": "Return proposal acts as a threshold you need to pass to start receiving funding. ",
+        "returnProposalInfo2": "Essentially, it returns money back to Steem Proposal System's account (@steem.dao). ",
+        "returnProposalInfo5": "It is advisable to upvote this proposal only if your goal is to increase the passing threshold. You can approve\/remove your vote using the form below.",
+        "burnProposal": "BURN PROPOSAL",
+        "burnProposalInfo": "Burn proposal decreases SBD inflation, the funds will be sent to @null account."
     }
 }
