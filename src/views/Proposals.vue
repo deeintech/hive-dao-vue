@@ -98,7 +98,7 @@
           <div class="container p-md-0">
             <div class="row">
               <div class="col-md-5 my-1 mb-3 d-none d-md-block d-xxl-none">
-                <input v-model="filter" :placeholder="`${$t('common.search')}`" class="form-control" type="search"/>
+                <input @input="proposalSearch" :placeholder="`${$t('common.search')}`" class="form-control" type="search"/>
               </div>
               <div class="col-md-2 mt-1 offset-md-5">
                 <b-input-group>
@@ -290,8 +290,7 @@
                 </template>
                 <!-- Voting -->
                 <template slot="vote" slot-scope="data">
-                  <button v-if="data.item.id === 0" class="btn btn-sm btn-light text-dark" @click="showReturningModal()"><i class="far fa-thumbs-up"></i></button>
-                  <button v-if="data.item.id !== 0" class="btn btn-sm btn-light text-dark" @click="showVotingModal(data.item.id)"><i class="far fa-thumbs-up"></i></button>
+                  <button class="btn btn-sm btn-light text-dark" @click="showVotingModal(data.item.id)"><i class="far fa-thumbs-up"></i></button>
                 </template>
               </b-table>
             </div>
@@ -335,7 +334,7 @@
               </div>
             </div>
             <div class="text-warning text-center text-uppercase mb-2">
-              {{$t('proposals.insufficientVotes')}} ({{returningProposal.total_votes | numeric3}} SP)
+              {{$t('proposals.insufficientVotes')}}
             </div>
              <div class="support-index mt-3">
               <div class="support-tickets">
@@ -438,6 +437,15 @@ export default {
       if (model === 'voteStatus') {
         this.voteStatus = value
       }
+      if (model === 'filter') {
+        this.filter = value
+      }
+    },
+    proposalSearch(event) {
+      clearTimeout(this.debounce)
+      this.debounce = setTimeout(() => {
+        this.filter = event.target.value
+      }, 300)
     }
   },
   data () {
@@ -477,7 +485,7 @@ export default {
       proposalsSortBy: 'total_votes',
       proposalsSortDesc: true,
       proposalsSortDirection: 'asc',
-      filter: '',
+      filter: null,
       votesStatus: 'passing',
       status: 'all',
       voteStatus: true,
