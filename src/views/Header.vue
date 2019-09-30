@@ -34,7 +34,7 @@ export default {
     return {
       languages: [
         { name: 'EN', locale: 'en' },
-        { name: 'KR', locale: 'ko' },
+        { name: 'KO', locale: 'ko' },
       ]
     }
   },
