@@ -54,6 +54,7 @@
                   <h6>{{$t('keychain.voteLabel3')}}</h6>
                   <b-form-group>
                     <button class="btn btn-light btn-sm" type="submit" variant="light">{{$t('keychain.voteWithLabel')}} <img class="icon-small ml-1" src="../assets/img/random/keychain.png"/></button>
+                    <button @click="steemconnectVote(voteStatus)" class="btn btn-light btn-sm" type="button" variant="light">{{$t('keychain.voteWithLabel')}} <img class="icon-small ml-1" src="../assets/img/random/steemconnect.png"/></button>
                   </b-form-group>
                 </div>
               </div>
@@ -419,6 +420,11 @@ export default {
         })
       } else {
         return []
+      }
+    },
+    steemconnectVote (voteStatus) {
+      if (this.user !== '') {
+        window.open(`https://beta.steemconnect.com/sign/update-proposal-votes?proposal_ids=[${this.proposalId}]&approve=${voteStatus}`)
       }
     },
     loadVoters (id) {
