@@ -326,10 +326,10 @@
                     </div>
                   </div>
                   <div class="st-foot">
-                    <span class="label">{{$t('common.dailyPay')}}:</span>
-                    <span class="value">{{p.daily_pay | numeric}} SBD</span>
-                    <span class="value float-right">{{p.duration | numeric3}} {{$t('common.days')}}</span>
-                    <span class="label float-right mr-2">{{$t('common.duration')}}:</span>
+                    <span class="label">{{$t('common.requested')}}:</span>
+                    <span class="value">{{p.total_requested | numeric}} SBD</span>
+                    <span v-if="p.status === 'active'" class="value float-right">({{$t('common.ends')}} {{p.end_date | daysLeft}})</span>
+                    <span v-if="p.status === 'inactive'" class="value float-right">({{$t('common.starts')}} {{p.start_date | daysLeft}})</span>
                   </div>
                 </div>
               </div>
@@ -364,10 +364,10 @@
                     </div>
                   </div>
                   <div class="st-foot">
-                    <span class="label">{{$t('common.dailyPay')}}:</span>
-                    <span class="value">{{p.daily_pay | numeric}} SBD</span>
-                    <span class="value float-right">{{p.duration | numeric3}} {{$t('common.days')}}</span>
-                    <span class="label float-right mr-2">{{$t('common.duration')}}:</span>
+                    <span class="label">{{$t('common.requested')}}:</span>
+                    <span class="value">{{p.total_requested | numeric}} SBD</span>
+                    <span v-if="p.status === 'active'" class="value float-right">({{$t('common.ends')}} {{p.end_date | daysLeft}})</span>
+                    <span v-if="p.status === 'inactive'" class="value float-right">({{$t('common.starts')}} {{p.start_date | daysLeft}})</span>
                   </div>
                 </div>
               </div>
