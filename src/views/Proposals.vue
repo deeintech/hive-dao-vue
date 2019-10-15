@@ -63,12 +63,12 @@
             <hr class="mb-3"/>
             <div class="d-flex justify-content-between">
               <router-link class="text-dark" :to="`proposal/${proposalId}`" target="_blank">{{$t('common.shareOnSocial')}} <i class="far fa-share-square"></i></router-link>
-              <div style="cursor:pointer" v-b-tooltip.hover :title="`${$t('keychain.devSupport')}`" class="text-dark" @click="witnessVoteKeychain(user)">{{$t('keychain.witnessVote2')}} <i class="fas fa-laptop-code"></i></div>
+              <div style="cursor:pointer" v-b-tooltip.hover :title="`${$t('keychain.devSupport1')} ${$t('keychain.devSupport2')}`" class="text-dark" @click="witnessVoteKeychain(user)">{{$t('keychain.witnessVote2')}} <i class="fas fa-laptop-code"></i></div>
             </div>
           </b-modal>
           
           <!-- Voters modal -->
-          <b-modal size="md" scrollable ref="modal-voters2" :title="`${$t('proposals.proposalVoters')}`" centered hide-footer>
+          <b-modal size="md" scrollable ref="modal-voters2" :title="`${$t('proposals.proposalVoters')} (#${proposalId})`" centered hide-footer>
             <div class="row">
               <div class="col-12 d-flex justify-content-center" v-if="!accounts.length">
                 <b-spinner label="Spinning"></b-spinner>
@@ -78,7 +78,7 @@
             <div class="row">
               <div class="col-12 d-flex justify-content-center">
                 <b-list-group v-if="accounts.length">
-                  <h5>{{$t('vote.supportedByCommunity')}}:</h5>
+                  <h5>{{$t('vote.supportedByCommunity')}} ({{proposalVoters.length}}):</h5>
                   <b-list-group-item v-for="(voter, index) in proposalVoters" :key="index" class="d-flex justify-content-between align-items-center">
                     <div class="avatar rounded-circle">
                       <a :href="`https://steemit.com/@${voter.voter}`" target="_blank">
@@ -92,6 +92,13 @@
                   </b-list-group-item>
                 </b-list-group>
               </div>
+            </div>
+          </b-modal>
+
+          <!-- Post modal -->
+          <b-modal size="lg" scrollable ref="modal-post" :title="`${proposalSubject} (#${proposalId})`" centered hide-footer>
+            <div v-if="post.body">
+              <vue-markdown :source="post.body" class="postImage"></vue-markdown>
             </div>
           </b-modal>
 
@@ -114,8 +121,8 @@
               </div>
             </div>
           </div>
-          <div class="row mt-2">
-            <div class="col-12 d-none d-md-block d-xxl-none">
+          <div class="row mt-2 d-none d-md-block">
+            <div class="col-12">
               <!-- PASSING -->
               <b-table
                 class="table table-padded table-active align-items-center"
@@ -151,20 +158,16 @@
                 <!-- Description -->
                 <template slot="description" slot-scope="data">
                   <div class="row">
-                    <div class="media align-items-center col-2 d-sm-none d-md-block mr-3">
+                    <div class="media align-items-center col-md-2 d-none d-md-block mr-3">
                       <div class="avatar rounded-circle">
                         <router-link :to="'/proposals/' + data.item.creator">
                           <img :src="`https://steemitimages.com/u/${data.item.creator}/avatar`" />
                         </router-link>
                       </div>
                     </div>
-                    <div class="col-9">
+                    <div class="col-md-9">
                         <div class="text-wrap">
-                          <a
-                            class="text-dark h6"
-                            :href="data.item.permlink"
-                            target="_blank">{{(data.item.subject)}}
-                          </a>
+                          <span class="text-dark h6" style="cursor:pointer" @click="showPostModal(data.item.id, data.item.creator, data.item.permlink_short, data.item.subject)">{{(data.item.subject)}}</span>
                           <span class="badge badge-success" v-if="data.item.refunding === true" style="cursor:pointer" v-b-tooltip.hover :title="`${$t('proposals.returnProposalInfo1')}`"> {{$t('proposals.returnProposal')}}</span>
                           <span class="badge badge-warning" v-if="data.item.burning === true" style="cursor:pointer" v-b-tooltip.hover :title="`${$t('proposals.burnProposalInfo')}`">{{$t('proposals.burnProposal')}}</span>
                         </div>
@@ -252,11 +255,7 @@
                     </div>
                     <div class="col-9">
                         <div class="text-wrap">
-                          <a
-                            class="text-dark h6"
-                            :href="data.item.permlink"
-                            target="_blank">{{(data.item.subject)}}
-                          </a>
+                          <span class="text-dark h6" style="cursor:pointer" @click="showPostModal(data.item.id, data.item.creator, data.item.permlink_short, data.item.subject)">{{(data.item.subject)}}</span>
                           <span class="badge badge-success" v-if="data.item.refunding === true" style="cursor:pointer" v-b-tooltip.hover :title="`${$t('proposals.returnProposalInfo1')}`"> {{$t('proposals.returnProposal')}}</span>
                           <span class="badge badge-warning" v-if="data.item.burning === true" style="cursor:pointer" v-b-tooltip.hover :title="`${$t('proposals.burnProposalInfo')}`">{{$t('proposals.burnProposal')}}</span>
                         </div>
@@ -298,7 +297,7 @@
           </div>
           
           <!-- MOBILE-->
-          <div class="px-3 d-block d-md-none">
+          <div class="px-3 d-block d-md-none mt-3">
             <div class="support-index mb-3">
               <div class="support-tickets">
                 <div class="support-ticket" v-for="p in proposals('passing', status)" :key="p.key">
@@ -318,11 +317,7 @@
                       <router-link class="text-muted" :to="'/proposals/' + p.creator">
                         <h6 class="ticket-title">{{p.creator}}</h6>
                       </router-link>
-                      <a
-                        :href="p.permlink"
-                        target="_blank">
-                        <div class="text-wrap text-dark">{{p.subject}}</div>
-                      </a>
+                      <div class="text-wrap text-dark" @click="showPostModal(p.id, p.creator, p.permlink_short, p.subject)">{{(p.subject)}}</div>
                     </div>
                   </div>
                   <div class="st-foot">
@@ -356,11 +351,7 @@
                       <router-link class="text-muted" :to="'/proposals/' + p.creator">
                         <h6 class="ticket-title">{{p.creator}}</h6>
                       </router-link>
-                      <a
-                        :href="p.permlink"
-                        target="_blank">
-                        <div class="text-wrap text-dark">{{p.subject}}</div>
-                      </a>
+                      <div class="text-wrap text-dark" @click="showPostModal(p.id, p.creator, p.permlink_short, p.subject)">{{(p.subject)}}</div>
                     </div>
                   </div>
                   <div class="st-foot">
@@ -382,13 +373,17 @@
 import Stats from '@/views/Stats.vue'
 import { mapState , mapGetters } from 'vuex'
 import { i18n } from '@/plugins/i18n.js'
+import VueMarkdown from 'vue-markdown'
+import { DefaultRenderer } from "steem-content-renderer"
+
 export default {
   name: 'Proposals',
   components: {
-    Stats
+    Stats,
+    VueMarkdown
   },
   computed: {
-    ...mapState(['voters', 'accounts', 'dailyBudget', 'globalProperties', 'language', 'proposalVoters', 'returningProposal']),
+    ...mapState(['voters', 'accounts', 'dailyBudget', 'globalProperties', 'language', 'proposalVoters', 'returningProposal', 'post']),
     ...mapGetters({
       proposals: 'proposalsByVotesStatus',
       totalProposalsByVotesStatus: 'totalProposalsByVotesStatus',
@@ -435,6 +430,28 @@ export default {
     showVotingModal (id) {
       this.proposalId = id
       this.$refs['modal-voting'].show()
+    },
+    async showPostModal (id, creator, permlink, subject) {
+      this.proposalSubject = subject
+      this.proposalId = id
+      const renderer = new DefaultRenderer({
+        baseUrl: "https://steemit.com/",
+        breaks: true,
+        skipSanitization: false,
+        allowInsecureScriptTags: false,
+        addNofollowToLinks: true,
+        doNotShowImages: false,
+        ipfsPrefix: "",
+        assetsWidth: 640,
+        assetsHeight: 480,
+        imageProxyFn: (url) => url,
+        usertagUrlFn: (account) => "/@" + account,
+        hashtagUrlFn: (hashtag) => "/trending/" + hashtag,
+        isLinkSafeFn: (url) => true
+      })
+      await this.$store.dispatch('fetchPost', [creator, permlink])
+      this.post.body = renderer.render(this.post.body)
+      this.$refs['modal-post'].show()
     },
     updateModel (model, value) {
       if (model === 'user') {
@@ -496,7 +513,9 @@ export default {
       status: 'all',
       voteStatus: true,
       user: '',
-      proposalId: 0
+      proposalId: 0,
+      proposalSubject: '',
+      postPermlinkFull: ''
     }
   }
 }

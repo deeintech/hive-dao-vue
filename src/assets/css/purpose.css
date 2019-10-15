@@ -27689,3 +27689,12 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 .table.table-padded.table-inactive thead tr th, .table.table-padded.table-limit thead tr th {
   display: none;
 }
+
+.postImage img{
+  height: auto;
+  width: 100%;
+}
+
+.postImage a{
+  opacity: 0.6;
+}

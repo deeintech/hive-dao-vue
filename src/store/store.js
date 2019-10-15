@@ -15,6 +15,7 @@ export default new Vuex.Store({
     accounts: [],
     workers: [],
     voters: [],
+    post: {},
     proposalVoters: [],
     globalProperties: [],
     totalBudget: 0,

@@ -53,6 +53,30 @@ export default {
         return {}
       })
   },
+  async fetchPost ({ commit }, [author, permlink]) {
+    commit('SET_POST', {})
+    const url = process.env.VUE_APP_STEEMIT_MAINNET
+    const headers = {
+      'Content-Type': 'application/json'
+    }
+    const body = {
+      jsonrpc: '2.0',
+      method: 'condenser_api.get_content',
+      id: 2,
+      params: [
+        author, permlink
+      ]
+    }
+    await axios.post(url, body, headers)
+      .then(response => {
+        let post = response.data.result
+        commit('SET_POST', post)
+        return post
+      })
+      .catch(() => {
+        return {}
+      })
+  },
   async fetchProposalVoters ({ commit, dispatch }, proposalId) {
     commit('SET_VOTERS', [])
     commit('SET_ACCOUNTS', [])

@@ -1,6 +1,7 @@
 export default {
   SET_ACCOUNTS: (state, accounts) => { state.accounts = accounts },
   SET_ACCOUNT: (state, account) => { state.account = account },
+  SET_POST: (state, post) => { state.post = post },
   SET_TOTAL_BUDGET: (state, totalBudget) => { state.totalBudget = totalBudget },
   SET_DAILY_BUDGET: (state, dailyBudget) => { state.dailyBudget = dailyBudget },
   SET_PROPOSALS: (state, proposals) => { 
@@ -23,7 +24,8 @@ export default {
       container.receiver = p.receiver
       container.creator = p.creator
       container.daily_pay = p.daily_pay.amount / 1000
-      container.permlink = `https://steemit.com/@${p.creator}/${p.permlink}`
+      container.permlink = `https://steemit.com/@${p.creator}/${p.permlink}`,
+      container.permlink_short = p.permlink
       container.start_date = p.start_date
       container.end_date = p.end_date
       container.duration = duration
