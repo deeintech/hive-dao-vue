@@ -2,7 +2,7 @@
   <div id='app'>
     <Header />
       <router-view/>
-    <Footer v-if='$route.name!="NotFound" && $route.name!="ProposalVote"'/>
+    <Footer v-if='$route.name!="NotFound" && $route.name!="ProposalVote" && $route.name!="Login"'/>
   </div>
 </template>
 <script>
@@ -21,15 +21,11 @@ export default {
     },
     fetchSteemGlobalProperties () {
       this.$store.dispatch('fetchSteemGlobalProperties')
-    },
-    setReturningProposal () {
-      this.$store.dispatch('setReturningProposal')
     }
   },
   created () {
     this.fetchSteemGlobalProperties()
     this.setBudget()
-    this.setReturningProposal()
   }
 }
 </script>
