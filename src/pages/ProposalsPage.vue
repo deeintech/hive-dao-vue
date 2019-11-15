@@ -4,7 +4,7 @@
       <div class="container px-0">
         <!-- Stats -->
         <div class="mb-md-5 mb-sm-2">
-          <Stats />
+          <AppStats />
         </div>
         <div class="row">
           <div
@@ -739,33 +739,24 @@
   </div>
 </template>
 <script>
-import Stats from "@/views/Stats.vue";
+import AppStats from "@/components/AppStats.vue";
 import { mapState, mapGetters } from "vuex";
-import { i18n } from "@/plugins/i18n.js";
+import { i18n } from "@/utils/plugins/i18n.js";
 import VueMarkdown from "vue-markdown";
 import { DefaultRenderer } from "steem-content-renderer";
 
 export default {
   name: "Proposals",
   components: {
-    Stats,
+    AppStats,
     VueMarkdown
   },
   computed: {
-    ...mapState([
-      "voters",
-      "accounts",
-      "dailyBudget",
-      "globalProperties",
-      "language",
-      "proposalVoters",
-      "returningProposal",
-      "post"
-    ]),
+    ...mapState(['voters', 'accounts', 'dailyBudget', 'globalProperties', 'language', 'proposalVoters', 'returningProposal', 'post']),
     ...mapGetters({
-      proposals: "proposalsByVotesStatus",
-      totalProposalsByVotesStatus: "totalProposalsByVotesStatus",
-      totalProposals: "totalProposals"
+      proposals: 'proposalsByVotesStatus',
+      totalProposalsByVotesStatus: 'totalProposalsByVotesStatus',
+      totalProposals: 'totalProposals'
     })
   },
   methods: {

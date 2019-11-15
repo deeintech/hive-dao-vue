@@ -25,6 +25,11 @@
             }}</router-link></b-nav-item
           >
           <b-nav-item
+            ><router-link class="text-white" to="/faq">{{
+              $t("faq.title")
+            }}</router-link></b-nav-item
+          >
+          <b-nav-item
             ><router-link class="text-white" to="/about">{{
               $t("common.aboutLabel")
             }}</router-link></b-nav-item
@@ -50,9 +55,9 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  name: "Header",
+  name: "AppHeader",
   computed: {
-    ...mapState(["language"])
+    ...mapState("global", ["language"])
   },
   data() {
     return {

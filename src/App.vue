@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <Header />
+    <AppHeader />
     <router-view />
-    <Footer
+    <AppFooter
       v-if="
         $route.name != 'NotFound' &&
           $route.name != 'ProposalVote' &&
@@ -12,14 +12,14 @@
   </div>
 </template>
 <script>
-import Header from "@/views/Header.vue";
-import Footer from "@/views/Footer.vue";
+import AppHeader from "@/components/AppHeader.vue";
+import AppFooter from "@/components/AppFooter.vue";
 
 export default {
   name: "app",
   components: {
-    Header,
-    Footer
+    AppHeader,
+    AppFooter
   },
   methods: {
     setBudget() {

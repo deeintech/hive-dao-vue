@@ -265,10 +265,10 @@
               <i class="fas fa-thumbs-up"></i>
             </div>
             <span class="d-block mt-4 h3 text-warning">{{
-              totalProposalsByStatus("expired")
+              totalProposalsByStatus("active")
             }}</span>
             <span class="d-block mt-2 h6">{{
-              $t("common.completedProposals")
+              $t("workers.proposalsInProgress")
             }}</span>
           </div>
         </div>
@@ -298,7 +298,7 @@
     </section>
 
     <!-- FAQ -->
-    <div class="container">
+    <!-- <div class="container">
       <div class="mb-5">
         <h3 class=" mt-4 mb-5 text-center">{{ $t("faq.title") }}</h3>
         <div class="accordion accordion-spaced">
@@ -334,7 +334,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- CTA -->
     <section class="slice slice-lg delimiter-top bg-section-secondary">
@@ -366,14 +366,14 @@
 <script>
 import { mapState, mapGetters } from "vuex";
 export default {
-  name: "Header",
+  name: "FeaturesSection",
   computed: {
-    ...mapState(["dailyBudget", "totalBudget", "globalProperties"]),
+    ...mapState(['dailyBudget', 'totalBudget', 'globalProperties']),
     ...mapGetters({
-      proposals: "proposalsByStatus",
-      totalProposals: "totalProposals",
-      totalProposalsByStatus: "totalProposalsByStatus"
-    })
+      proposals: 'proposalsByStatus',
+      totalProposals: 'totalProposals',
+      totalProposalsByStatus: 'totalProposalsByStatus'
+    }),
   },
   methods: {
     avatarName(value) {

@@ -1,11 +1,11 @@
 import Vue from "vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store/store";
+import App from "@/App.vue";
+import router from "@/router";
+import store from "@/store/store";
 import BootstrapVue from "bootstrap-vue";
 import datePicker from "vue-bootstrap-datetimepicker";
-import { numeric, numeric3, daysLeft, dateFilter } from "./filters/filters";
-import { i18n } from "./plugins/i18n.js";
+import { numeric, numeric3, daysLeft, dateFilter } from "@/utils/filters/filters";
+import { i18n } from "@/utils/plugins/i18n.js";
 
 import "./assets/css/purpose.css";
 import "./assets/js/all.min.js";

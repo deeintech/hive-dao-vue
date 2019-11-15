@@ -68,11 +68,11 @@
 <script>
 import { mapState, mapGetters } from "vuex";
 export default {
-  name: "Stats",
+  name: "AppStats",
   computed: {
-    ...mapState(["dailyBudget", "totalBudget"]),
+    ...mapState(['dailyBudget', 'totalBudget']),
     ...mapGetters({
-      totalProposals: "totalProposals"
+      totalProposals: 'totalProposals'
     })
   }
 };

@@ -354,14 +354,7 @@ export default {
   name: "ProposalVote",
   props: ["id"],
   computed: {
-    ...mapState([
-      "proposal",
-      "voters",
-      "accounts",
-      "totalProposalVoters",
-      "proposalVoters",
-      "returningProposal"
-    ])
+    ...mapState(['proposal', 'voters', 'accounts', 'totalProposalVoters', 'proposalVoters', 'returningProposal'])
   },
   data() {
     return {
@@ -418,7 +411,7 @@ export default {
       }
     },
     fetchProposalById() {
-      this.$store.dispatch("fetchProposalById", Number(this.id));
+      this.$store.dispatch("proposals/fetchProposalById", Number(this.id));
     },
     totalValue() {
       let proposalSP = this.proposal.total_votes;
@@ -438,7 +431,7 @@ export default {
       this.$refs["modal-voters"].show();
     },
     setProposalVoters() {
-      this.$store.dispatch("setProposalVoters", Number(this.id));
+      this.$store.dispatch("voters/setProposalVoters", Number(this.id));
     },
     updateModel(model, value) {
       if (model === "user") {

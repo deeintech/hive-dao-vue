@@ -1,4 +1,4 @@
-import { i18n } from "@/plugins/i18n.js";
+import { i18n } from "@/utils/plugins/i18n.js";
 
 export function numeric(value) {
   var thousand = 1000;

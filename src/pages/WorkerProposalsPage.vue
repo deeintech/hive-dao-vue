@@ -360,15 +360,15 @@ export default {
   name: "WorkerProposals",
   props: ["worker"],
   computed: {
-    ...mapState(["account", "steemPerMvest"]),
+    ...mapState(['account', 'steemPerMvest']),
     ...mapGetters({
-      workerProposalsByStatus: "workerProposalsByStatus",
-      totalProposals: "totalWorkerProposalsByStatus"
+      workerProposalsByStatus: 'workerProposalsByStatus',
+      totalProposals: 'totalWorkerProposalsByStatus'
     })
   },
   methods: {
     fetchAccountByName(name) {
-      this.$store.dispatch("fetchAccountByName", name);
+      this.$store.dispatch("$_accounts/fetchAccountByName", name);
     },
     avatarName(value) {
       return value.substring(0, 2);

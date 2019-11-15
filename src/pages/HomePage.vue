@@ -33,18 +33,18 @@
           </div>
         </div>
       </section>
-      <Features />
+      <FeaturesSection />
     </div>
   </div>
 </template>
 
 <script>
-import Features from "@/views/Features.vue";
+import FeaturesSection from "@/components/FeaturesSection.vue";
 
 export default {
   name: "Home",
   components: {
-    Features
+    FeaturesSection
   }
 };
 </script>
