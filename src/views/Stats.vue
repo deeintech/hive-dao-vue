@@ -1,7 +1,9 @@
 <template>
   <div class="row mx-auto">
     <div class="col-lg-4">
-      <div class="card card-stats bg-gradient-primary border-0 hover-shadow-lg hover-translate-y-n3 mb-4 ml-lg-0">
+      <div
+        class="card card-stats bg-gradient-primary border-0 hover-shadow-lg hover-translate-y-n3 mb-4 ml-lg-0"
+      >
         <div class="card-body">
           <div class="d-flex">
             <div>
@@ -10,15 +12,19 @@
               </div>
             </div>
             <div class="pl-4">
-              <span class="d-block h5 text-white mr-2 mb-1">{{totalBudget | numeric3}} SBD</span>
-              <span class="text-white">{{$t('common.totalBudget')}}</span>
+              <span class="d-block h5 text-white mr-2 mb-1"
+                >{{ totalBudget | numeric3 }} SBD</span
+              >
+              <span class="text-white">{{ $t("common.totalBudget") }}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="col-lg-4">
-      <div class="card card-stats bg-gradient-info border-0 hover-shadow-lg hover-translate-y-n3 mb-4 ml-lg-0">
+      <div
+        class="card card-stats bg-gradient-info border-0 hover-shadow-lg hover-translate-y-n3 mb-4 ml-lg-0"
+      >
         <div class="card-body">
           <div class="d-flex">
             <div>
@@ -27,15 +33,19 @@
               </div>
             </div>
             <div class="pl-4">
-              <span class="d-block h5 text-white mr-2 mb-1">{{dailyBudget | numeric3}} SBD</span>
-              <span class="text-white">{{$t('common.dailyBudget')}}</span>
+              <span class="d-block h5 text-white mr-2 mb-1"
+                >{{ dailyBudget | numeric3 }} SBD</span
+              >
+              <span class="text-white">{{ $t("common.dailyBudget") }}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="col-lg-4">
-      <div class="card card-stats bg-gradient-dark border-0 hover-shadow-lg hover-translate-y-n3 mb-4 ml-lg-0">
+      <div
+        class="card card-stats bg-gradient-dark border-0 hover-shadow-lg hover-translate-y-n3 mb-4 ml-lg-0"
+      >
         <div class="card-body">
           <div class="d-flex">
             <div>
@@ -44,8 +54,10 @@
               </div>
             </div>
             <div class="pl-4">
-              <span class="d-block h5 text-white mr-2 mb-1">{{totalProposals | numeric}}</span>
-              <span class="text-white">{{$t('common.totalProposals')}}</span>
+              <span class="d-block h5 text-white mr-2 mb-1">{{
+                totalProposals | numeric
+              }}</span>
+              <span class="text-white">{{ $t("common.totalProposals") }}</span>
             </div>
           </div>
         </div>
@@ -54,16 +66,15 @@
   </div>
 </template>
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters } from "vuex";
 export default {
-  name: 'Stats',
+  name: "Stats",
   computed: {
-    ...mapState(['dailyBudget', 'totalBudget']),
+    ...mapState(["dailyBudget", "totalBudget"]),
     ...mapGetters({
-      totalProposals: 'totalProposals'
+      totalProposals: "totalProposals"
     })
   }
-}
+};
 </script>
-<style scoped>
-</style>
+<style scoped></style>

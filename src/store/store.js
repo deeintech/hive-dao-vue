@@ -1,10 +1,10 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import actions from './actions'
-import mutations from './mutations'
-import getters from './getters'
+import Vue from "vue";
+import Vuex from "vuex";
+import actions from "./actions";
+import mutations from "./mutations";
+import getters from "./getters";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
@@ -22,9 +22,9 @@ export default new Vuex.Store({
     dailyBudget: 0,
     steemPerMVest: 0,
     totalProposalVoters: 0,
-    language: 'en'
+    language: "en"
   },
   mutations: mutations,
   actions: actions,
   getters: getters
-})
+});
