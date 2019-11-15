@@ -1,15 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
-import About from './views/About.vue'
-import Dashboard from './views/Dashboard.vue'
-import Proposals from './views/Proposals.vue'
-import Workers from './views/Workers.vue'
-import CreateProposal from './views/CreateProposal.vue'
-import WorkerProposals from './views/WorkerProposals.vue'
-import PageNotFound from './views/PageNotFound.vue'
-import FAQ from './views/FAQ.vue'
-import Vote from './views/Vote.vue'
 import store from './store/store'
 import { i18n } from './plugins/i18n.js'
 
@@ -21,48 +11,48 @@ const router = new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home
+      component: () => import(/* webpackChunkName: "Home" */ './views/Home.vue')
     },
     {
       path: '/about',
       name: 'About',
-      component: About
+      component: () => import(/* webpackChunkName: "About" */ './views/About.vue')
     },
     {
       path: '/faq',
       name: 'FAQ',
-      component: FAQ
+      component: () => import(/* webpackChunkName: "FAQ" */ './views/FAQ.vue')
     },
     {
       path: '/proposal/:id',
       name: 'ProposalVote',
       props: true,
-      component: Vote
+      component: () => import(/* webpackChunkName: "Vote" */ './views/Vote.vue')
     },
     {
       path: '/proposals',
-      component: Dashboard,
+      component: () => import(/* webpackChunkName: "Dashboard" */ './views/Dashboard.vue'),
       children: [{
         path: '/',
-        component: Proposals
+        component: () => import(/* webpackChunkName: "Proposals" */ './views/Proposals.vue')
       },{
         path: 'workers',
-        component: Workers
+        component: () => import(/* webpackChunkName: "Workers" */ './views/Workers.vue')
       }, {
         path: 'createproposal',
-        component: CreateProposal
+        component: () => import(/* webpackChunkName: "CreateProposal" */ './views/CreateProposal.vue')
       }]
     },
     {
       path: '/proposals/:worker',
       name: 'WorkerProposals',
       props: true,
-      component: WorkerProposals
+      component: () => import(/* webpackChunkName: "WorkerProposals" */ './views/WorkerProposals.vue')
     },
     {
       path: '*',
       name: 'NotFound',
-      component: PageNotFound
+      component: () => import(/* webpackChunkName: "PageNotFound" */ './views/PageNotFound.vue')
     }
  ]
 // scrollBehavior (to, from, savedPosition) {
