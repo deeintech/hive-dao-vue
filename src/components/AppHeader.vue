@@ -11,8 +11,8 @@
           />
         </router-link>
       </b-navbar-brand>
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <b-collapse id="nav-collapse" is-nav>
+      <!-- <b-navbar-toggle target="nav-collapse"></b-navbar-toggle> -->
+      <!-- <b-collapse id="nav-collapse" is-nav> -->
         <b-nav class="ml-auto">
           <b-nav-item
             ><router-link class="text-white" to="/">{{
@@ -34,20 +34,16 @@
               $t("common.aboutLabel")
             }}</router-link></b-nav-item
           >
-          <select
-            v-model="$i18n.locale"
-            class="form-control-sm selector-plain mt-1 pr-1 pl-2 mr-4"
-          >
-            <option
-              v-for="(lang, i) in languages"
-              :key="i"
-              :value="lang.locale"
-            >
-              {{ lang.name }}
-            </option>
-          </select>
         </b-nav>
-      </b-collapse>
+      <!-- </b-collapse> -->
+      <select
+        v-model="$i18n.locale"
+        class="form-control-sm selector-plain mt-1 pr-1 pl-2 mr-1"
+      >
+        <option v-for="(lang, i) in languages" :key="i" :value="lang.locale">
+          {{ lang.name }}
+        </option>
+      </select>
     </b-navbar>
   </header>
 </template>

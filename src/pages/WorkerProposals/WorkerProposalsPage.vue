@@ -368,7 +368,7 @@ export default {
   },
   methods: {
     fetchAccountByName(name) {
-      this.$store.dispatch("$_accounts/fetchAccountByName", name);
+      this.$store.dispatch("fetchAccountByName", name);
     },
     avatarName(value) {
       return value.substring(0, 2);

@@ -113,7 +113,7 @@
               {{ $t("common.submitWithButton")
               }}<img
                 class="icon-small ml-1"
-                src="../assets/img/random/keychain.png"
+                src="@/assets/img/random/keychain.png"
               />
             </button>
           </b-form>

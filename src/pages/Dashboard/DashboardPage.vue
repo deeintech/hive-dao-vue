@@ -78,7 +78,7 @@
                     {{ $t("keychain.voteWithLabel") }}
                     <img
                       class="icon-small ml-1"
-                      src="../assets/img/random/keychain2.png"
+                      src="@/assets/img/random/keychain2.png"
                     />
                   </button>
                   <button
@@ -90,7 +90,7 @@
                     {{ $t("keychain.voteWithLabel") }}
                     <img
                       class="icon-small ml-1"
-                      src="../assets/img/random/steemconnect.png"
+                      src="@/assets/img/random/steemconnect.png"
                     />
                   </button>
                 </b-form-group>

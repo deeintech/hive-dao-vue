@@ -11,7 +11,86 @@
             class="col-12 d-flex justify-content-center"
             v-if="totalProposals === 0"
           >
-            <b-spinner label="Spinning"></b-spinner>
+            <skeleton-loading v-if="!totalProposals > 0" class="p-3 col-12">
+              <row
+                :gutter="{
+                  bottom: '15px'
+                }"
+              >
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '35px',
+                    width: '82%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '35px',
+                    width: '36%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '35px',
+                    width: '74%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '35px',
+                    width: '48%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '35px',
+                    width: '91%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '35px',
+                    width: '58%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '35px',
+                    width: '82%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '35px',
+                    width: '36%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '35px',
+                    width: '74%'
+                  }"
+                >
+                </square-skeleton>
+              </row>
+            </skeleton-loading>
           </div>
         </div>
         <div class="mb-5" v-if="totalProposals > 0">
@@ -90,7 +169,7 @@
                         {{ $t("keychain.voteWithLabel") }}
                         <img
                           class="icon-small ml-1"
-                          src="../assets/img/random/keychain.png"
+                          src="@/assets/img/random/keychain.png"
                         />
                       </button>
                       <button
@@ -102,7 +181,7 @@
                         {{ $t("keychain.voteWithLabel") }}
                         <img
                           class="icon-small ml-1"
-                          src="../assets/img/random/steemconnect.png"
+                          src="@/assets/img/random/steemconnect.png"
                         />
                       </button>
                     </b-form-group>
@@ -143,15 +222,86 @@
             centered
             hide-footer
           >
-            <div class="row">
-              <div
-                class="col-12 d-flex justify-content-center"
-                v-if="!accounts.length"
+            <skeleton-loading v-if="!accounts.length" class="p-3 col-12">
+              <row
+                :gutter="{
+                  bottom: '15px'
+                }"
               >
-                <b-spinner label="Spinning"></b-spinner>
-                <span class="ml-3">{{ $t("common.loadingVotes") }}</span>
-              </div>
-            </div>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '25px',
+                    width: '82%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '25px',
+                    width: '36%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '25px',
+                    width: '74%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '25px',
+                    width: '48%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '25px',
+                    width: '91%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '25px',
+                    width: '58%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '25px',
+                    width: '82%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '25px',
+                    width: '36%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '25px',
+                    width: '74%'
+                  }"
+                >
+                </square-skeleton>
+              </row>
+            </skeleton-loading>
             <div class="row">
               <div class="col-12 d-flex justify-content-center">
                 <b-list-group v-if="accounts.length">
@@ -238,6 +388,86 @@
             centered
             hide-footer
           >
+            <skeleton-loading v-if="!post.body" class="p-3 col-12">
+              <row
+                :gutter="{
+                  bottom: '15px'
+                }"
+              >
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '30px',
+                    width: '82%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '30px',
+                    width: '36%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '30px',
+                    width: '74%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '30px',
+                    width: '48%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '30px',
+                    width: '91%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '30px',
+                    width: '58%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '30px',
+                    width: '82%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '30px',
+                    width: '36%'
+                  }"
+                >
+                </square-skeleton>
+                <square-skeleton
+                  :boxProperties="{
+                    top: '10px',
+                    height: '30px',
+                    width: '74%'
+                  }"
+                >
+                </square-skeleton>
+              </row>
+            </skeleton-loading>
             <div v-if="post.body">
               <vue-markdown
                 :source="post.body"
@@ -752,11 +982,20 @@ export default {
     VueMarkdown
   },
   computed: {
-    ...mapState(['voters', 'accounts', 'dailyBudget', 'globalProperties', 'language', 'proposalVoters', 'returningProposal', 'post']),
+    ...mapState([
+      "voters",
+      "accounts",
+      "dailyBudget",
+      "globalProperties",
+      "language",
+      "proposalVoters",
+      "returningProposal",
+      "post"
+    ]),
     ...mapGetters({
-      proposals: 'proposalsByVotesStatus',
-      totalProposalsByVotesStatus: 'totalProposalsByVotesStatus',
-      totalProposals: 'totalProposals'
+      proposals: "proposalsByVotesStatus",
+      totalProposalsByVotesStatus: "totalProposalsByVotesStatus",
+      totalProposals: "totalProposals"
     })
   },
   methods: {
@@ -818,7 +1057,7 @@ export default {
       this.proposalId = id;
       this.$refs["modal-voting"].show();
     },
-    async showPostModal(id, creator, permlink, subject) {
+    showPostModal(id, creator, permlink, subject) {
       this.proposalSubject = subject;
       this.proposalId = id;
       const renderer = new DefaultRenderer({
@@ -836,9 +1075,10 @@ export default {
         hashtagUrlFn: hashtag => "/trending/" + hashtag,
         isLinkSafeFn: url => true
       });
-      await this.$store.dispatch("fetchPost", [creator, permlink]);
-      this.post.body = renderer.render(this.post.body);
       this.$refs["modal-post"].show();
+      this.$store.dispatch("fetchPost", [creator, permlink]).then(() => {
+        this.post.body = renderer.render(this.post.body);
+      });
     },
     updateModel(model, value) {
       if (model === "user") {

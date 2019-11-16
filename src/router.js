@@ -11,45 +11,46 @@ const router = new Router({
     {
       path: "/",
       name: "Home",
-      component: () => import(/* webpackChunkName: "Home" */ "./pages/HomePage.vue")
+      component: () => import(/* webpackChunkName: "Home" */ "./pages/Home/HomePage.vue")
     },
     {
       path: "/about",
       name: "About",
       component: () =>
-        import(/* webpackChunkName: "About" */ "./pages/AboutPage.vue")
+        import(/* webpackChunkName: "About" */ "./pages/About/AboutPage.vue")
     },
     {
       path: "/faq",
       name: "FAQ",
-      component: () => import(/* webpackChunkName: "FAQ" */ "./pages/FAQPage.vue")
+      component: () => import(/* webpackChunkName: "FAQ" */ "./pages/FAQ/FAQPage.vue")
     },
     {
       path: "/proposal/:id",
       name: "ProposalVote",
       props: true,
-      component: () => import(/* webpackChunkName: "Vote" */ "./pages/VotePage.vue")
+      component: () => import(/* webpackChunkName: "Vote" */ "./pages/Vote/VotePage.vue")
     },
     {
       path: "/proposals",
       component: () =>
-        import(/* webpackChunkName: "Dashboard" */ "./pages/DashboardPage.vue"),
+        import(/* webpackChunkName: "Dashboard" */ "./pages/Dashboard/DashboardPage.vue"),
       children: [
         {
           path: "/",
+          name: "Proposals",
           component: () =>
-            import(/* webpackChunkName: "Proposals" */ "./pages/ProposalsPage.vue")
+            import(/* webpackChunkName: "Proposals" */ "./pages/Proposals/ProposalsPage.vue")
         },
         {
           path: "workers",
           component: () =>
-            import(/* webpackChunkName: "Workers" */ "./pages/WorkersPage.vue")
+            import(/* webpackChunkName: "Workers" */ "./pages/Workers/WorkersPage.vue")
         },
         {
           path: "createproposal",
           component: () =>
             import(
-              /* webpackChunkName: "CreateProposal" */ "./pages/CreateProposalPage.vue"
+              /* webpackChunkName: "CreateProposal" */ "./pages/CreateProposal/CreateProposalPage.vue"
             )
         }
       ]
@@ -60,7 +61,7 @@ const router = new Router({
       props: true,
       component: () =>
         import(
-          /* webpackChunkName: "WorkerProposals" */ "./pages/WorkerProposalsPage.vue"
+          /* webpackChunkName: "WorkerProposals" */ "./pages/WorkerProposals/WorkerProposalsPage.vue"
         )
     },
     {
@@ -68,7 +69,7 @@ const router = new Router({
       name: "NotFound",
       component: () =>
         import(
-          /* webpackChunkName: "PageNotFound" */ "./pages/PageNotFound.vue"
+          /* webpackChunkName: "PageNotFound" */ "./pages/PageNotFound/PageNotFound.vue"
         )
     }
   ]

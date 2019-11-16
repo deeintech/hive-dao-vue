@@ -2,13 +2,13 @@
   <div id="app">
     <AppHeader />
     <router-view />
-    <AppFooter
+    <!-- <AppFooter
       v-if="
         $route.name != 'NotFound' &&
           $route.name != 'ProposalVote' &&
           $route.name != 'Login'
       "
-    />
+    /> -->
   </div>
 </template>
 <script>

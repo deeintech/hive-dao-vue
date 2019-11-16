@@ -2,7 +2,6 @@
   <div class="main-content">
     <section
       class="slice slice-lg bg-gradient-primary"
-      data-offset-top="#header-main"
     >
       <div class="container pt-5">
         <div class="row">
@@ -15,7 +14,6 @@
     </section>
     <section
       class="section-half-rounded pb-100 bg-section-secondary"
-      data-offset-top="#header-main"
     >
       <div class="section-inner bg-section-secondary"></div>
       <div class="container pt-6 py-lg-8" id="sps">
@@ -39,7 +37,7 @@
           <div class="col-lg-6 order-lg-2 ml-lg-auto">
             <img
               alt="Community"
-              src="../assets/img/random/img-1-1000x900.jpg"
+              src="@/assets/img/random/img-1-1000x900.jpg"
               class="img-center img-fluid rounded shadow-lg"
             />
           </div>

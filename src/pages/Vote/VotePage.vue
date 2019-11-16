@@ -59,7 +59,7 @@
                   {{ $t("keychain.voteWithLabel") }}
                   <img
                     class="icon-small ml-1"
-                    src="../assets/img/random/keychain.png"
+                    src="@/assets/img/random/keychain.png"
                   />
                 </button>
               </b-form-group>
@@ -78,15 +78,86 @@
       centered
       hide-footer
     >
-      <div class="row">
-        <div
-          class="col-12 d-flex justify-content-center"
-          v-if="!accounts.length"
+      <skeleton-loading v-if="!accounts.length" class="p-3 col-12">
+        <row
+          :gutter="{
+            bottom: '15px'
+          }"
         >
-          <b-spinner label="Spinning"></b-spinner>
-          <span class="ml-3">{{ $t("common.loadingVotes") }}</span>
-        </div>
-      </div>
+          <square-skeleton
+            :boxProperties="{
+              top: '10px',
+              height: '25px',
+              width: '82%'
+            }"
+          >
+          </square-skeleton>
+          <square-skeleton
+            :boxProperties="{
+              top: '10px',
+              height: '25px',
+              width: '36%'
+            }"
+          >
+          </square-skeleton>
+          <square-skeleton
+            :boxProperties="{
+              top: '10px',
+              height: '25px',
+              width: '74%'
+            }"
+          >
+          </square-skeleton>
+          <square-skeleton
+            :boxProperties="{
+              top: '10px',
+              height: '25px',
+              width: '48%'
+            }"
+          >
+          </square-skeleton>
+          <square-skeleton
+            :boxProperties="{
+              top: '10px',
+              height: '25px',
+              width: '91%'
+            }"
+          >
+          </square-skeleton>
+          <square-skeleton
+            :boxProperties="{
+              top: '10px',
+              height: '25px',
+              width: '58%'
+            }"
+          >
+          </square-skeleton>
+          <square-skeleton
+            :boxProperties="{
+              top: '10px',
+              height: '25px',
+              width: '82%'
+            }"
+          >
+          </square-skeleton>
+          <square-skeleton
+            :boxProperties="{
+              top: '10px',
+              height: '25px',
+              width: '36%'
+            }"
+          >
+          </square-skeleton>
+          <square-skeleton
+            :boxProperties="{
+              top: '10px',
+              height: '25px',
+              width: '74%'
+            }"
+          >
+          </square-skeleton>
+        </row>
+      </skeleton-loading>
       <div class="row">
         <div class="col-12 d-flex justify-content-center">
           <b-list-group v-if="accounts.length">
@@ -212,7 +283,7 @@
                     <i
                       ><img
                         class="icon-small ml-1"
-                        src="../assets/img/random/keychain.png"
+                        src="@/assets/img/random/keychain.png"
                     /></i>
                     <span class="btn-inner--text">{{
                       $t("vote.supportWith")
@@ -226,7 +297,7 @@
                     <i
                       ><img
                         class="icon-small ml-1"
-                        src="../assets/img/random/steemconnect.png"
+                        src="@/assets/img/random/steemconnect.png"
                     /></i>
                     <span class="btn-inner--text">{{
                       $t("vote.supportWith")
@@ -354,7 +425,14 @@ export default {
   name: "ProposalVote",
   props: ["id"],
   computed: {
-    ...mapState(['proposal', 'voters', 'accounts', 'totalProposalVoters', 'proposalVoters', 'returningProposal'])
+    ...mapState([
+      "proposal",
+      "voters",
+      "accounts",
+      "totalProposalVoters",
+      "proposalVoters",
+      "returningProposal"
+    ])
   },
   data() {
     return {
@@ -411,7 +489,7 @@ export default {
       }
     },
     fetchProposalById() {
-      this.$store.dispatch("proposals/fetchProposalById", Number(this.id));
+      this.$store.dispatch("fetchProposalById", Number(this.id));
     },
     totalValue() {
       let proposalSP = this.proposal.total_votes;
@@ -431,7 +509,7 @@ export default {
       this.$refs["modal-voters"].show();
     },
     setProposalVoters() {
-      this.$store.dispatch("voters/setProposalVoters", Number(this.id));
+      this.$store.dispatch("setProposalVoters", Number(this.id));
     },
     updateModel(model, value) {
       if (model === "user") {
