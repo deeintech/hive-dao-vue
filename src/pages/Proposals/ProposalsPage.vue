@@ -3,96 +3,8 @@
     <section class="slice bg-section-secondary">
       <div class="container px-0">
         <!-- Stats -->
-        <div class="mb-md-5 mb-sm-2">
-          <AppStats />
-        </div>
-        <div class="row">
-          <div
-            class="col-12 d-flex justify-content-center"
-            v-if="totalProposals === 0"
-          >
-            <skeleton-loading v-if="!totalProposals > 0" class="p-3 col-12">
-              <row
-                :gutter="{
-                  bottom: '15px'
-                }"
-              >
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '35px',
-                    width: '82%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '35px',
-                    width: '36%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '35px',
-                    width: '74%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '35px',
-                    width: '48%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '35px',
-                    width: '91%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '35px',
-                    width: '58%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '35px',
-                    width: '82%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '35px',
-                    width: '36%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '35px',
-                    width: '74%'
-                  }"
-                >
-                </square-skeleton>
-              </row>
-            </skeleton-loading>
-          </div>
-        </div>
+        <AppStats />
+        <SkeletonLoading v-if="!totalProposals > 0" class="ml-3" />
         <div class="mb-5" v-if="totalProposals > 0">
           <!-- Voting modal -->
           <b-modal
@@ -101,116 +13,13 @@
             centered
             hide-footer
           >
-            <div v-if="proposalId === 0" class="mb-5">
-              <p>
-                {{ $t("proposals.returnProposalInfo1") }}
-                {{ $t("proposals.returnProposalInfo2") }}
-              </p>
-              <p>{{ $t("proposals.returnProposalInfo5") }}</p>
-            </div>
-            <div
-              class="timeline timeline-one-side"
-              data-timeline-content="axis"
-            >
-              <b-form @submit.prevent="keychainVote(user, voteStatus)">
-                <div class="timeline-block">
-                  <span
-                    class="timeline-step timeline-step-sm border-dark"
-                  ></span>
-                  <div class="timeline-content pt-1">
-                    <h6>{{ $t("keychain.inputLabel") }}</h6>
-                    <b-form-group>
-                      <b-form-input
-                        id="user"
-                        @input="updateModel('user', $event)"
-                        type="text"
-                        size="sm"
-                        required
-                        :placeholder="`${$t('keychain.placeholder')}`"
-                      >
-                      </b-form-input>
-                    </b-form-group>
-                  </div>
-                </div>
-                <div class="timeline-block">
-                  <span
-                    class="timeline-step timeline-step-sm border-dark"
-                  ></span>
-                  <div class="timeline-content pt-2">
-                    <h6>{{ $t("keychain.voteLabel1") }}</h6>
-                    <b-form-group>
-                      <b-form-checkbox
-                        @change="updateModel('voteStatus', !voteStatus)"
-                        name="vote-button"
-                        switch
-                        checked="true"
-                      >
-                        <b>{{
-                          voteStatus
-                            ? $t("keychain.voteApprove")
-                            : $t("keychain.voteRemove")
-                        }}</b>
-                      </b-form-checkbox>
-                    </b-form-group>
-                  </div>
-                </div>
-                <div class="timeline-block">
-                  <span
-                    class="timeline-step timeline-step-sm border-dark"
-                  ></span>
-                  <div class="timeline-content pt-2">
-                    <h6>{{ $t("keychain.voteLabel3") }}</h6>
-                    <b-form-group>
-                      <button
-                        class="btn btn-light btn-sm"
-                        type="submit"
-                        variant="light"
-                      >
-                        {{ $t("keychain.voteWithLabel") }}
-                        <img
-                          class="icon-small ml-1"
-                          src="@/assets/img/random/keychain.png"
-                        />
-                      </button>
-                      <button
-                        @click="steemconnectVote(voteStatus)"
-                        class="btn btn-light btn-sm"
-                        type="button"
-                        variant="light"
-                      >
-                        {{ $t("keychain.voteWithLabel") }}
-                        <img
-                          class="icon-small ml-1"
-                          src="@/assets/img/random/steemconnect.png"
-                        />
-                      </button>
-                    </b-form-group>
-                  </div>
-                </div>
-              </b-form>
-            </div>
-            <hr class="mb-3" />
-            <div class="d-flex justify-content-between">
-              <router-link
-                class="text-dark"
-                :to="`proposal/${proposalId}`"
-                target="_blank"
-                >{{ $t("common.shareOnSocial") }}
-                <i class="far fa-share-square"></i
-              ></router-link>
-              <div
-                style="cursor:pointer"
-                v-b-tooltip.hover
-                :title="
-                  `${$t('keychain.devSupport1')} ${$t('keychain.devSupport2')}`
-                "
-                class="text-dark"
-                @click="witnessVoteKeychain(user)"
-              >
-                {{ $t("keychain.witnessVote2") }}
-                <i class="fas fa-laptop-code"></i>
-              </div>
-            </div>
+            <VotingModal
+              :proposalIdProp="proposalId"
+              :userProp="user"
+              :voteStatusProp="voteStatus"
+              :steemconnect="true"
+              :shareonsocial="true"
+            />
           </b-modal>
 
           <!-- Voters modal -->
@@ -222,164 +31,14 @@
             centered
             hide-footer
           >
-            <skeleton-loading v-if="!accounts.length" class="p-3 col-12">
-              <row
-                :gutter="{
-                  bottom: '15px'
-                }"
-              >
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '25px',
-                    width: '82%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '25px',
-                    width: '36%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '25px',
-                    width: '74%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '25px',
-                    width: '48%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '25px',
-                    width: '91%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '25px',
-                    width: '58%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '25px',
-                    width: '82%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '25px',
-                    width: '36%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '25px',
-                    width: '74%'
-                  }"
-                >
-                </square-skeleton>
-              </row>
-            </skeleton-loading>
-            <div class="row">
-              <div class="col-12 d-flex justify-content-center">
-                <b-list-group v-if="accounts.length">
-                  <h5>
-                    {{ $t("vote.supportedByCommunity") }} ({{
-                      proposalVoters.length
-                    }}):
-                  </h5>
-                  <b-list-group-item
-                    v-for="(voter, index) in proposalVoters"
-                    :key="index"
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <div class="avatar rounded-circle">
-                      <a
-                        :href="`https://steemit.com/@${voter.voter}`"
-                        target="_blank"
-                      >
-                        <img
-                          :src="
-                            `https://steemitimages.com/u/${voter.voter}/avatar`
-                          "
-                        />
-                      </a>
-                    </div>
-                    <a
-                      v-if="voter.proxyAccount === ''"
-                      class="text-dark"
-                      :href="`https://steemit.com/@${voter.voter}`"
-                      target="_blank"
-                      >@{{ voter.voter }}</a
-                    >
-                    <a
-                      v-else
-                      class="text-dark"
-                      :href="`https://steemit.com/@${voter.voter}`"
-                      target="_blank"
-                      v-b-tooltip.hover
-                      :title="
-                        `${$t('common.proxied1')} @${voter.proxyAccount}${$t(
-                          'common.proxied2'
-                        )}`
-                      "
-                      ><strike>@{{ voter.voter }}</strike></a
-                    >
-                    <b-badge
-                      v-if="voter.proxyAccount === ''"
-                      variant="light"
-                      class="p-2"
-                      >{{ voter.sp | numeric3 }} SP + <br />{{
-                        voter.proxySP | numeric3
-                      }}
-                      SP {{ $t("common.proxy") }}</b-badge
-                    >
-                    <b-badge
-                      v-else
-                      variant="light"
-                      class="p-2"
-                      v-b-tooltip.hover
-                      :title="
-                        `${$t('common.proxied1')} @${voter.proxyAccount}${$t(
-                          'common.proxied2'
-                        )}`
-                      "
-                      ><strike
-                        >{{ voter.sp | numeric3 }} SP + <br />{{
-                          voter.proxySP | numeric3
-                        }}
-                        SP {{ $t("common.proxy") }}</strike
-                      ></b-badge
-                    >
-                  </b-list-group-item>
-                </b-list-group>
-              </div>
-            </div>
+            <SkeletonLoading v-if="!accounts.length" />
+            <VotersModal
+              :accounts="accounts"
+              :proposalVoters="proposalVoters"
+            />
           </b-modal>
 
-          <!-- Post modal -->
+          <!-- Post preview modal -->
           <b-modal
             size="lg"
             scrollable
@@ -388,86 +47,7 @@
             centered
             hide-footer
           >
-            <skeleton-loading v-if="!post.body" class="p-3 col-12">
-              <row
-                :gutter="{
-                  bottom: '15px'
-                }"
-              >
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '30px',
-                    width: '82%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '30px',
-                    width: '36%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '30px',
-                    width: '74%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '30px',
-                    width: '48%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '30px',
-                    width: '91%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '30px',
-                    width: '58%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '30px',
-                    width: '82%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '30px',
-                    width: '36%'
-                  }"
-                >
-                </square-skeleton>
-                <square-skeleton
-                  :boxProperties="{
-                    top: '10px',
-                    height: '30px',
-                    width: '74%'
-                  }"
-                >
-                </square-skeleton>
-              </row>
-            </skeleton-loading>
+            <SkeletonLoading v-if="!post.body" />
             <div v-if="post.body">
               <vue-markdown
                 :source="post.body"
@@ -974,12 +554,18 @@ import { mapState, mapGetters } from "vuex";
 import { i18n } from "@/utils/plugins/i18n.js";
 import VueMarkdown from "vue-markdown";
 import { DefaultRenderer } from "steem-content-renderer";
+import VotingModal from "@/components/VotingModal";
+import SkeletonLoading from "@/components/SkeletonLoading";
+import VotersModal from "@/components/VotersModal";
 
 export default {
   name: "Proposals",
   components: {
     AppStats,
-    VueMarkdown
+    VueMarkdown,
+    VotingModal,
+    SkeletonLoading,
+    VotersModal
   },
   computed: {
     ...mapState([
@@ -999,55 +585,6 @@ export default {
     })
   },
   methods: {
-    keychainVote(user, voteStatus) {
-      if (window.steem_keychain && user !== "") {
-        steem_keychain.requestBroadcast(
-          user,
-          [
-            [
-              "update_proposal_votes",
-              {
-                voter: user,
-                proposal_ids: [`${this.proposalId}`],
-                approve: `${voteStatus}`
-              }
-            ]
-          ],
-          "Active",
-          function(response) {
-            if (response.success) {
-              return response;
-            } else {
-              return response.success;
-            }
-          }
-        );
-      } else {
-        return [];
-      }
-    },
-    witnessVoteKeychain(user) {
-      if (window.steem_keychain && user !== "") {
-        steem_keychain.requestWitnessVote(user, "dmitrydao", true, function(
-          response
-        ) {
-          if (response.success) {
-            return response;
-          } else {
-            return response.success;
-          }
-        });
-      } else {
-        return [];
-      }
-    },
-    steemconnectVote(voteStatus) {
-      if (this.user !== "") {
-        window.open(
-          `https://beta.steemconnect.com/sign/update-proposal-votes?proposal_ids=[${this.proposalId}]&approve=${voteStatus}`
-        );
-      }
-    },
     loadVoters(id) {
       this.proposalId = id;
       this.$refs["modal-voters2"].show();
@@ -1079,17 +616,6 @@ export default {
       this.$store.dispatch("fetchPost", [creator, permlink]).then(() => {
         this.post.body = renderer.render(this.post.body);
       });
-    },
-    updateModel(model, value) {
-      if (model === "user") {
-        this.user = value;
-      }
-      if (model === "voteStatus") {
-        this.voteStatus = value;
-      }
-      if (model === "filter") {
-        this.filter = value;
-      }
     },
     proposalSearch(event) {
       clearTimeout(this.debounce);

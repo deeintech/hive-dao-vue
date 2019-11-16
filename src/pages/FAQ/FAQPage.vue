@@ -16,7 +16,7 @@
     <section class="slice slice-lg bg-section-secondary" id="sct-faq">
       <div class="container">
         <div class="row">
-          <div class="col-lg-8 offset-md-2">
+          <div class="col-lg-8">
             <div class="mb-5">
               <h4 class="mb-4">{{ $t("faq.category1") }}</h4>
               <div class="accordion accordion-spaced">

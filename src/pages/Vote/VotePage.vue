@@ -2,71 +2,18 @@
   <div>
     <!-- Voting modal -->
     <b-modal
-      id="vote"
+      ref="modal-voting"
       :title="`${$t('vote.supportingProposal')}`"
       centered
       hide-footer
     >
-      <div class="timeline timeline-one-side" data-timeline-content="axis">
-        <b-form @submit.prevent="keychainVote(user, voteStatus)">
-          <div class="timeline-block">
-            <span class="timeline-step timeline-step-sm border-dark"></span>
-            <div class="timeline-content pt-1">
-              <h6>{{ $t("keychain.inputLabel") }}</h6>
-              <b-form-group>
-                <b-form-input
-                  id="user"
-                  @input="updateModel('user', $event)"
-                  type="text"
-                  size="sm"
-                  required
-                  :placeholder="`${$t('keychain.placeholder')}`"
-                >
-                </b-form-input>
-              </b-form-group>
-            </div>
-          </div>
-          <div class="timeline-block">
-            <span class="timeline-step timeline-step-sm border-dark"></span>
-            <div class="timeline-content pt-2">
-              <h6>{{ $t("keychain.voteLabel1") }}</h6>
-              <b-form-group>
-                <b-form-checkbox
-                  @change="updateModel('voteStatus', !voteStatus)"
-                  name="vote-button"
-                  switch
-                  checked="true"
-                >
-                  <b>{{
-                    voteStatus
-                      ? $t("keychain.voteApprove")
-                      : $t("keychain.voteRemove")
-                  }}</b>
-                </b-form-checkbox>
-              </b-form-group>
-            </div>
-          </div>
-          <div class="timeline-block">
-            <span class="timeline-step timeline-step-sm border-dark"></span>
-            <div class="timeline-content pt-2">
-              <h6>{{ $t("keychain.voteLabel3") }}</h6>
-              <b-form-group>
-                <button
-                  class="btn btn-light btn-sm"
-                  type="submit"
-                  variant="light"
-                >
-                  {{ $t("keychain.voteWithLabel") }}
-                  <img
-                    class="icon-small ml-1"
-                    src="@/assets/img/random/keychain.png"
-                  />
-                </button>
-              </b-form-group>
-            </div>
-          </div>
-        </b-form>
-      </div>
+      <VotingModal
+        :proposalIdProp="parseInt(id)"
+        :userProp="user"
+        :voteStatusProp="voteStatus"
+        :steemconnect="false"
+        :shareonsocial="false"
+      />
     </b-modal>
 
     <!-- Voters modal -->
@@ -74,159 +21,12 @@
       size="md"
       scrollable
       ref="modal-voters"
-      :title="`${$t('proposals.proposalVoters')}`"
+      :title="`${$t('proposals.proposalVoters')} (#${id})`"
       centered
       hide-footer
     >
-      <skeleton-loading v-if="!accounts.length" class="p-3 col-12">
-        <row
-          :gutter="{
-            bottom: '15px'
-          }"
-        >
-          <square-skeleton
-            :boxProperties="{
-              top: '10px',
-              height: '25px',
-              width: '82%'
-            }"
-          >
-          </square-skeleton>
-          <square-skeleton
-            :boxProperties="{
-              top: '10px',
-              height: '25px',
-              width: '36%'
-            }"
-          >
-          </square-skeleton>
-          <square-skeleton
-            :boxProperties="{
-              top: '10px',
-              height: '25px',
-              width: '74%'
-            }"
-          >
-          </square-skeleton>
-          <square-skeleton
-            :boxProperties="{
-              top: '10px',
-              height: '25px',
-              width: '48%'
-            }"
-          >
-          </square-skeleton>
-          <square-skeleton
-            :boxProperties="{
-              top: '10px',
-              height: '25px',
-              width: '91%'
-            }"
-          >
-          </square-skeleton>
-          <square-skeleton
-            :boxProperties="{
-              top: '10px',
-              height: '25px',
-              width: '58%'
-            }"
-          >
-          </square-skeleton>
-          <square-skeleton
-            :boxProperties="{
-              top: '10px',
-              height: '25px',
-              width: '82%'
-            }"
-          >
-          </square-skeleton>
-          <square-skeleton
-            :boxProperties="{
-              top: '10px',
-              height: '25px',
-              width: '36%'
-            }"
-          >
-          </square-skeleton>
-          <square-skeleton
-            :boxProperties="{
-              top: '10px',
-              height: '25px',
-              width: '74%'
-            }"
-          >
-          </square-skeleton>
-        </row>
-      </skeleton-loading>
-      <div class="row">
-        <div class="col-12 d-flex justify-content-center">
-          <b-list-group v-if="accounts.length">
-            <h5>{{ $t("vote.supportedByCommunity") }}:</h5>
-            <b-list-group-item
-              v-for="(voter, index) in proposalVoters"
-              :key="index"
-              class="d-flex justify-content-between align-items-center"
-            >
-              <div class="avatar rounded-circle">
-                <a
-                  :href="`https://steemit.com/@${voter.voter}`"
-                  target="_blank"
-                >
-                  <img
-                    :src="`https://steemitimages.com/u/${voter.voter}/avatar`"
-                  />
-                </a>
-              </div>
-              <a
-                v-if="voter.proxyAccount === ''"
-                class="text-dark"
-                :href="`https://steemit.com/@${voter.voter}`"
-                target="_blank"
-                >@{{ voter.voter }}</a
-              >
-              <a
-                v-else
-                class="text-dark"
-                :href="`https://steemit.com/@${voter.voter}`"
-                target="_blank"
-                v-b-tooltip.hover
-                :title="
-                  `${$t('common.proxied1')} @${voter.proxyAccount}${$t(
-                    'common.proxied2'
-                  )}`
-                "
-                ><strike>@{{ voter.voter }}</strike></a
-              >
-              <b-badge
-                v-if="voter.proxyAccount === ''"
-                variant="light"
-                class="p-2"
-                >{{ voter.sp | numeric3 }} SP + <br />{{
-                  voter.proxySP | numeric3
-                }}
-                SP {{ $t("common.proxy") }}</b-badge
-              >
-              <b-badge
-                v-else
-                variant="light"
-                class="p-2"
-                v-b-tooltip.hover
-                :title="
-                  `${$t('common.proxied1')} @${voter.proxyAccount}${$t(
-                    'common.proxied2'
-                  )}`
-                "
-                ><strike
-                  >{{ voter.sp | numeric3 }} SP + <br />{{
-                    voter.proxySP | numeric3
-                  }}
-                  SP {{ $t("common.proxy") }}</strike
-                ></b-badge
-              >
-            </b-list-group-item>
-          </b-list-group>
-        </div>
-      </div>
+      <SkeletonLoading v-if="!accounts.length" />
+      <VotersModal :accounts="accounts" :proposalVoters="proposalVoters" />
     </b-modal>
 
     <!-- Error -->
@@ -278,7 +78,7 @@
                 <div class="mt-6">
                   <a
                     class="btn btn-app-store hover-translate-y-n3 mr-lg-4 mb-4 text-left"
-                    @click="$bvModal.show('vote')"
+                    @click="showVotingModal()"
                   >
                     <i
                       ><img
@@ -421,6 +221,10 @@
 
 <script>
 import { mapState, mapGetters } from "vuex";
+import SkeletonLoading from "@/components/SkeletonLoading";
+import VotersModal from "@/components/VotersModal";
+import VotingModal from "@/components/VotingModal";
+
 export default {
   name: "ProposalVote",
   props: ["id"],
@@ -434,6 +238,11 @@ export default {
       "returningProposal"
     ])
   },
+  components: {
+    SkeletonLoading,
+    VotersModal,
+    VotingModal
+  },
   data() {
     return {
       user: "",
@@ -441,52 +250,10 @@ export default {
     };
   },
   methods: {
-    keychainVote(user, approve) {
-      if (window.steem_keychain && user !== "") {
-        steem_keychain.requestBroadcast(
-          user,
-          [
-            [
-              "update_proposal_votes",
-              {
-                voter: user,
-                proposal_ids: [`${this.id}`],
-                approve: `${approve}`
-              }
-            ]
-          ],
-          "Active",
-          function(response) {
-            if (response.success) {
-              return response;
-            } else {
-              return response.success;
-            }
-          }
-        );
-      } else {
-        return [];
-      }
-    },
     steemconnectVote(approve) {
       window.open(
         `https://beta.steemconnect.com/sign/update-proposal-votes?proposal_ids=[${this.id}]&approve=${approve}`
       );
-    },
-    witnessVoteKeychain(user) {
-      if (window.steem_keychain && user !== "") {
-        steem_keychain.requestWitnessVote(user, "dmitrydao", true, function(
-          response
-        ) {
-          if (response.success) {
-            return response;
-          } else {
-            return response.success;
-          }
-        });
-      } else {
-        return [];
-      }
     },
     fetchProposalById() {
       this.$store.dispatch("fetchProposalById", Number(this.id));
@@ -508,16 +275,11 @@ export default {
     loadVoters() {
       this.$refs["modal-voters"].show();
     },
+    showVotingModal() {
+      this.$refs["modal-voting"].show();
+    },
     setProposalVoters() {
       this.$store.dispatch("setProposalVoters", Number(this.id));
-    },
-    updateModel(model, value) {
-      if (model === "user") {
-        this.user = value;
-      }
-      if (model === "voteStatus") {
-        this.voteStatus = value;
-      }
     }
   },
   created() {
