@@ -5,8 +5,7 @@
       ref="modal-voting"
       :title="`${$t('vote.supportingProposal')}`"
       centered
-      hide-footer
-    >
+      hide-footer>
       <VotingModal
         :proposalIdProp="parseInt(id)"
         :userProp="user"
@@ -23,8 +22,7 @@
       ref="modal-voters"
       :title="`${$t('proposals.proposalVoters')} (#${id})`"
       centered
-      hide-footer
-    >
+      hide-footer>
       <SkeletonLoading v-if="!accounts.length" />
       <VotersModal :accounts="accounts" :proposalVoters="proposalVoters" />
     </b-modal>

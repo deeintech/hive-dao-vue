@@ -67,8 +67,8 @@
 <script>
 export default {
   props: {
-      proposalVoters: Array,
-      accounts: Array
+    proposalVoters: Array,
+    accounts: Array
   }
 };
 </script>

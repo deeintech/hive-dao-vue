@@ -193,9 +193,6 @@ export default {
       if (model === "voteStatus") {
         this.voteStatus = value;
       }
-      if (model === "filter") {
-        this.filter = value;
-      }
     }
   }
 };

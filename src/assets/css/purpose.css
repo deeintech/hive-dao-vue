@@ -2118,17 +2118,17 @@ pre code {
   background-color: #f2f2f2;
 }
 
-.table-active,
-.table-active > th,
-.table-active > td {
+.table-passing,
+.table-passing > th,
+.table-passing > td {
   background-color: #FAFBFE;
 }
 
-.table-hover .table-active:hover {
+.table-hover .table-passing:hover {
   background-color: #e5eafa;
 }
-.table-hover .table-active:hover > td,
-.table-hover .table-active:hover > th {
+.table-hover .table-passing:hover > td,
+.table-hover .table-passing:hover > th {
   background-color: #e5eafa;
 }
 
@@ -26362,20 +26362,20 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 .table.table-padded.table-expired tbody td:first-child{
   border-left: solid #FF5630 4pt;
 }
-.table.table-padded.table-active tbody td:first-child{
+.table.table-padded.table-passing tbody td:first-child{
   border-left: solid #36B37E 4pt;
 }
-.table.table-padded.table-inactive tbody td:first-child{
+.table.table-padded.table-insufficient tbody td:first-child{
   border-left: solid #FFAB00 4pt;
 }
 
-/* .table.table-padded.table-active tbody td .badge-active a,
-.table.table-padded.table-active tbody td .badge-inactive a,
-.table.table-padded.table-active tbody td .badge-expired a,
-.table.table-padded.table-active tbody td .badge-votable a{
+/* .table.table-padded.table-passing tbody td .badge-active a,
+.table.table-padded.table-passing tbody td .badge-inactive a,
+.table.table-padded.table-passing tbody td .badge-expired a,
+.table.table-padded.table-passing tbody td .badge-votable a{
   color: #FFF;
 } */
-.table.table-padded.table-active tbody td .badge-active{
+.table.table-padded.table-passing tbody td .badge-active{
   background-color: #36B37E;
 }
 .table.table-padded.table-expired tbody td .badge-expired{
@@ -27686,7 +27686,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   color: #6e00ff;
 }
 
-.table.table-padded.table-inactive thead tr th, .table.table-padded.table-limit thead tr th {
+.table.table-padded.table-insufficient thead tr th, .table.table-padded.table-limit thead tr th {
   display: none;
 }
 
