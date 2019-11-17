@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import store from "@/store/store";
 import { i18n } from "@/utils/plugins/i18n.js";
+import ProposalsPage from "@/pages/Proposals/ProposalsPage.vue";
 
 Vue.use(Router);
 
@@ -11,46 +12,52 @@ const router = new Router({
     {
       path: "/",
       name: "Home",
-      component: () => import(/* webpackChunkName: "Home" */ "./pages/Home/HomePage.vue")
+      component: () =>
+        import(/* webpackChunkName: "Home" */ "@/pages/Home/HomePage.vue")
     },
     {
       path: "/about",
       name: "About",
       component: () =>
-        import(/* webpackChunkName: "About" */ "./pages/About/AboutPage.vue")
+        import(/* webpackChunkName: "About" */ "@/pages/About/AboutPage.vue")
     },
     {
       path: "/faq",
       name: "FAQ",
-      component: () => import(/* webpackChunkName: "FAQ" */ "./pages/FAQ/FAQPage.vue")
+      component: () =>
+        import(/* webpackChunkName: "FAQ" */ "@/pages/FAQ/FAQPage.vue")
     },
     {
       path: "/proposal/:id",
       name: "ProposalVote",
       props: true,
-      component: () => import(/* webpackChunkName: "Vote" */ "./pages/Vote/VotePage.vue")
+      component: () =>
+        import(/* webpackChunkName: "Vote" */ "@/pages/Vote/VotePage.vue")
     },
     {
       path: "/proposals",
       component: () =>
-        import(/* webpackChunkName: "Dashboard" */ "./pages/Dashboard/DashboardPage.vue"),
+        import(
+          /* webpackChunkName: "Dashboard" */ "@/pages/Dashboard/DashboardPage.vue"
+        ),
       children: [
         {
           path: "/",
           name: "Proposals",
-          component: () =>
-            import(/* webpackChunkName: "Proposals" */ "./pages/Proposals/ProposalsPage.vue")
+          component: ProposalsPage
         },
         {
           path: "workers",
           component: () =>
-            import(/* webpackChunkName: "Workers" */ "./pages/Workers/WorkersPage.vue")
+            import(
+              /* webpackChunkName: "Workers" */ "@/pages/Workers/WorkersPage.vue"
+            )
         },
         {
           path: "createproposal",
           component: () =>
             import(
-              /* webpackChunkName: "CreateProposal" */ "./pages/CreateProposal/CreateProposalPage.vue"
+              /* webpackChunkName: "CreateProposal" */ "@/pages/CreateProposal/CreateProposalPage.vue"
             )
         }
       ]
@@ -61,7 +68,7 @@ const router = new Router({
       props: true,
       component: () =>
         import(
-          /* webpackChunkName: "WorkerProposals" */ "./pages/WorkerProposals/WorkerProposalsPage.vue"
+          /* webpackChunkName: "WorkerProposals" */ "@/pages/WorkerProposals/WorkerProposalsPage.vue"
         )
     },
     {
@@ -69,7 +76,7 @@ const router = new Router({
       name: "NotFound",
       component: () =>
         import(
-          /* webpackChunkName: "PageNotFound" */ "./pages/PageNotFound/PageNotFound.vue"
+          /* webpackChunkName: "PageNotFound" */ "@/pages/PageNotFound/PageNotFound.vue"
         )
     }
   ]

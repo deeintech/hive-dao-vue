@@ -2,18 +2,22 @@
   <div id="app">
     <AppHeader />
     <router-view />
-    <!-- <AppFooter
+    <AppFooter
       v-if="
         $route.name != 'NotFound' &&
           $route.name != 'ProposalVote' &&
           $route.name != 'Login'
       "
-    /> -->
+    />
   </div>
 </template>
 <script>
 import AppHeader from "@/components/AppHeader.vue";
-import AppFooter from "@/components/AppFooter.vue";
+
+const AppFooter = () => ({
+  component: import("@/components/AppFooter.vue"),
+  timeout: 5000
+});
 
 export default {
   name: "app",
