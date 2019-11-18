@@ -18,6 +18,8 @@ export default {
     let newproposals = [];
     let dailyBudget = state.dailyBudget;
     let totalAvailableBudget = dailyBudget;
+    let fundedStake = 0;
+    let totalFundedStake = 0;
 
     newproposals = proposals
       .sort((a, b) => b.total_votes - a.total_votes)
@@ -52,20 +54,20 @@ export default {
 
         // funding
         totalAvailableBudget -= container.daily_pay;
-        if (totalAvailableBudget < 0) {
+        fundedStake = (100-((p.daily_pay.amount-dailyBudget)*100/p.daily_pay.amount)).toFixed(7);
+        totalFundedStake += fundedStake;
+
+        if (totalFundedStake <= 100) {
+          container.funding = {
+            availableBudget: totalAvailableBudget.toFixed(7),
+            fundedStake: fundedStake
+          };
+        } else {
           container.funding = {
             availableBudget: totalAvailableBudget.toFixed(0),
-            fundingStatus: 0
+            fundedStake: 0
           };
         }
-        if (totalAvailableBudget > 0) {
-          container.funding = {
-            availableBudget: totalAvailableBudget.toFixed(0),
-            fundingStatus: 100
-          };
-        }
-        // partial funding
-        // ..
 
         // returning/ burning status
         if (p.receiver === "steem.dao") {
