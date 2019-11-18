@@ -268,7 +268,7 @@
               totalProposalsByStatus("active")
             }}</span>
             <span class="d-block mt-2 h6">{{
-              $t("workers.proposalsInProgress")
+              $t("workers.activeProposals")
             }}</span>
           </div>
         </div>

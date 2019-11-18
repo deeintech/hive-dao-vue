@@ -145,7 +145,7 @@ export default {
         return account;
       })
       .catch(() => {
-        return [];
+        return {};
       });
   },
   async setBudget({ commit }, totalBudget) {

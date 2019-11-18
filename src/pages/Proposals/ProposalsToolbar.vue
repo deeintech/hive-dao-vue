@@ -20,13 +20,13 @@
               $t("common.allProposalsLabel")
             }}</option>
             <option value="active">{{
-              $t("common.startedProposalsLabel")
+              $t("common.activeProposalsLabel")
             }}</option>
             <option value="inactive">{{
-              $t("common.upcomingProposalsLabel")
+              $t("common.inactiveProposalsLabel")
             }}</option>
             <option value="expired">{{
-              $t("common.completedProposalsLabel")
+              $t("common.expiredProposalsLabel")
             }}</option>
             <option value="dmitrydao">{{
               $t("common.dmitrydaoProposalsLabel")

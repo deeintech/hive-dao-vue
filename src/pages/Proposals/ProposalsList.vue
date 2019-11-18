@@ -65,6 +65,7 @@
               }}</span>
             </div>
           </template>
+          
           <!-- Votes -->
           <template slot="total_votes" slot-scope="data">
             <span style="cursor:pointer" @click="loadVoters(data.item.id)"
@@ -82,8 +83,8 @@
             >
             <span v-if="data.item.status !== 'expired'">{{
               data.item.status === "active"
-                ? $t("common.startedProposalsLabel")
-                : $t("common.upcomingProposalsLabel")
+                ? $t("common.activeProposalsLabel")
+                : $t("common.inactiveProposalsLabel")
             }}</span
             ><br />
             <span v-if="data.item.status !== 'expired'"

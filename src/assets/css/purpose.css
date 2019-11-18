@@ -27399,17 +27399,17 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   border-radius: 0px 0px 4px 4px;
 }
 
-.pipeline.white.lined-success {
+.pipeline.white.lined-active {
   border-top: 5px solid #36B37E;
   border-radius: 0px 0px 4px 4px;
 }
 
-.pipeline.white.lined-danger {
+.pipeline.white.lined-inactive {
   border-top: 5px solid #FF5630;
   border-radius: 0px 0px 4px 4px;
 }
 
-.pipeline.white.lined-warning {
+.pipeline.white.lined-expired {
   border-top: 5px solid #FFAB00;
   border-radius: 0px 0px 4px 4px;
 }

@@ -40,15 +40,15 @@
                 <span class="ml-4">{{ $t("workers.workerStats") }}:</span>
                 <ul>
                   <li>
-                    {{ $t("workers.completedWorkerProposals") }}:
+                    {{ $t("workers.expiredProposals") }}:
                     {{ totalWorkerProposalsByStatus(worker, "expired") }}
                   </li>
                   <li>
-                    {{ $t("workers.proposalsInProgress") }}:
+                    {{ $t("workers.activeProposals") }}:
                     {{ totalWorkerProposalsByStatus(worker, "active") }}
                   </li>
                   <li>
-                    {{ $t("workers.upcomingProposals") }}:
+                    {{ $t("workers.inactiveProposals") }}:
                     {{ totalWorkerProposalsByStatus(worker, "inactive") }}
                   </li>
                 </ul>
