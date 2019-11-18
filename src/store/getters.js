@@ -1,9 +1,7 @@
 export default {
   // proposals
   proposalsByVotesStatus: state => (votesStatus, status) => {
-    let returning = state.proposals
-      .filter(p => p.receiver === "steem.dao" && p.funding.fundedStake > 0)
-      .sort((a, b) => a.total_votes - b.total_votes);
+    let returning = state.returnProposal
     if (returning.length && returning[0].total_votes !== 0) {
       let votes = returning[0].total_votes;
       let newproposals = [];

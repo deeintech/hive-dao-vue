@@ -23,6 +23,8 @@ export default {
       .then(response => {
         let proposals = response.data.result.proposals;
         commit("SET_PROPOSALS", proposals);
+        commit("SET_RETURNING_PROPOSAL", proposals);
+
         return proposals;
       })
       .catch(() => {

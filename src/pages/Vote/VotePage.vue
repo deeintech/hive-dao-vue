@@ -5,7 +5,8 @@
       ref="modal-voting"
       :title="`${$t('vote.supportingProposal')}`"
       centered
-      hide-footer>
+      hide-footer
+    >
       <VotingModal
         :proposalIdProp="parseInt(id)"
         :userProp="user"
@@ -22,7 +23,8 @@
       ref="modal-voters"
       :title="`${$t('proposals.proposalVoters')} (#${id})`"
       centered
-      hide-footer>
+      hide-footer
+    >
       <SkeletonLoading v-if="!accounts.length" />
       <VotersModal :accounts="accounts" :proposalVoters="proposalVoters" />
     </b-modal>
@@ -127,12 +129,26 @@
                     <strong class="h3">{{ totalProposalVoters || 0 }}</strong
                     ><span> {{ $t("vote.supportersLabel") }}</span>
                   </div>
-                  <!-- <b-progress id="tooltip1" height="2rem" variant="primary" :max="100">
-                <b-progress-bar :class="totalValue() < 10 ? 'text-dark pl-2' : 'text-white pl-2'" :value="totalValue() || 0" :label="`${totalValue() || 0}%`"></b-progress-bar>
-              </b-progress>
-              <b-tooltip target="tooltip1" triggers="hover">
-                <p v-if="returningProposal">{{$t('vote.totalVotesValue')}} {{totalProposalSP() | numeric3}} SP</p>
-              </b-tooltip> -->
+                  <b-progress
+                    id="tooltip1"
+                    height="2rem"
+                    variant="primary"
+                    :max="100"
+                  >
+                    <b-progress-bar
+                      :class="
+                        totalValue() < 10 ? 'text-dark pl-2' : 'text-white pl-2'
+                      "
+                      :value="totalValue() || 0"
+                      :label="`${totalValue() || 0}%`"
+                    ></b-progress-bar>
+                  </b-progress>
+                  <b-tooltip target="tooltip1" triggers="hover">
+                    <p v-if="returnProposal">
+                      {{ $t("vote.totalVotesValue") }}
+                      {{ totalProposalSP() | numeric3 }} SP
+                    </p>
+                  </b-tooltip>
                   <ul class="list-unstyled mt-4">
                     <li class="py-2">
                       <div class="d-flex align-items-center">
@@ -233,7 +249,7 @@ export default {
       "accounts",
       "totalProposalVoters",
       "proposalVoters",
-      "returningProposal"
+      "returnProposal"
     ])
   },
   components: {
@@ -257,10 +273,10 @@ export default {
       this.$store.dispatch("fetchProposalById", Number(this.id));
     },
     totalValue() {
-      let proposalSP = this.proposal.total_votes;
-      let returningSP = this.returningProposal.total_votes;
-      let value = 0;
-      if (this.proposal && this.returningProposal) {
+      if (this.proposal && this.returnProposal[0]) {
+        let proposalSP = this.proposal.total_votes;
+        let returningSP = this.returnProposal[0].total_votes;
+        let value = 0;
         value = Number((proposalSP / returningSP) * 100).toFixed(2);
         return Number(value);
       }

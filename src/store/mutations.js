@@ -112,22 +112,12 @@ export default {
     });
     state.proposal = proposal;
   },
-  SET_RETURNING_PROPOSAL: (state, proposal) => {
-    if (proposal !== undefined) {
-      Object.keys(proposal).map(p => {
-        if (p === "total_votes") {
-          proposal["total_votes"] =
-            (proposal["total_votes"] * state.steemPerMVest) / 1000000000;
-        }
-        if (p === "permlink") {
-          proposal[
-            "permlink"
-          ] = `https://steemit.com/@${proposal["creator"]}/${proposal["permlink"]}`;
-        } else {
-          proposal[p] = proposal[p];
-        }
-      });
-      state.returningProposal = proposal;
+  SET_RETURNING_PROPOSAL: (state, proposals) => {
+    if (proposals !== undefined) {
+      let proposal = state.proposals
+      .filter(p => p.receiver === "steem.dao" && p.funding.fundedStake > 0)
+      .sort((a, b) => a.total_votes - b.total_votes);
+      state.returnProposal = proposal;
     }
   },
   SET_VOTERS: (state, voters) => {
