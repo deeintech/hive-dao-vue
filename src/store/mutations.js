@@ -54,7 +54,7 @@ export default {
 
         // funding
         totalAvailableBudget -= container.daily_pay;
-        fundedStake = (100-((p.daily_pay.amount-dailyBudget)*100/p.daily_pay.amount)).toFixed(7);
+        fundedStake = (100-((container.daily_pay-dailyBudget)*100/container.daily_pay)).toFixed(4);
         totalFundedStake += fundedStake;
 
         if (totalFundedStake <= 100) {
