@@ -58,7 +58,7 @@
           :sort-desc.sync="proposalsSortDesc"
           :sort-direction="proposalsSortDirection"
         >
-          <template slot="empty">
+          <template v-slot:empty>
             <div class="d-flex justify-content-center">
               <span class="text-center mt-1">{{
                 $t("proposals.emptyState")
@@ -67,13 +67,13 @@
           </template>
           
           <!-- Votes -->
-          <template slot="total_votes" slot-scope="data">
+          <template v-slot:cell(total_votes)="data">
             <span style="cursor:pointer" @click="loadVoters(data.item.id)"
               >{{ data.item.total_votes | numeric }} SP</span
             >
           </template>
           <!-- Status -->
-          <template slot="status" slot-scope="data">
+          <template v-slot:cell(status)="data">
             <span class="badge badge-dot">
               <i class="bg-success"></i>
             </span>
@@ -93,7 +93,7 @@
             >
           </template>
           <!-- Description -->
-          <template slot="description" slot-scope="data">
+          <template v-slot:cell(description)="data">
             <div class="row">
               <div
                 class="media align-items-center col-md-2 d-none d-md-block mr-3"
@@ -161,18 +161,18 @@
             </div>
           </template>
           <!-- Duration -->
-          <template slot="duration" slot-scope="data">
+          <template v-slot:cell(duration)="data">
             {{ data.item.duration | numeric3 }} {{ $t("common.days") }}
           </template>
           <!-- Requested -->
-          <template slot="requested" slot-scope="data">
+          <template v-slot:cell(requested)="data">
             <div>{{ data.item.total_requested | numeric }} SBD</div>
             <div>
               {{ data.item.daily_pay | numeric }} SBD /
               {{ $t("common.day") }}
             </div>
           </template>
-          <template slot="funding" slot-scope="data">
+          <template v-slot:cell(funding)="data">
             <div
               v-b-tooltip.hover
               :title="
@@ -185,7 +185,7 @@
             </div>
           </template>
           <!-- Voting -->
-          <template slot="vote" slot-scope="data">
+          <template v-slot:cell(vote)="data">
             <button
               class="btn btn-sm btn-light text-dark"
               @click="showVotingModal(data.item.id)"

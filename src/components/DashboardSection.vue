@@ -16,7 +16,7 @@
         <div class="row">
           <div class="col-md-8">
             <b-tabs>
-              <template slot="tabs">
+              <template v-slot:tabs-end>
                 <b-nav-item
                   ><router-link to="/proposals" class="text-dark">{{
                     $t("common.proposalsLabel2")
