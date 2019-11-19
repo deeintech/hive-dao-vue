@@ -27698,3 +27698,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 .postImage a{
   opacity: 0.6;
 }
+
+.modal-header.close, button.close, button.close:hover {
+  color: rgb(0, 0, 0);
+}

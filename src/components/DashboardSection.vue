@@ -63,7 +63,7 @@
 import WitnessVoteModal from "@/components/WitnessVoteModal";
 
 export default {
-  name: "Dashboard",
+  name: "DashboardSection",
   components: {
     WitnessVoteModal
   },

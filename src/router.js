@@ -38,7 +38,7 @@ const router = new Router({
       path: "/proposals",
       component: () =>
         import(
-          /* webpackChunkName: "Dashboard" */ "@/pages/Dashboard/DashboardPage.vue"
+          /* webpackChunkName: "Dashboard" */ "@/components/DashboardSection.vue"
         ),
       children: [
         {

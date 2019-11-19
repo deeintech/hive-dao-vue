@@ -8,8 +8,8 @@ import { numeric, numeric3, daysLeft, dateFilter } from "@/utils/filters/filters
 import { i18n } from "@/utils/plugins/i18n.js";
 import VueSkeletonLoading from 'vue-skeleton-loading';
 
-import "./assets/css/purpose.css";
-import "./assets/js/all.min.js";
+import "@/assets/css/purpose.css";
+// import "./assets/js/all.min.js";
 import "pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css";
 
 Vue.config.productionTip = process.env.NODE_ENV === "production";

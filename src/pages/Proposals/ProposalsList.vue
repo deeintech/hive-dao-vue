@@ -224,7 +224,6 @@ export default {
       "globalProperties",
       "language",
       "proposalVoters",
-      "returningProposal",
       "post"
     ]),
     ...mapGetters({
@@ -286,8 +285,7 @@ export default {
         },
         {
           key: "status",
-          label: i18n.t("common.status"),
-          sortable: true
+          label: i18n.t("common.status")
         },
         {
           key: "duration",
