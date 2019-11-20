@@ -1,10 +1,10 @@
 <template>
   <header class="header header-transparent" id="header-main">
-    <b-navbar toggleable="md">
-      <b-navbar-brand class="d-none d-md-block d-xxl-none">
-        <router-link class="text-white" to="/">
+    <b-navbar>
+      <b-navbar-brand>
+        <router-link to="/">
           <img
-            src="../assets/img/logo.png"
+            src="@/assets/img/logo.png"
             id="navbar-logo"
             style="height: 30px;"
             alt="logo"
@@ -13,28 +13,60 @@
       </b-navbar-brand>
       <!-- <b-navbar-toggle target="nav-collapse"></b-navbar-toggle> -->
       <!-- <b-collapse id="nav-collapse" is-nav> -->
-        <b-nav class="ml-auto">
-          <b-nav-item
-            ><router-link class="text-white" to="/">{{
-              $t("common.homeLabel")
-            }}</router-link></b-nav-item
-          >
-          <b-nav-item
-            ><router-link class="text-white" to="/proposals">{{
-              $t("common.proposalsLabel2")
-            }}</router-link></b-nav-item
-          >
-          <b-nav-item
-            ><router-link class="text-white" to="/faq">{{
+      <b-nav class="ml-auto">
+        <b-nav-item
+          ><router-link class="text-white" to="/proposals">{{
+            $t("common.proposalsLabel2")
+          }}</router-link>
+        </b-nav-item>
+        <b-nav-item-dropdown :text="`${$t('common.infoLabel')}`" right>
+          <b-dropdown-item>
+            <router-link class="text-dark" to="/faq">{{
               $t("faq.title")
-            }}</router-link></b-nav-item
+            }}</router-link></b-dropdown-item
           >
-          <b-nav-item
-            ><router-link class="text-white" to="/about">{{
+          <b-dropdown-item>
+            <router-link class="text-dark" to="/about">{{
               $t("common.aboutLabel")
-            }}</router-link></b-nav-item
+            }}</router-link
+            ><br />
+          </b-dropdown-item>
+          <b-dropdown-item href="https://discord.gg/eXxA5BN" target="_blank">
+            Discord
+          </b-dropdown-item>
+        </b-nav-item-dropdown>
+
+        <b-nav-item-dropdown
+          :text="`${$t('common.profileLabel')}`"
+          right
+          v-if="user.name"
+        >
+          <b-dropdown-item>
+            <router-link class="text-dark" to="/profile">{{
+              user.name
+            }}</router-link></b-dropdown-item
           >
-        </b-nav>
+          <b-dropdown-item>
+            <router-link class="text-dark" to="/logout">{{
+              $t("common.logoutLabel")
+            }}</router-link>
+          </b-dropdown-item>
+        </b-nav-item-dropdown>
+        <b-nav-item-dropdown
+          :text="`${$t('common.profileLabel')}`"
+          right
+          v-if="!user.name"
+        >
+          <b-dropdown-item>
+            <router-link class="text-dark" to="/login">{{
+              $t("common.loginLabel")
+            }}</router-link></b-dropdown-item
+          >
+          <b-dropdown-item href="https://signup.steemit.com" target="_blank">
+            {{ $t("common.signupLabel") }}
+          </b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-nav>
       <!-- </b-collapse> -->
       <select
         v-model="$i18n.locale"
@@ -53,7 +85,7 @@ import { mapState } from "vuex";
 export default {
   name: "AppHeader",
   computed: {
-    ...mapState("global", ["language"])
+    ...mapState(["global", "language", "user"])
   },
   data() {
     return {
@@ -74,15 +106,12 @@ export default {
 
 <style scoped>
 select.form-control-sm.selector-plain {
-  border-radius: 0;
+  border-radius: 0.375rem;
   background: transparent;
   border: 1pt solid #eeeeee;
   text-transform: uppercase;
   color: white;
-  opacity: 0.7;
-  /* -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none; */
+  opacity: 0.8;
 }
 
 select.form-control-sm.selector-plain option {
@@ -90,6 +119,9 @@ select.form-control-sm.selector-plain option {
 }
 
 select.form-control-sm.selector-plain:focus {
+  border: 1pt solid #eeeeee;
+}
+.bordered {
   border: 1pt solid #eeeeee;
 }
 </style>

@@ -132,6 +132,16 @@ export default {
   SET_LANGUAGE: (state, language) => {
     state.language = language;
   },
+  SET_LOGIN: (state, login) => {
+    let newuser = {};
+    newuser = {
+      name: login.data.username,
+      isLoggedIn: true,
+      key: login.result
+    };
+    state.user = newuser;
+    console.log(state.user);
+  },
   SET_TOTAL_PROPOSAL_VOTERS: (state, totalVoters) => {
     state.totalProposalVoters = totalVoters;
   },

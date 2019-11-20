@@ -208,6 +208,9 @@ export default {
   setProposalVoters({ commit }, id) {
     commit("SET_PROPOSAL_VOTERS", id);
   },
+  login({ commit }, user) {
+    commit("SET_LOGIN", user);
+  },
   setSteemPerMvest({ commit }, globalProperties) {
     let total_vesting_fund_steem = parseFloat(
       globalProperties.total_vesting_fund_steem.amount

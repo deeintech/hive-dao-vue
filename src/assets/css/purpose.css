@@ -27702,3 +27702,16 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 .modal-header.close, button.close, button.close:hover {
   color: rgb(0, 0, 0);
 }
+
+.nav-link {
+  color: #fff;
+}
+
+.nav-link:hover {
+  color: #C0CCDA;
+}
+
+.navbar .dropdown-menu {
+  min-width: 5rem;
+  max-width: 15rem;
+}

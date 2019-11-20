@@ -276,8 +276,7 @@ export default {
       fieldsProposals: [
         {
           key: "total_votes",
-          label: i18n.t("common.totalVotes"),
-          sortable: true
+          label: i18n.t("common.totalVotes")
         },
         {
           key: "description",

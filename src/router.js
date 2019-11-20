@@ -28,6 +28,12 @@ const router = new Router({
         import(/* webpackChunkName: "FAQ" */ "@/pages/FAQ/FAQPage.vue")
     },
     {
+      path: "/login",
+      name: "Login",
+      component: () =>
+        import(/* webpackChunkName: "Login" */ "@/pages/Login/LoginPage.vue")
+    },
+    {
       path: "/proposal/:id",
       name: "ProposalVote",
       props: true,
