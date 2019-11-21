@@ -52,7 +52,7 @@
             }}</router-link>
           </b-dropdown-item>
         </b-nav-item-dropdown>
-        <b-nav-item-dropdown
+        <!-- <b-nav-item-dropdown
           :text="`${$t('common.profileLabel')}`"
           right
           v-if="!user.name"
@@ -65,7 +65,7 @@
           <b-dropdown-item href="https://signup.steemit.com" target="_blank">
             {{ $t("common.signupLabel") }}
           </b-dropdown-item>
-        </b-nav-item-dropdown>
+        </b-nav-item-dropdown> -->
       </b-nav>
       <!-- </b-collapse> -->
       <select

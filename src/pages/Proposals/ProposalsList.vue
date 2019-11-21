@@ -181,7 +181,7 @@
                 ).toLocaleString()} SBD ${$t('common.availableBudget')}`
               "
             >
-              {{ data.item.funding.fundedStake }}%
+              {{ data.item.funding.fundedStake}}%
             </div>
           </template>
           <!-- Voting -->

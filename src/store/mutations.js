@@ -52,23 +52,6 @@ export default {
         container.total_votes =
           (p.total_votes * state.steemPerMVest) / 1000000000;
 
-        // funding
-        totalAvailableBudget -= container.daily_pay;
-        fundedStake = (100-((container.daily_pay-dailyBudget)*100/container.daily_pay)).toFixed(4);
-        totalFundedStake += fundedStake;
-
-        if (totalFundedStake <= 100) {
-          container.funding = {
-            availableBudget: totalAvailableBudget.toFixed(7),
-            fundedStake: fundedStake
-          };
-        } else {
-          container.funding = {
-            availableBudget: totalAvailableBudget.toFixed(0),
-            fundedStake: 0
-          };
-        }
-
         // returning/ burning status
         if (p.receiver === "steem.dao") {
           container.refunding = true;
@@ -80,6 +63,40 @@ export default {
         } else {
           container.burning = false;
         }
+
+        // funding
+        if (totalFundedStake <= 100 && totalAvailableBudget > 0) {
+          // refund funding
+          if (container.refunding) {
+            fundedStake = Number(
+              100 -
+                ((container.daily_pay - totalAvailableBudget) * 100) /
+                container.daily_pay
+            ).toFixed(4);
+          } else {
+            // partial funding
+            if (container.daily_pay > totalAvailableBudget) {
+              fundedStake = Number(
+                ((container.daily_pay - totalAvailableBudget) * 100) /
+                  totalAvailableBudget
+              ).toFixed(2);
+            }
+            // full funding
+            else {
+              fundedStake = 100;
+            }
+          }
+          totalAvailableBudget -= container.daily_pay;
+          totalFundedStake += fundedStake;
+        } else {
+          fundedStake = 0;
+        }
+
+        container.funding = {
+          availableBudget: totalAvailableBudget.toFixed(4),
+          fundedStake: fundedStake
+        };
+
         return container;
       });
     state.proposals = newproposals;
@@ -115,10 +132,11 @@ export default {
   SET_RETURNING_PROPOSAL: (state, proposals) => {
     if (proposals !== undefined) {
       let proposal = state.proposals
-      .filter(p => p.receiver === "steem.dao" && p.funding.fundedStake > 0)
-      .sort((a, b) => a.total_votes - b.total_votes);
+        .filter(p => p.receiver === "steem.dao" && p.funding.fundedStake > 0)
+        .sort((a, b) => a.total_votes - b.total_votes);
       state.returnProposal = proposal;
     }
+    // .filter(p => p.receiver === "steem.dao" && p.funding.fundedStake > 0)
   },
   SET_VOTERS: (state, voters) => {
     state.voters = voters;
@@ -140,7 +158,6 @@ export default {
       key: login.result
     };
     state.user = newuser;
-    console.log(state.user);
   },
   SET_TOTAL_PROPOSAL_VOTERS: (state, totalVoters) => {
     state.totalProposalVoters = totalVoters;
