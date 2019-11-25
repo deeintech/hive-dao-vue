@@ -67,7 +67,7 @@ export default {
         // funding
         if (totalFundedStake <= 100 && totalAvailableBudget > 0) {
           // refund funding
-          if (container.refunding) {
+          if (container.refunding && container.daily_pay > totalAvailableBudget) {
             fundedStake = Number(
               100 -
                 ((container.daily_pay - totalAvailableBudget) * 100) /
