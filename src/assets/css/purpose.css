@@ -6984,7 +6984,7 @@ a.btn.btn-sm.btn-active, a.btn.btn-sm.btn-inactive, a.btn.btn-sm.btn-expired  {
   color: #ffffff;
 }
 
-.bg-success, .bg-active, .btn-active {
+.bg-success, .bg-active, .btn-active, .bg-passing {
   background-color: #36B37E !important;
 }
 
@@ -7004,7 +7004,7 @@ button.bg-info:focus {
   background-color: #008da6 !important;
 }
 
-.bg-warning, .bg-inactive, .btn-inactive {
+.bg-warning, .bg-inactive, .btn-inactive, .bg-insufficient {
   background-color: #FFAB00 !important;
 }
 

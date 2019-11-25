@@ -75,7 +75,7 @@
           <!-- Status -->
           <template v-slot:cell(status)="data">
             <span class="badge badge-dot">
-              <i class="bg-success"></i>
+              <i :class="`bg-${votesStatusProp}`"></i>
             </span>
             <span v-if="data.item.status === 'expired'"
               >{{ $t("common.completedProposalsLabel") }}:<br />
