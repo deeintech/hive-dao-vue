@@ -165,7 +165,7 @@ export default {
                 end_date: this.form.end_date,
                 daily_pay: Number(this.form.dailypay).toFixed(3) + " SBD",
                 subject: this.form.subject,
-                permlink: this.form.permlink
+                permlink: this.form.permlink.replace(/^.*\/(.*)$/, "$1")
               }
             ]
           ],
