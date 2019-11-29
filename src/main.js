@@ -4,13 +4,18 @@ import router from "@/router";
 import store from "@/store/store";
 import BootstrapVue from "bootstrap-vue";
 import datePicker from "vue-bootstrap-datetimepicker";
-import { numeric, numeric3, daysLeft, dateFilter } from "@/utils/filters/filters";
+import {
+  numeric,
+  numeric3,
+  daysLeft,
+  dateFilter
+} from "@/utils/filters/filters";
 import { i18n } from "@/utils/plugins/i18n.js";
-import VueSkeletonLoading from 'vue-skeleton-loading';
+import VueSkeletonLoading from "vue-skeleton-loading";
 
 import "@/assets/css/purpose.css";
 import "@/assets/css/fontawesome/all.min.css";
-import 'bootstrap-vue/dist/bootstrap-vue.css';
+import "bootstrap-vue/dist/bootstrap-vue.css";
 import "pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css";
 
 Vue.config.productionTip = process.env.NODE_ENV === "production";

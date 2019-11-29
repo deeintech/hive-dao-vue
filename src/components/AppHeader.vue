@@ -39,38 +39,39 @@
         <b-nav-item-dropdown
           :text="`${$t('common.profileLabel')}`"
           right
-          v-if="user.name"
+          v-if="user.loggedIn"
         >
           <b-dropdown-item>
-            <router-link class="text-dark" to="/profile">{{
-              user.name
-            }}</router-link></b-dropdown-item
-          >
+            <div class="text-dark">
+              {{ user.name }}
+            </div>
+          </b-dropdown-item>
           <b-dropdown-item>
-            <router-link class="text-dark" to="/logout">{{
-              $t("common.logoutLabel")
-            }}</router-link>
+            <div class="text-dark" @click="logout">
+              {{ $t("common.logoutLabel") }}
+            </div>
           </b-dropdown-item>
         </b-nav-item-dropdown>
-        <!-- <b-nav-item-dropdown
+        <b-nav-item-dropdown
           :text="`${$t('common.profileLabel')}`"
           right
-          v-if="!user.name"
+          v-if="!user.loggedIn"
         >
           <b-dropdown-item>
             <router-link class="text-dark" to="/login">{{
               $t("common.loginLabel")
             }}</router-link></b-dropdown-item
           >
-          <b-dropdown-item href="https://signup.steemit.com" target="_blank">
+          <!-- <b-dropdown-item href="https://signup.steemit.com" target="_blank">
             {{ $t("common.signupLabel") }}
-          </b-dropdown-item>
-        </b-nav-item-dropdown> -->
+          </b-dropdown-item> -->
+        </b-nav-item-dropdown>
       </b-nav>
       <!-- </b-collapse> -->
       <select
         v-model="$i18n.locale"
         class="form-control-sm selector-plain mt-1 pr-1 pl-2 mr-1"
+        @change="changeLang($event)"
       >
         <option v-for="(lang, i) in languages" :key="i" :value="lang.locale">
           {{ lang.name }}
@@ -82,10 +83,12 @@
 
 <script>
 import { mapState } from "vuex";
+import items from "@/shared/constants/localStorage";
+
 export default {
   name: "AppHeader",
   computed: {
-    ...mapState(["global", "language", "user"])
+    ...mapState(["global", "user"])
   },
   data() {
     return {
@@ -96,9 +99,28 @@ export default {
     };
   },
   methods: {
-    changeLang(lang) {
-      this.$i18n.locale = lang;
-      this.$store.dispatch("setLanguage", lang);
+    changeLang(event) {
+      this.$i18n.locale = event.target.value;
+      localStorage.setItem(items.LANGUAGE, event.target.value);
+    },
+    logout() {
+      this.resetLocalStorage();
+      this.$store
+        .dispatch("setUser", { name: this.user, loggedIn: false })
+        .then(() => {
+          this.$bvToast.toast("Success", {
+            title: this.$i18n.t("common.logoutLabel"),
+            variant: "secondary",
+            toaster: "b-toaster-top-right",
+            autoHideDelay: 3000,
+            solid: true
+          });
+        });
+    },
+    resetLocalStorage() {
+      localStorage.removeItem(items.LOGGED_IN);
+      localStorage.removeItem(items.USER);
+      localStorage.removeItem(items.TOKEN);
     }
   }
 };

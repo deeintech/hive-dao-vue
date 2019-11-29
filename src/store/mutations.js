@@ -67,11 +67,14 @@ export default {
         // funding
         if (totalFundedStake <= 100 && totalAvailableBudget > 0) {
           // refund funding
-          if (container.refunding && container.daily_pay > totalAvailableBudget) {
+          if (
+            container.refunding &&
+            container.daily_pay > totalAvailableBudget
+          ) {
             fundedStake = Number(
               100 -
                 ((container.daily_pay - totalAvailableBudget) * 100) /
-                container.daily_pay
+                  container.daily_pay
             ).toFixed(4);
           } else {
             // partial funding
@@ -136,28 +139,18 @@ export default {
         .sort((a, b) => a.total_votes - b.total_votes);
       state.returnProposal = proposal;
     }
-    // .filter(p => p.receiver === "steem.dao" && p.funding.fundedStake > 0)
   },
   SET_VOTERS: (state, voters) => {
     state.voters = voters;
+  },
+  SET_USER: (state, user) => {
+    state.user = user;
   },
   SET_GLOBAL_PROPERTIES: (state, properties) => {
     state.globalProperties = properties;
   },
   SET_STEEM_PER_MVEST: (state, steemPerMVest) => {
     state.steemPerMVest = steemPerMVest;
-  },
-  SET_LANGUAGE: (state, language) => {
-    state.language = language;
-  },
-  SET_LOGIN: (state, login) => {
-    let newuser = {};
-    newuser = {
-      name: login.data.username,
-      isLoggedIn: true,
-      key: login.result
-    };
-    state.user = newuser;
   },
   SET_TOTAL_PROPOSAL_VOTERS: (state, totalVoters) => {
     state.totalProposalVoters = totalVoters;

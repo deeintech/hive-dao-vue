@@ -1,18 +1,9 @@
 <template>
   <div>
-    <section
-      class="slice slice-lg bg-gradient-primary"
-      data-offset-top="#header-main"
-    >
-      <div class="container pt-5">
-        <div class="row">
-          <div class="col-lg-8">
-            <h2 class="display-4 text-white">{{ $t("faq.title") }}</h2>
-            <h5 class="mb-4 text-white">{{ $t("faq.subtitle") }}</h5>
-          </div>
-        </div>
-      </div>
-    </section>
+    <AppHeaderSection
+      :title="`${$t('faq.title')}`"
+      :subtitle="`${$t('faq.subtitle')}`"
+    />
     <section class="slice slice-lg bg-section-secondary" id="sct-faq">
       <div class="container">
         <div class="row">
@@ -85,7 +76,11 @@
 </template>
 
 <script>
+import AppHeaderSection from "@/components/AppHeaderSection";
 export default {
-  name: "FAQ"
+  name: "FAQ",
+  components: {
+    AppHeaderSection
+  }
 };
 </script>

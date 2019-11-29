@@ -59,12 +59,14 @@
 
 <script>
 import { i18n } from "@/utils/plugins/i18n.js";
+import items from "@/shared/constants/localStorage";
+
 export default {
   name: "Login",
   data() {
     return {
       user: "",
-      loggedIn: false
+      token: ""
     };
   },
   methods: {
@@ -76,6 +78,7 @@ export default {
           "Active",
           response => {
             if (response.success) {
+              this.token = response.result;
               this.saveLoginInfo(response);
               return response;
             } else {
@@ -88,14 +91,25 @@ export default {
       }
     },
     saveLoginInfo(response) {
-      // this.$bvToast.toast("Success", {
-      //   title: i18n.t("common.loginLabel"),
-      //   variant: "secondary",
-      //   toaster: "b-toaster-top-right",
-      //   solid: true
-      // });
-      this.$store.dispatch("login", response)
-      .then(() => this.$router.push('/proposals'));
+      localStorage.setItem(items.USER, this.user);
+      localStorage.setItem(items.TOKEN, this.token);
+      localStorage.setItem(items.LOGGED_IN, true);
+      this.$store
+        .dispatch("setUser", {
+          name: this.user,
+          loggedIn: true,
+          token: this.token
+        })
+        .then(() => {
+          this.$router.push("/proposals");
+          // this.$bvToast.toast("Success", {
+          //   title: this.$i18n.t("common.loginLabel"),
+          //   variant: "secondary",
+          //   toaster: "b-toaster-top-right",
+          //   autoHideDelay: 3000,
+          //   solid: true
+          // });
+        });
     }
   }
 };

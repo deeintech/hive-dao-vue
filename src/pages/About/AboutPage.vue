@@ -1,20 +1,10 @@
 <template>
   <div class="main-content">
-    <section
-      class="slice slice-lg bg-gradient-primary"
-    >
-      <div class="container pt-5">
-        <div class="row">
-          <div class="col-lg-8">
-            <h2 class="display-4 text-white">{{ $t("common.aboutLabel") }}</h2>
-            <h5 class="mb-4 text-white">{{ $t("about.subtitle") }}</h5>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section
-      class="section-half-rounded pb-100 bg-section-secondary"
-    >
+    <AppHeaderSection
+      :title="`${$t('common.aboutLabel')}`"
+      :subtitle="`${$t('about.subtitle')}`"
+    />
+    <section class="section-half-rounded pb-100 bg-section-secondary">
       <div class="section-inner bg-section-secondary"></div>
       <div class="container pt-6 py-lg-8" id="sps">
         <div class="row">
@@ -84,7 +74,11 @@
   </div>
 </template>
 <script>
+import AppHeaderSection from "@/components/AppHeaderSection";
 export default {
-  name: "About"
+  name: "About",
+  components: {
+    AppHeaderSection
+  }
 };
 </script>

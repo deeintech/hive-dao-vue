@@ -1,22 +1,9 @@
 <template>
   <div>
-    <section
-      class="slice slice-lg bg-gradient-primary"
-      data-offset-top="#header-main"
-    >
-      <div class="container pt-5">
-        <div class="row">
-          <div class="col-lg-8">
-            <h2 class="display-4 text-white">
-              {{ $t("workerProposals.title") }}
-            </h2>
-            <h5 class="mb-4 text-white">
-              {{ $t("workerProposals.subtitle") }}
-            </h5>
-          </div>
-        </div>
-      </div>
-    </section>
+    <AppHeaderSection
+      :title="`${$t('workerProposals.title')}`"
+      :subtitle="`${$t('workerProposals.subtitle')}`"
+    />
     <section class="pt-7 pt-lg-0 bg-section-secondary">
       <div class="container-fluid pl-lg-6 pr-lg-6">
         <div class="row">
@@ -41,13 +28,15 @@
 import { mapState, mapGetters } from "vuex";
 import WorkerProposalsInfo from "@/pages/WorkerProposals/WorkerProposalsInfo";
 import WorkerProposalsList from "@/pages/WorkerProposals/WorkerProposalsList";
+import AppHeaderSection from "@/components/AppHeaderSection";
 
 export default {
   name: "WorkerProposals",
   props: ["worker"],
   components: {
     WorkerProposalsInfo,
-    WorkerProposalsList
+    WorkerProposalsList,
+    AppHeaderSection
   },
   methods: {
     fetchAccountByName(name) {

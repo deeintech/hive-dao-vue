@@ -3,6 +3,7 @@ import Router from "vue-router";
 import store from "@/store/store";
 import { i18n } from "@/utils/plugins/i18n.js";
 import ProposalsPage from "@/pages/Proposals/ProposalsPage.vue";
+import items from "@/shared/constants/localStorage";
 
 Vue.use(Router);
 
@@ -27,12 +28,27 @@ const router = new Router({
       component: () =>
         import(/* webpackChunkName: "FAQ" */ "@/pages/FAQ/FAQPage.vue")
     },
-    // {
-    //   path: "/login",
-    //   name: "Login",
-    //   component: () =>
-    //     import(/* webpackChunkName: "Login" */ "@/pages/Login/LoginPage.vue")
-    // },
+    {
+      path: "/login",
+      name: "Login",
+      component: () =>
+        import(/* webpackChunkName: "Login" */ "@/pages/Login/LoginPage.vue")
+    },
+    {
+      path: "/profile",
+      name: "Profile",
+      component: () =>
+        import(
+          /* webpackChunkName: "Profile" */ "@/pages/Profile/ProfilePage.vue"
+        ),
+      beforeEnter: (to, from, next) => {
+        if (store.state.user && !store.state.user.loggedIn) {
+          next("/");
+        } else {
+          next();
+        }
+      }
+    },
     {
       path: "/proposal/:id",
       name: "ProposalVote",
@@ -91,8 +107,8 @@ const router = new Router({
   // }
 });
 router.beforeEach((to, from, next) => {
-  if (store.state.language !== i18n.locale) {
-    store.dispatch("setLanguage", i18n.locale);
+  if (localStorage.getItem(items.LANGUAGE) !== i18n.locale) {
+    i18n.locale = localStorage.getItem(items.LANGUAGE);
   }
   next();
 });

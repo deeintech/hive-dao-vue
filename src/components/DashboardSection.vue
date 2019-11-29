@@ -1,15 +1,9 @@
 <template>
   <div>
-    <section class="slice slice-lg bg-gradient-primary">
-      <div class="container pt-5">
-        <div class="row">
-          <div class="col-lg-8">
-            <h2 class="display-4 text-white">{{ $t("dashboard.title") }}</h2>
-            <h5 class="mb-4 text-white">{{ $t("dashboard.subtitle") }}</h5>
-          </div>
-        </div>
-      </div>
-    </section>
+     <AppHeaderSection
+      :title="`${$t('dashboard.title')}`"
+      :subtitle="`${$t('dashboard.subtitle')}`"
+    />
     <!-- Pages -->
     <div class="alert-light text-center p-2 proptabs">
       <div class="container">
@@ -61,11 +55,13 @@
 </template>
 <script>
 import WitnessVoteModal from "@/components/WitnessVoteModal";
+import AppHeaderSection from "@/components/AppHeaderSection";
 
 export default {
   name: "DashboardSection",
   components: {
-    WitnessVoteModal
+    WitnessVoteModal,
+    AppHeaderSection
   },
   data() {
     return {

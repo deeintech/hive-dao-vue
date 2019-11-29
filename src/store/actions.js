@@ -200,16 +200,11 @@ export default {
   setWorkers({ commit }, workers) {
     commit("SET_WORKERS", workers);
   },
-  setLanguage({ commit }, language) {
-    if (typeof language === "string") {
-      commit("SET_LANGUAGE", language);
-    }
+  setUser({ commit }, user) {
+    commit("SET_USER", user);
   },
   setProposalVoters({ commit }, id) {
     commit("SET_PROPOSAL_VOTERS", id);
-  },
-  login({ commit }, user) {
-    commit("SET_LOGIN", user);
   },
   setSteemPerMvest({ commit }, globalProperties) {
     let total_vesting_fund_steem = parseFloat(
