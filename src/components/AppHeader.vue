@@ -37,6 +37,7 @@
         </b-nav-item-dropdown>
 
         <b-nav-item-dropdown
+          class="d-none d-md-block"
           :text="`${$t('common.profileLabel')}`"
           right
           v-if="user.loggedIn"

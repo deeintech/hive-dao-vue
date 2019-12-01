@@ -19,7 +19,7 @@ export default {
     let dailyBudget = state.dailyBudget;
     let totalAvailableBudget = dailyBudget;
     let fundedStake = 0;
-    let totalFundedStake = 0;
+    // let totalFundedStake = 0;
 
     newproposals = proposals
       .sort((a, b) => b.total_votes - a.total_votes)
@@ -65,7 +65,7 @@ export default {
         }
 
         // funding
-        if (totalFundedStake <= 100 && totalAvailableBudget > 0) {
+        if (totalAvailableBudget > 0) {
           // refund funding
           if (
             container.refunding &&
@@ -90,7 +90,7 @@ export default {
             }
           }
           totalAvailableBudget -= container.daily_pay;
-          totalFundedStake += fundedStake;
+          // totalFundedStake += fundedStake;
         } else {
           fundedStake = 0;
         }
