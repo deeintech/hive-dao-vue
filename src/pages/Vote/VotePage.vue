@@ -9,8 +9,9 @@
     >
       <VotingModal
         :proposalIdProp="parseInt(id)"
-        :userProp="user"
+        :userProp="user.name"
         :voteStatusProp="voteStatus"
+        :loggedInProp="user.loggedIn"
         :steemconnect="false"
         :shareonsocial="false"
       />
@@ -217,7 +218,8 @@ export default {
       "accounts",
       "totalProposalVoters",
       "proposalVoters",
-      "returnProposal"
+      "returnProposal",
+      "user"
     ])
   },
   components: {
@@ -227,7 +229,6 @@ export default {
   },
   data() {
     return {
-      user: "",
       voteStatus: true
     };
   },

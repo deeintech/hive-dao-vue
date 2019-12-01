@@ -9,8 +9,9 @@
     >
       <VotingModal
         :proposalIdProp="proposalId"
-        :userProp="user"
+        :userProp="user.name"
         :voteStatusProp="voteStatus"
+        :loggedInProp="user.loggedIn"
         :steemconnect="true"
         :shareonsocial="true"
       />
@@ -190,7 +191,7 @@
               class="btn btn-sm btn-light text-dark"
               @click="showVotingModal(data.item.id)"
             >
-              <i class="far fa-thumbs-up"></i>
+              <i :class="`far fa-thumbs-up`"></i>
             </button>
           </template>
         </b-table>
@@ -224,7 +225,8 @@ export default {
       "globalProperties",
       "language",
       "proposalVoters",
-      "post"
+      "post",
+      "user"
     ]),
     ...mapGetters({
       proposals: "proposalsByVotesStatus",
@@ -269,6 +271,9 @@ export default {
       this.$store.dispatch("fetchPost", [creator, permlink]).then(() => {
         this.post.body = renderer.render(this.post.body);
       });
+    },
+     fetchVoterProposals() {
+      this.$store.dispatch("fetchVoterProposals", this.user.name);
     }
   },
   data() {
@@ -307,10 +312,12 @@ export default {
       proposalsSortDesc: true,
       proposalsSortDirection: "asc",
       voteStatus: true,
-      user: "",
       proposalId: 0,
       proposalSubject: ""
     };
+  },
+  created() {
+    this.fetchVoterProposals();
   }
 };
 </script>

@@ -12,6 +12,8 @@
         <b-form-input
           id="user"
           v-model="user"
+          :disabled="loggedIn ? true : false"
+          :value="user !== '' ? user : ''"
           type="text"
           required
           :placeholder="`${$t('keychain.placeholder')}`"
@@ -48,11 +50,13 @@
 export default {
   props: {
     userProp: String,
+    loggedInProp: Boolean,
     voteStatusProp: Boolean
   },
   data() {
     return {
       user: this.userProp,
+      loggedIn: this.loggedInProp,
       voteStatus: this.voteStatusProp
     };
   },

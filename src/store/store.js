@@ -18,11 +18,15 @@ const initLang = (() => {
 })();
 
 const initUser = (() => {
-  let user = {};
+  let user = {
+    name: "",
+    loggedIn: false,
+    token: ""
+  };
   if (localStorage.user) {
     user = {
       name: localStorage.user,
-      loggedIn: localStorage.loggedIn,
+      loggedIn: Boolean(localStorage.loggedIn),
       token: localStorage.tk
     };
   } else {
@@ -41,6 +45,7 @@ export default new Vuex.Store({
     voters: [],
     post: {},
     proposalVoters: [],
+    voterProposals: [],
     globalProperties: [],
     totalBudget: 0,
     dailyBudget: 0,

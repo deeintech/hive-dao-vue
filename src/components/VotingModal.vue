@@ -16,6 +16,8 @@
             <b-form-group>
               <b-form-input
                 id="user"
+                :disabled="loggedIn ? true : false"
+                :value="user ? user : ''"
                 @input="updateModel('user', $event)"
                 type="text"
                 size="sm"
@@ -111,6 +113,7 @@ export default {
     proposalIdProp: Number,
     userProp: String,
     voteStatusProp: Boolean,
+    loggedInProp: Boolean,
     steemconnect: Boolean,
     shareonsocial: Boolean
   },
@@ -118,6 +121,7 @@ export default {
     return {
       proposalId: this.proposalIdProp,
       user: this.userProp,
+      loggedIn: this.loggedInProp,
       voteStatus: this.voteStatusProp
     };
   },

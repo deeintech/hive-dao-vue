@@ -42,6 +42,9 @@
           v-if="user.loggedIn"
         >
           <b-dropdown-item>
+            <!-- <router-link class="text-dark" to="/profile">{{
+              user.name
+            }}</router-link> -->
             <div class="text-dark">
               {{ user.name }}
             </div>
@@ -60,8 +63,8 @@
           <b-dropdown-item>
             <router-link class="text-dark" to="/login">{{
               $t("common.loginLabel")
-            }}</router-link></b-dropdown-item
-          >
+            }}</router-link>
+          </b-dropdown-item>
           <!-- <b-dropdown-item href="https://signup.steemit.com" target="_blank">
             {{ $t("common.signupLabel") }}
           </b-dropdown-item> -->
@@ -106,7 +109,7 @@ export default {
     logout() {
       this.resetLocalStorage();
       this.$store
-        .dispatch("setUser", { name: this.user, loggedIn: false })
+        .dispatch("setUser", { name: "", loggedIn: false, token: "" })
         .then(() => {
           this.$bvToast.toast("Success", {
             title: this.$i18n.t("common.logoutLabel"),

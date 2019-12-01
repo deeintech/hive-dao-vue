@@ -1,6 +1,6 @@
 <template>
   <div>
-     <AppHeaderSection
+    <AppHeaderSection
       :title="`${$t('dashboard.title')}`"
       :subtitle="`${$t('dashboard.subtitle')}`"
     />
@@ -44,7 +44,11 @@
               centered
               hide-footer
             >
-            <WitnessVoteModal :user="user" :voteStatus="voteStatus" />
+              <WitnessVoteModal
+                :userProp="user.name"
+                :voteStatusProp="voteStatus"
+                :loggedInProp="user.loggedIn"
+              />
             </b-modal>
           </div>
         </div>
@@ -56,6 +60,7 @@
 <script>
 import WitnessVoteModal from "@/components/WitnessVoteModal";
 import AppHeaderSection from "@/components/AppHeaderSection";
+import { mapState } from "vuex";
 
 export default {
   name: "DashboardSection",
@@ -63,10 +68,12 @@ export default {
     WitnessVoteModal,
     AppHeaderSection
   },
+  computed: {
+    ...mapState(["user"])
+  },
   data() {
     return {
-      voteStatus: true,
-      user: ""
+      voteStatus: true
     };
   }
 };
