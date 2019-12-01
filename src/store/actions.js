@@ -112,7 +112,13 @@ export default {
         return [];
       });
   },
-  async fetchVoterProposals({ commit }, voter) {
+  addVoterProposal({ commit }, id) {
+    commit("ADD_VOTER_PROPOSAL", id);
+  },
+  removeVoterProposal({ commit }, id) {
+    commit("REMOVE_VOTER_PROPOSAL", id);
+  },
+  async setVoterProposals({ commit }, voter) {
     commit("SET_VOTER_PROPOSALS", []);
     const url = process.env.VUE_APP_STEEMIT_MAINNET;
     const headers = {
@@ -125,7 +131,7 @@ export default {
       params: [
         "condenser_api",
         "list_proposal_votes",
-        [[voter, 0], 100, "by_voter_proposal"]
+        [[voter, 0], 1000, "by_voter_proposal"]
       ]
     };
     await axios
@@ -137,12 +143,9 @@ export default {
           );
           let newproposals = [];
           voterProposals.forEach(p => {
-            newproposals.push({
-              id: p.proposal.proposal_id,
-              voted: true
-            });
+            newproposals.push(p.proposal.proposal_id);
           });
-          commit("SET_VOTER_PROPOSALS", JSON.stringify(newproposals));
+          commit("SET_VOTER_PROPOSALS", newproposals);
           return proposals;
         }
       })

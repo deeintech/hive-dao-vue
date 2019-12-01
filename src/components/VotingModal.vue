@@ -8,6 +8,7 @@
       <p>{{ $t("proposals.returnProposalInfo5") }}</p>
     </div>
     <div class="timeline timeline-one-side" data-timeline-content="axis">
+      <!-- <b-form @submit.prevent="keychainVote(user, !voteStatus)"> -->
       <b-form @submit.prevent="keychainVote(user, !voteStatus)">
         <div class="timeline-block">
           <span class="timeline-step timeline-step-sm border-dark"></span>
@@ -109,6 +110,9 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+import items from "@/shared/constants/localStorage";
+
 export default {
   props: {
     proposalIdProp: Number,
@@ -117,6 +121,9 @@ export default {
     loggedInProp: Boolean,
     steemconnect: Boolean,
     shareonsocial: Boolean
+  },
+  computed: {
+    ...mapState(["voterProposals"])
   },
   data() {
     return {
@@ -164,8 +171,9 @@ export default {
             ]
           ],
           "Active",
-          function(response) {
+          response => {
             if (response.success) {
+              this.updateProposals();
               return response;
             } else {
               return response.success;
@@ -197,6 +205,17 @@ export default {
       }
       if (model === "voteStatus") {
         this.voteStatus = value;
+      }
+    },
+    updateProposals() {
+      if (this.user !== "") {
+        if (this.voteStatus === false) {
+          this.$store.dispatch("addVoterProposal", this.proposalId);
+        } else {
+          this.$store.dispatch("removeVoterProposal", this.proposalId);
+          localStorage.removeItem(items.PROPOSALS, this.voterProposals);
+        }
+        localStorage.setItem(items.PROPOSALS, this.voterProposals);
       }
     }
   }

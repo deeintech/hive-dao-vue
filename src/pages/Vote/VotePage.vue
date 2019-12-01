@@ -271,15 +271,11 @@ export default {
       } else {
         return false;
       }
-    },
-    fetchVoterProposals() {
-      this.$store.dispatch("fetchVoterProposals", this.user.name);
     }
   },
   created() {
     this.fetchProposalById();
     this.setProposalVoters();
-    this.fetchVoterProposals();
   }
 };
 </script>

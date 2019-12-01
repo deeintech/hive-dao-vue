@@ -250,7 +250,8 @@ export default {
       "language",
       "proposalVoters",
       "post",
-      "user"
+      "user",
+      "voterProposals"
     ]),
     ...mapGetters({
       proposals: "proposalsByVotesStatus",
@@ -264,13 +265,6 @@ export default {
     statusProp: String
   },
   methods: {
-    initVoterProposals() {
-      if (this.user.proposals && this.user.proposals !== []) {
-        this.voterProposals = Array.from(JSON.parse(this.user.proposals)).map(
-          p => p.id
-        );
-      }
-    },
     isApproved(id) {
       if (this.voterProposals.includes(id)) {
         return true;
@@ -309,9 +303,6 @@ export default {
       this.$store.dispatch("fetchPost", [creator, permlink]).then(() => {
         this.post.body = renderer.render(this.post.body);
       });
-    },
-    fetchVoterProposals() {
-      this.$store.dispatch("fetchVoterProposals", this.user.name);
     }
   },
   data() {
@@ -352,14 +343,9 @@ export default {
       voteStatus: false,
       proposalId: 0,
       proposalSubject: "",
-      voterProposals: []
+      // voterProposals: []
     };
   },
-  created() {
-    if (this.user.loggedIn) {
-      this.initVoterProposals();
-    }
-  }
 };
 </script>
 

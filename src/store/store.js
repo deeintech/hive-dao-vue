@@ -17,19 +17,27 @@ const initLang = (() => {
   return lang;
 })();
 
+const initVoterProposals = (() => {
+  let proposals = [];
+  if (!localStorage.proposals) {
+    localStorage.setItem(items.PROPOSALS, []);
+  } else {
+    proposals = localStorage.proposals;
+  }
+  return proposals;
+})();
+
 const initUser = (() => {
   let user = {
     name: "",
     loggedIn: false,
-    token: "",
-    proposals: []
+    token: ""
   };
   if (localStorage.user) {
     user = {
       name: localStorage.user,
       loggedIn: Boolean(localStorage.loggedIn),
-      token: localStorage.tk,
-      proposals: JSON.parse(JSON.stringify(localStorage.proposals))
+      token: localStorage.tk
     };
   } else {
   }
@@ -47,7 +55,7 @@ export default new Vuex.Store({
     voters: [],
     post: {},
     proposalVoters: [],
-    voterProposals: [],
+    voterProposals: initVoterProposals,
     globalProperties: [],
     totalBudget: 0,
     dailyBudget: 0,

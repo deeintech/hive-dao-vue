@@ -13,6 +13,7 @@
 </template>
 <script>
 import AppHeader from "@/components/AppHeader.vue";
+import { mapState } from "vuex";
 
 const AppFooter = () => ({
   component: import("@/components/AppFooter.vue"),
@@ -25,17 +26,24 @@ export default {
     AppHeader,
     AppFooter
   },
+  computed: {
+    ...mapState(["user", "voterProposals"])
+  },
   methods: {
     setBudget() {
       this.$store.dispatch("setBudget");
     },
     fetchSteemGlobalProperties() {
       this.$store.dispatch("fetchSteemGlobalProperties");
+    },
+    setVoterProposals() {
+      this.$store.dispatch("setVoterProposals", this.user.name);
     }
   },
   created() {
     this.fetchSteemGlobalProperties();
     this.setBudget();
+    this.setVoterProposals();
   }
 };
 </script>

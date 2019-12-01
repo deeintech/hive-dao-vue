@@ -96,7 +96,7 @@ export default {
     },
     saveLoginInfo(response) {
       if (user !== "") {
-        this.$store.dispatch("fetchVoterProposals", this.user).then(() => {
+        this.$store.dispatch("setVoterProposals", this.user).then(() => {
           localStorage.setItem(items.USER, this.user);
           localStorage.setItem(items.TOKEN, this.token);
           localStorage.setItem(items.LOGGED_IN, true);
@@ -106,21 +106,11 @@ export default {
             .dispatch("setUser", {
               name: this.user,
               loggedIn: true,
-              token: this.token,
-              proposals: this.voterProposals
+              token: this.token
             })
             .then(() => {
               this.$router.push("/proposals");
             });
-          // .finally(() => {
-          //   this.$bvToast.toast("Success", {
-          //     title: this.$i18n.t("common.logoutLabel"),
-          //     variant: "secondary",
-          //     toaster: "b-toaster-top-right",
-          //     autoHideDelay: 3000,
-          //     solid: true
-          //   });
-          // });
         });
       }
     }

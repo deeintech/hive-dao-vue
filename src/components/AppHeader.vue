@@ -113,8 +113,7 @@ export default {
         .dispatch("setUser", {
           name: "",
           loggedIn: false,
-          token: "",
-          proposals: []
+          token: ""
         })
         .then(() => {
           this.$bvToast.toast(this.$i18n.t("common.success"), {

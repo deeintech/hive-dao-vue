@@ -160,6 +160,13 @@ export default {
       state.voterProposals = proposals;
     }
   },
+  ADD_VOTER_PROPOSAL: (state, id) => {
+    state.voterProposals.push(id);
+  },
+  REMOVE_VOTER_PROPOSAL: (state, id) => {
+    let index = state.voterProposals.indexOf(id);
+    state.voterProposals.splice(index, 1);
+  },
   SET_PROPOSAL_VOTERS: (state, voters) => {
     if (
       voters !== undefined &&
