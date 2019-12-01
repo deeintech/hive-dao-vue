@@ -21,13 +21,15 @@ const initUser = (() => {
   let user = {
     name: "",
     loggedIn: false,
-    token: ""
+    token: "",
+    proposals: []
   };
   if (localStorage.user) {
     user = {
       name: localStorage.user,
       loggedIn: Boolean(localStorage.loggedIn),
-      token: localStorage.tk
+      token: localStorage.tk,
+      proposals: JSON.parse(JSON.stringify(localStorage.proposals))
     };
   } else {
   }

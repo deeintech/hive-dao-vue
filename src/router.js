@@ -34,21 +34,21 @@ const router = new Router({
       component: () =>
         import(/* webpackChunkName: "Login" */ "@/pages/Login/LoginPage.vue")
     },
-    {
-      path: "/profile",
-      name: "Profile",
-      component: () =>
-        import(
-          /* webpackChunkName: "Profile" */ "@/pages/Profile/ProfilePage.vue"
-        ),
-      beforeEnter: (to, from, next) => {
-        if (store.state.user && !store.state.user.loggedIn) {
-          next("/");
-        } else {
-          next();
-        }
-      }
-    },
+    // {
+    //   path: "/profile",
+    //   name: "Profile",
+    //   component: () =>
+    //     import(
+    //       /* webpackChunkName: "Profile" */ "@/pages/Profile/ProfilePage.vue"
+    //     ),
+    //   beforeEnter: (to, from, next) => {
+    //     if (store.state.user && !store.state.user.loggedIn) {
+    //       next("/");
+    //     } else {
+    //       next();
+    //     }
+    //   }
+    // },
     {
       path: "/proposal/:id",
       name: "ProposalVote",

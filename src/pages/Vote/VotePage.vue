@@ -10,7 +10,7 @@
       <VotingModal
         :proposalIdProp="parseInt(id)"
         :userProp="user.name"
-        :voteStatusProp="voteStatus"
+        :voteStatusProp="user.loggedIn ? isApproved(id) : voteStatus"
         :loggedInProp="user.loggedIn"
         :steemconnect="false"
         :shareonsocial="false"
@@ -28,7 +28,7 @@
     >
       <SkeletonLoading v-if="!accounts.length" />
       <VotersModal :accounts="accounts" :proposalVoters="proposalVoters" />
-    </b-modal>  
+    </b-modal>
 
     <!-- Main content -->
     <div v-if="proposal">
@@ -219,7 +219,8 @@ export default {
       "totalProposalVoters",
       "proposalVoters",
       "returnProposal",
-      "user"
+      "user",
+      "voterProposals"
     ])
   },
   components: {
@@ -229,7 +230,7 @@ export default {
   },
   data() {
     return {
-      voteStatus: true
+      voteStatus: false
     };
   },
   methods: {
@@ -263,11 +264,22 @@ export default {
     },
     setProposalVoters() {
       this.$store.dispatch("setProposalVoters", Number(this.id));
+    },
+    isApproved(id) {
+      if (this.voterProposals.includes(id)) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    fetchVoterProposals() {
+      this.$store.dispatch("fetchVoterProposals", this.user.name);
     }
   },
   created() {
     this.fetchProposalById();
     this.setProposalVoters();
+    this.fetchVoterProposals();
   }
 };
 </script>

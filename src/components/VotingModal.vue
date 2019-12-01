@@ -8,7 +8,7 @@
       <p>{{ $t("proposals.returnProposalInfo5") }}</p>
     </div>
     <div class="timeline timeline-one-side" data-timeline-content="axis">
-      <b-form @submit.prevent="keychainVote(user, voteStatus)">
+      <b-form @submit.prevent="keychainVote(user, !voteStatus)">
         <div class="timeline-block">
           <span class="timeline-step timeline-step-sm border-dark"></span>
           <div class="timeline-content pt-1">
@@ -37,12 +37,13 @@
                 @change="updateModel('voteStatus', !voteStatus)"
                 name="vote-button"
                 switch
-                checked="true"
+                :disabled="loggedIn ? true : false"
+                :checked="voteStatus ? false : true"
               >
                 <b>{{
                   voteStatus
-                    ? $t("keychain.voteApprove")
-                    : $t("keychain.voteRemove")
+                    ? $t("keychain.voteUnsupport")
+                    : $t("keychain.voteSupport")
                 }}</b>
               </b-form-checkbox>
             </b-form-group>
@@ -65,7 +66,7 @@
                 />
               </button>
               <button
-                @click="steemconnectVote(voteStatus)"
+                @click="steemconnectVote(!voteStatus)"
                 class="btn btn-light btn-sm"
                 type="button"
                 variant="light"

@@ -10,7 +10,7 @@
       <VotingModal
         :proposalIdProp="proposalId"
         :userProp="user.name"
-        :voteStatusProp="voteStatus"
+        :voteStatusProp="user.loggedIn ? isApproved(proposalId) : voteStatus"
         :loggedInProp="user.loggedIn"
         :steemconnect="true"
         :shareonsocial="true"
@@ -66,7 +66,7 @@
               }}</span>
             </div>
           </template>
-          
+
           <!-- Votes -->
           <template v-slot:cell(total_votes)="data">
             <span style="cursor:pointer" @click="loadVoters(data.item.id)"
@@ -182,17 +182,41 @@
                 ).toLocaleString()} SBD ${$t('common.availableBudget')}`
               "
             >
-              {{ data.item.funding.fundedStake}}%
+              {{ data.item.funding.fundedStake }}%
             </div>
           </template>
           <!-- Voting -->
           <template v-slot:cell(vote)="data">
             <button
+              v-if="!user.loggedIn"
               class="btn btn-sm btn-light text-dark"
               @click="showVotingModal(data.item.id)"
             >
-              <i :class="`far fa-thumbs-up`"></i>
+              <i class="far fa-arrow-alt-circle-up"></i>
             </button>
+            <div
+              style="cursor:pointer"
+              v-if="user.loggedIn"
+              @click="showVotingModal(data.item.id)"
+              :class="
+                `d-inline-block link link-underline-${
+                  isApproved(data.item.id) ? 'inactive' : 'active'
+                } text-${isApproved(data.item.id) ? 'warning' : 'success'} mt-4`
+              "
+            >
+              <i
+                :class="
+                  `far fa-arrow-alt-circle-${
+                    isApproved(data.item.id) ? 'down' : 'up'
+                  } mr-1`
+                "
+              ></i>
+              {{
+                isApproved(data.item.id)
+                  ? $t("keychain.voteUnsupport")
+                  : $t("keychain.voteSupport")
+              }}
+            </div>
           </template>
         </b-table>
       </div>
@@ -240,6 +264,20 @@ export default {
     statusProp: String
   },
   methods: {
+    initVoterProposals() {
+      if (this.user.proposals && this.user.proposals !== []) {
+        this.voterProposals = Array.from(JSON.parse(this.user.proposals)).map(
+          p => p.id
+        );
+      }
+    },
+    isApproved(id) {
+      if (this.voterProposals.includes(id)) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     loadVoters(id) {
       this.proposalId = id;
       this.$refs["modal-voters2"].show();
@@ -272,7 +310,7 @@ export default {
         this.post.body = renderer.render(this.post.body);
       });
     },
-     fetchVoterProposals() {
+    fetchVoterProposals() {
       this.$store.dispatch("fetchVoterProposals", this.user.name);
     }
   },
@@ -311,13 +349,16 @@ export default {
       proposalsSortBy: "total_votes",
       proposalsSortDesc: true,
       proposalsSortDirection: "asc",
-      voteStatus: true,
+      voteStatus: false,
       proposalId: 0,
-      proposalSubject: ""
+      proposalSubject: "",
+      voterProposals: []
     };
   },
   created() {
-    this.fetchVoterProposals();
+    if (this.user.loggedIn) {
+      this.initVoterProposals();
+    }
   }
 };
 </script>

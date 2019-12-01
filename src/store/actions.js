@@ -132,8 +132,17 @@ export default {
       .post(url, body, headers)
       .then(response => {
         if (response.data.result.length) {
-          let proposals = response.data.result.filter(p => p.voter === voter);
-          commit("SET_VOTER_PROPOSALS", proposals);
+          let voterProposals = response.data.result.filter(
+            p => p.voter === voter
+          );
+          let newproposals = [];
+          voterProposals.forEach(p => {
+            newproposals.push({
+              id: p.proposal.proposal_id,
+              voted: true
+            });
+          });
+          commit("SET_VOTER_PROPOSALS", JSON.stringify(newproposals));
           return proposals;
         }
       })

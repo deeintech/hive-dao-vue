@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import { i18n } from "@/utils/plugins/i18n.js";
 import items from "@/shared/constants/localStorage";
 
@@ -68,6 +69,9 @@ export default {
       user: "",
       token: ""
     };
+  },
+  computed: {
+    ...mapState(["voterProposals"])
   },
   methods: {
     loginKeychain(user) {
@@ -91,25 +95,34 @@ export default {
       }
     },
     saveLoginInfo(response) {
-      localStorage.setItem(items.USER, this.user);
-      localStorage.setItem(items.TOKEN, this.token);
-      localStorage.setItem(items.LOGGED_IN, true);
-      this.$store
-        .dispatch("setUser", {
-          name: this.user,
-          loggedIn: true,
-          token: this.token
-        })
-        .then(() => {
-          this.$router.push("/proposals");
-          // this.$bvToast.toast("Success", {
-          //   title: this.$i18n.t("common.loginLabel"),
-          //   variant: "secondary",
-          //   toaster: "b-toaster-top-right",
-          //   autoHideDelay: 3000,
-          //   solid: true
+      if (user !== "") {
+        this.$store.dispatch("fetchVoterProposals", this.user).then(() => {
+          localStorage.setItem(items.USER, this.user);
+          localStorage.setItem(items.TOKEN, this.token);
+          localStorage.setItem(items.LOGGED_IN, true);
+          localStorage.setItem(items.PROPOSALS, this.voterProposals);
+
+          this.$store
+            .dispatch("setUser", {
+              name: this.user,
+              loggedIn: true,
+              token: this.token,
+              proposals: this.voterProposals
+            })
+            .then(() => {
+              this.$router.push("/proposals");
+            });
+          // .finally(() => {
+          //   this.$bvToast.toast("Success", {
+          //     title: this.$i18n.t("common.logoutLabel"),
+          //     variant: "secondary",
+          //     toaster: "b-toaster-top-right",
+          //     autoHideDelay: 3000,
+          //     solid: true
+          //   });
           // });
         });
+      }
     }
   }
 };

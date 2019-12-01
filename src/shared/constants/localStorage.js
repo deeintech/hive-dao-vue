@@ -3,5 +3,6 @@ export default {
   USER: "user",
   TOKEN: "tk",
   LOGGED_IN: "loggedIn",
-  LANGUAGE: "language"
+  LANGUAGE: "language",
+  PROPOSALS: "proposals"
 };

@@ -109,11 +109,16 @@ export default {
     logout() {
       this.resetLocalStorage();
       this.$store
-        .dispatch("setUser", { name: "", loggedIn: false, token: "" })
+        .dispatch("setUser", {
+          name: "",
+          loggedIn: false,
+          token: "",
+          proposals: []
+        })
         .then(() => {
-          this.$bvToast.toast("Success", {
+          this.$bvToast.toast(this.$i18n.t("common.success"), {
             title: this.$i18n.t("common.logoutLabel"),
-            variant: "secondary",
+            variant: "success",
             toaster: "b-toaster-top-right",
             autoHideDelay: 3000,
             solid: true
@@ -124,6 +129,7 @@ export default {
       localStorage.removeItem(items.LOGGED_IN);
       localStorage.removeItem(items.USER);
       localStorage.removeItem(items.TOKEN);
+      localStorage.removeItem(items.PROPOSALS);
     }
   }
 };
