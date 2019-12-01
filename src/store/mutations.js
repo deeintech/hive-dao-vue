@@ -155,6 +155,11 @@ export default {
   SET_TOTAL_PROPOSAL_VOTERS: (state, totalVoters) => {
     state.totalProposalVoters = totalVoters;
   },
+  SET_VOTER_PROPOSALS: (state, proposals) => {
+    if (proposals !== undefined && proposals.length) {
+      state.voterProposals = proposals;
+    }
+  },
   SET_PROPOSAL_VOTERS: (state, voters) => {
     if (
       voters !== undefined &&

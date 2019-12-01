@@ -112,6 +112,35 @@ export default {
         return [];
       });
   },
+  async fetchVoterProposals({ commit }, voter) {
+    commit("SET_VOTER_PROPOSALS", []);
+    const url = process.env.VUE_APP_STEEMIT_MAINNET;
+    const headers = {
+      "Content-Type": "application/json"
+    };
+    const body = {
+      jsonrpc: "2.0",
+      method: "call",
+      id: 0,
+      params: [
+        "condenser_api",
+        "list_proposal_votes",
+        [[voter, 0], 100, "by_voter_proposal"]
+      ]
+    };
+    await axios
+      .post(url, body, headers)
+      .then(response => {
+        if (response.data.result.length) {
+          let proposals = response.data.result.filter(p => p.voter === voter);
+          commit("SET_VOTER_PROPOSALS", proposals);
+          return proposals;
+        }
+      })
+      .catch(() => {
+        return [];
+      });
+  },
   async fetchAccounts({ commit, dispatch }, voters) {
     const url = process.env.VUE_APP_STEEMIT_MAINNET;
     const headers = {
