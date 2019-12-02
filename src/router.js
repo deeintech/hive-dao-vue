@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Router from "vue-router";
-import store from "@/store/store";
 import { i18n } from "@/utils/plugins/i18n.js";
 import ProposalsPage from "@/pages/Proposals/ProposalsPage.vue";
 import items from "@/shared/constants/localStorage";

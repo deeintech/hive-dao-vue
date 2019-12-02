@@ -1,20 +1,40 @@
+import {
+  SET_ACCOUNTS,
+  SET_ACCOUNT,
+  SET_POST,
+  SET_TOTAL_BUDGET,
+  SET_DAILY_BUDGET,
+  SET_PROPOSALS,
+  SET_PROPOSAL,
+  SET_RETURNING_PROPOSAL,
+  SET_VOTERS,
+  SET_USER,
+  SET_GLOBAL_PROPERTIES,
+  SET_STEEM_PER_MVEST,
+  SET_TOTAL_PROPOSAL_VOTERS,
+  SET_VOTER_PROPOSALS,
+  ADD_VOTER_PROPOSAL,
+  REMOVE_VOTER_PROPOSAL,
+  SET_PROPOSAL_VOTERS
+} from "@/shared/constants/mutations";
+
 export default {
-  SET_ACCOUNTS: (state, accounts) => {
+  [SET_ACCOUNTS]: (state, accounts) => {
     state.accounts = accounts;
   },
-  SET_ACCOUNT: (state, account) => {
+  [SET_ACCOUNT]: (state, account) => {
     state.account = account;
   },
-  SET_POST: (state, post) => {
+  [SET_POST]: (state, post) => {
     state.post = post;
   },
-  SET_TOTAL_BUDGET: (state, totalBudget) => {
+  [SET_TOTAL_BUDGET]: (state, totalBudget) => {
     state.totalBudget = totalBudget;
   },
-  SET_DAILY_BUDGET: (state, dailyBudget) => {
+  [SET_DAILY_BUDGET]: (state, dailyBudget) => {
     state.dailyBudget = dailyBudget;
   },
-  SET_PROPOSALS: (state, proposals) => {
+  [SET_PROPOSALS]: (state, proposals) => {
     let newproposals = [];
     let dailyBudget = state.dailyBudget;
     let totalAvailableBudget = dailyBudget;
@@ -104,7 +124,7 @@ export default {
       });
     state.proposals = newproposals;
   },
-  SET_PROPOSAL: (state, proposal) => {
+  [SET_PROPOSAL]: (state, proposal) => {
     const dt2 = new Date(proposal["end_date"]);
     const dt1 = new Date(proposal["start_date"]);
     const oneDay = 1000 * 60 * 60 * 24;
@@ -132,7 +152,7 @@ export default {
     });
     state.proposal = proposal;
   },
-  SET_RETURNING_PROPOSAL: (state, proposals) => {
+  [SET_RETURNING_PROPOSAL]: (state, proposals) => {
     if (proposals !== undefined) {
       let proposal = state.proposals
         .filter(p => p.receiver === "steem.dao" && p.funding.fundedStake > 0)
@@ -140,34 +160,34 @@ export default {
       state.returnProposal = proposal;
     }
   },
-  SET_VOTERS: (state, voters) => {
+  [SET_VOTERS]: (state, voters) => {
     state.voters = voters;
   },
-  SET_USER: (state, user) => {
+  [SET_USER]: (state, user) => {
     state.user = user;
   },
-  SET_GLOBAL_PROPERTIES: (state, properties) => {
+  [SET_GLOBAL_PROPERTIES]: (state, properties) => {
     state.globalProperties = properties;
   },
-  SET_STEEM_PER_MVEST: (state, steemPerMVest) => {
+  [SET_STEEM_PER_MVEST]: (state, steemPerMVest) => {
     state.steemPerMVest = steemPerMVest;
   },
-  SET_TOTAL_PROPOSAL_VOTERS: (state, totalVoters) => {
+  [SET_TOTAL_PROPOSAL_VOTERS]: (state, totalVoters) => {
     state.totalProposalVoters = totalVoters;
   },
-  SET_VOTER_PROPOSALS: (state, proposals) => {
+  [SET_VOTER_PROPOSALS]: (state, proposals) => {
     if (proposals !== undefined && proposals.length) {
       state.voterProposals = proposals;
     }
   },
-  ADD_VOTER_PROPOSAL: (state, id) => {
+  [ADD_VOTER_PROPOSAL]: (state, id) => {
     state.voterProposals.push(id);
   },
-  REMOVE_VOTER_PROPOSAL: (state, id) => {
+  [REMOVE_VOTER_PROPOSAL]: (state, id) => {
     let index = state.voterProposals.indexOf(id);
     state.voterProposals.splice(index, 1);
   },
-  SET_PROPOSAL_VOTERS: (state, voters) => {
+  [SET_PROPOSAL_VOTERS]: (state, voters) => {
     if (
       voters !== undefined &&
       voters.length &&

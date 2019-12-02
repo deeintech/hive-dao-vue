@@ -118,8 +118,8 @@ export default {
         .then(() => {
           this.$bvToast.toast(this.$i18n.t("common.success"), {
             title: this.$i18n.t("common.logoutLabel"),
-            variant: "success",
-            toaster: "b-toaster-top-right",
+            variant: "default",
+            toaster: "b-toaster-bottom-right",
             autoHideDelay: 3000,
             solid: true
           });
