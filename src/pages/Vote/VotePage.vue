@@ -121,25 +121,6 @@
                   <ul class="list-unstyled mt-4">
                     <li class="py-2">
                       <div class="d-flex align-items-center">
-                        <div>
-                          <div
-                            class="icon icon-shape icon-success icon-sm rounded-circle mr-3"
-                          >
-                            <i class="fas fa-book"></i>
-                          </div>
-                        </div>
-                        <div>
-                          <span class="h6 mb-0"
-                            ><strong>{{ $t("vote.details") }} </strong>
-                            <a :href="proposal.permlink" target="_blank">{{
-                              $t("vote.steemitPost")
-                            }}</a></span
-                          >
-                        </div>
-                      </div>
-                    </li>
-                    <li class="py-2">
-                      <div class="d-flex align-items-center">
                         <div
                           class="icon icon-shape icon-warning icon-sm rounded-circle mr-3"
                         >
@@ -198,6 +179,19 @@
           </div>
         </div>
       </section>
+
+      <div class="container my-4">
+        <!-- Post details -->
+        <SkeletonLoading v-if="!post.body" />
+        <div v-if="post.body">
+          <vue-markdown :source="post.body" class="postImage"></vue-markdown>
+          <h3>{{ $t("common.originalPostTitle") }}</h3>
+          <div>
+            {{ $t("common.originalPostDescription") }}
+            <a :href="`${proposal.permlink}`" target="_blank">Steemit</a>.
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -207,6 +201,8 @@ import { mapState, mapGetters } from "vuex";
 import SkeletonLoading from "@/components/SkeletonLoading";
 import VotersModal from "@/components/VotersModal";
 import VotingModal from "@/components/VotingModal";
+import VueMarkdown from "vue-markdown";
+import { DefaultRenderer } from "steem-content-renderer";
 
 export default {
   name: "ProposalVote",
@@ -220,13 +216,16 @@ export default {
       "proposalVoters",
       "returnProposal",
       "user",
+      "post",
       "voterProposals"
     ])
   },
   components: {
     SkeletonLoading,
     VotersModal,
-    VotingModal
+    VotingModal,
+    VueMarkdown,
+    DefaultRenderer
   },
   data() {
     return {
@@ -240,7 +239,11 @@ export default {
       );
     },
     fetchProposalById() {
-      this.$store.dispatch("fetchProposalById", Number(this.id));
+      this.$store.dispatch("fetchProposalById", Number(this.id)).then(() => {
+        if (this.proposal !== undefined) {
+          this.showPostDetails();
+        }
+      });
     },
     totalValue() {
       if (this.proposal && this.returnProposal[0]) {
@@ -270,6 +273,34 @@ export default {
         return true;
       } else {
         return false;
+      }
+    },
+    showPostDetails() {
+      const renderer = new DefaultRenderer({
+        baseUrl: "https://steemit.com/",
+        breaks: true,
+        skipSanitization: false,
+        allowInsecureScriptTags: false,
+        addNofollowToLinks: true,
+        doNotShowImages: false,
+        ipfsPrefix: "",
+        assetsWidth: 640,
+        assetsHeight: 480,
+        imageProxyFn: url => url,
+        usertagUrlFn: account => "/@" + account,
+        hashtagUrlFn: hashtag => "/trending/" + hashtag,
+        isLinkSafeFn: url => true
+      });
+      if (this.proposal) {
+        let permlinkShort = this.proposal.permlink.replace(/^.*\/(.*)$/, "$1");
+        this.$store
+          .dispatch("fetchPost", [
+            `${this.proposal.creator}`,
+            `${permlinkShort}`
+          ])
+          .then(() => {
+            this.post.body = renderer.render(this.post.body);
+          });
       }
     }
   },

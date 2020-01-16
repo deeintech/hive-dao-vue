@@ -40,6 +40,11 @@
       <SkeletonLoading v-if="!post.body" />
       <div v-if="post.body">
         <vue-markdown :source="post.body" class="postImage"></vue-markdown>
+        <h3>{{ $t("common.originalPostTitle") }}</h3>
+        <div>
+          {{ $t("common.originalPostDescription") }}
+          <a :href="`${post.permlink}`" target="_blank">Steemit</a>.
+        </div>
       </div>
     </b-modal>
     <!-- PROPOSALS TABLE -->
@@ -342,10 +347,10 @@ export default {
       proposalsSortDirection: "asc",
       voteStatus: false,
       proposalId: 0,
-      proposalSubject: "",
+      proposalSubject: ""
       // voterProposals: []
     };
-  },
+  }
 };
 </script>
 
