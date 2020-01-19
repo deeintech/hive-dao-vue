@@ -43,7 +43,7 @@
         <h3>{{ $t("common.originalPostTitle") }}</h3>
         <div>
           {{ $t("common.originalPostDescription") }}
-          <a :href="`${post.permlink}`" target="_blank">Steemit</a>.
+          <a :href="`https://steemit.com/@${post.author}/${post.permlink}`" target="_blank">Steemit</a>.
         </div>
       </div>
     </b-modal>
@@ -348,7 +348,6 @@ export default {
       voteStatus: false,
       proposalId: 0,
       proposalSubject: ""
-      // voterProposals: []
     };
   }
 };
