@@ -121,6 +121,29 @@
                   <ul class="list-unstyled mt-4">
                     <li class="py-2">
                       <div class="d-flex align-items-center">
+                        <a
+                          :href="`https://steemit.com/@${proposal.creator}`"
+                          target="_blank"
+                          class="avatar avatar-sm rounded-circle mr-3"
+                        >
+                          <img
+                            alt="Image placeholder"
+                            :src="
+                              `https://steemitimages.com/u/${proposal.creator}/avatar`
+                            "
+                          />
+                        </a>
+                        <span class="h6 mb-0"
+                          ><strong>{{ $t("vote.createdBy") }}</strong> @<a
+                            target="_blank"
+                            :href="`https://steemit.com/@${proposal.creator}`"
+                            >{{ proposal.creator }}</a
+                          ></span
+                        >
+                      </div>
+                    </li>
+                    <li class="py-2">
+                      <div class="d-flex align-items-center">
                         <div
                           class="icon icon-shape icon-warning icon-sm rounded-circle mr-3"
                         >
@@ -149,25 +172,17 @@
                         >
                       </div>
                     </li>
+
                     <li class="py-2">
                       <div class="d-flex align-items-center">
-                        <a
-                          :href="`https://steemit.com/@${proposal.creator}`"
-                          target="_blank"
-                          class="avatar avatar-sm rounded-circle mr-3"
+                        <div
+                          class="icon icon-shape icon-success icon-sm rounded-circle mr-3"
                         >
-                          <img
-                            alt="Image placeholder"
-                            :src="
-                              `https://steemitimages.com/u/${proposal.creator}/avatar`
-                            "
-                          />
-                        </a>
+                          <i class="fas fa-book"></i>
+                        </div>
                         <span class="h6 mb-0"
-                          ><strong>{{ $t("vote.createdBy") }}</strong> @<a
-                            target="_blank"
-                            :href="`https://steemit.com/@${proposal.creator}`"
-                            >{{ proposal.creator }}</a
+                          ><a href="#proposalBody"
+                            >{{$t('proposals.detailsLabel')}}</a
                           ></span
                         >
                       </div>
@@ -180,7 +195,7 @@
         </div>
       </section>
 
-      <div class="container my-4">
+      <div class="container my-4" id="proposalBody">
         <!-- Post details -->
         <SkeletonLoading v-if="!post.body" />
         <div v-if="post.body">

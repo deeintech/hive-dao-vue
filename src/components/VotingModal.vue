@@ -91,7 +91,7 @@
           class="text-dark"
           :to="`proposal/${proposalId}`"
           target="_blank"
-          >{{ $t("common.shareOnSocial") }} <i class="far fa-share-square"></i
+          >{{ $t("proposals.detailsLabel") }} <i class="far fa-share-square"></i
         ></router-link>
       </div>
 
