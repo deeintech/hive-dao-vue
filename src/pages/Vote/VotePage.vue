@@ -32,7 +32,7 @@
 
     <!-- Main content -->
     <div v-if="proposal">
-      <section class="slice bg-gradient-primary vh-100 pt-5">
+      <section class="slice bg-gradient-primary pt-5">
         <div class="container py-5 position-relative zindex-100">
           <div class="row row-grid justify-content-around align-items-center">
             <div class="col-lg-5">

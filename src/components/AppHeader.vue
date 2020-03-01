@@ -74,7 +74,7 @@
       <!-- </b-collapse> -->
       <select
         v-model="$i18n.locale"
-        class="form-control-sm selector-plain mt-1 pr-1 pl-2 mr-1"
+        class="form-control-sm selector-plain mt-1 pr-1 pl-2 mr-1 d-none d-md-block"
         @change="changeLang($event)"
       >
         <option v-for="(lang, i) in languages" :key="i" :value="lang.locale">

@@ -17,11 +17,6 @@
                   }}</router-link></b-nav-item
                 >
                 <b-nav-item
-                  ><router-link to="/proposals/workers" class="text-dark">{{
-                    $t("common.workersLabel")
-                  }}</router-link></b-nav-item
-                >
-                <b-nav-item
                   ><router-link
                     to="/proposals/createproposal"
                     class="text-dark"
