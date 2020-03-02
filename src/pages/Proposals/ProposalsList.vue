@@ -43,7 +43,11 @@
         <h3>{{ $t("common.originalPostTitle") }}</h3>
         <div>
           {{ $t("common.originalPostDescription") }}
-          <a :href="`https://steemit.com/@${post.author}/${post.permlink}`" target="_blank">Steemit</a>.
+          <a
+            :href="`https://steemit.com/@${post.author}/${post.permlink}`"
+            target="_blank"
+            >Steemit</a
+          >.
         </div>
       </div>
     </b-modal>
