@@ -5,7 +5,7 @@
         <div class="row align-items-md-center">
           <div class="col-sm-12 col-md-4 mb-4 mb-md-0">
             <div class="d-flex align-items-center">
-              <p class="text-sm mb-0">© Steem Proposals, 2019</p>
+              <p class="text-sm mb-0">© Steem Proposals, 2020</p>
             </div>
           </div>
           <div class="col-sm-12 col-md-5 mb-4 mb-sm-0">
@@ -21,9 +21,9 @@
               <li class="nav-item">
                 <a
                   class="nav-link"
-                  href="https://steemit.com/@dmitrydao"
+                  href="https://steempeak.com/@dmitrydao"
                   target="_blank"
-                  >Steemit</a
+                  >Steempeak</a
                 >
               </li>
               <li class="nav-item">

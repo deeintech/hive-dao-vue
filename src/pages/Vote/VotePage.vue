@@ -203,7 +203,7 @@
           <h3>{{ $t("common.originalPostTitle") }}</h3>
           <div>
             {{ $t("common.originalPostDescription") }}
-            <a :href="`${proposal.permlink}`" target="_blank">Steemit</a>.
+            <a :href="`${proposal.permlink}`" target="_blank">Steempeak</a>.
           </div>
         </div>
       </div>
@@ -292,7 +292,7 @@ export default {
     },
     showPostDetails() {
       const renderer = new DefaultRenderer({
-        baseUrl: "https://steemit.com/",
+        baseUrl: "https://steempeak.com/",
         breaks: true,
         skipSanitization: false,
         allowInsecureScriptTags: false,

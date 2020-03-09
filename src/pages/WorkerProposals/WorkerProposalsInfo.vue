@@ -2,7 +2,7 @@
   <div class="col-lg-3">
     <div class="card card-profile border-0 mt-lg-7">
       <a
-        :href="`https://steemit.com/@${account.name}`"
+        :href="`https://steempeak.com/@${account.name}`"
         class="mx-auto"
         target="_blank"
       >

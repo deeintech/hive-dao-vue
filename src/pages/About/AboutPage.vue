@@ -38,7 +38,7 @@
                 {{ $t("about.description2") }}
               </p>
               <a
-                href="https://steemit.com/steem/@steemitblog/hf21-sps-and-eip-explained"
+                href="https://steempeak.com/steem/@steemitblog/hf21-sps-and-eip-explained"
                 target="_blank"
                 class="link link-underline-info"
                 >{{ $t("common.findOutMore") }}</a
@@ -61,7 +61,7 @@
                 {{ $t("about.description3") }}
               </p>
               <a
-                href="https://dmitrydao.com"
+                href="https://dmitrydao.github.io"
                 target="_blank"
                 class="link link-underline-info"
                 >{{ $t("common.findOutMore") }}</a

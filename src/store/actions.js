@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default {
   async fetchProposals({ commit }, limit) {
-    const url = process.env.VUE_APP_STEEMIT_MAINNET;
+    const url = process.env.VUE_APP_STEEM_MAINNET;
     const headers = {
       "Content-Type": "application/json"
     };
@@ -33,7 +33,7 @@ export default {
   },
   async fetchProposalById({ commit, dispatch }, id) {
     commit("SET_PROPOSAL", {});
-    const url = process.env.VUE_APP_STEEMIT_MAINNET;
+    const url = process.env.VUE_APP_STEEM_MAINNET;
     const headers = {
       "Content-Type": "application/json"
     };
@@ -57,7 +57,7 @@ export default {
   },
   async fetchPost({ commit }, [author, permlink]) {
     commit("SET_POST", {});
-    const url = process.env.VUE_APP_STEEMIT_MAINNET;
+    const url = process.env.VUE_APP_STEEM_MAINNET;
     const headers = {
       "Content-Type": "application/json"
     };
@@ -81,7 +81,7 @@ export default {
   async fetchProposalVoters({ commit, dispatch }, proposalId) {
     commit("SET_VOTERS", []);
     commit("SET_ACCOUNTS", []);
-    const url = process.env.VUE_APP_STEEMIT_MAINNET;
+    const url = process.env.VUE_APP_STEEM_MAINNET;
     const headers = {
       "Content-Type": "application/json"
     };
@@ -120,7 +120,7 @@ export default {
   },
   async setVoterProposals({ commit }, voter) {
     commit("SET_VOTER_PROPOSALS", []);
-    const url = process.env.VUE_APP_STEEMIT_MAINNET;
+    const url = process.env.VUE_APP_STEEM_MAINNET;
     const headers = {
       "Content-Type": "application/json"
     };
@@ -154,7 +154,7 @@ export default {
       });
   },
   async fetchAccounts({ commit, dispatch }, voters) {
-    const url = process.env.VUE_APP_STEEMIT_MAINNET;
+    const url = process.env.VUE_APP_STEEM_MAINNET;
     const headers = {
       "Content-Type": "application/json"
     };
@@ -192,7 +192,7 @@ export default {
       });
   },
   async setBudget({ commit }, totalBudget) {
-    const url = process.env.VUE_APP_STEEMIT_MAINNET;
+    const url = process.env.VUE_APP_STEEM_MAINNET;
     const headers = {
       "Content-Type": "application/json"
     };
@@ -215,7 +215,7 @@ export default {
       });
   },
   async fetchSteemGlobalProperties({ commit, dispatch }, globalProperties) {
-    const url = process.env.VUE_APP_STEEMIT_MAINNET;
+    const url = process.env.VUE_APP_STEEM_MAINNET;
     const headers = {
       "Content-Type": "application/json"
     };

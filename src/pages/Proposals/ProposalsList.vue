@@ -44,9 +44,9 @@
         <div>
           {{ $t("common.originalPostDescription") }}
           <a
-            :href="`https://steemit.com/@${post.author}/${post.permlink}`"
+            :href="`https://steempeak.com/@${post.author}/${post.permlink}`"
             target="_blank"
-            >Steemit</a
+            >Steempeak</a
           >.
         </div>
       </div>
