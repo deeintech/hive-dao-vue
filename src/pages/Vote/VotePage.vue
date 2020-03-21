@@ -66,12 +66,12 @@
                     <i
                       ><img
                         class="icon-small ml-1"
-                        src="@/assets/img/random/steemconnect.png"
+                        src="@/assets/img/random/hivesigner.svg"
                     /></i>
                     <span class="btn-inner--text">{{
                       $t("vote.supportWith")
                     }}</span>
-                    <span class="btn-inner--brand">Steemconnect</span>
+                    <span class="btn-inner--brand">Hivesigner</span>
                   </a>
                 </div>
                 <div class="text-white">
@@ -250,7 +250,7 @@ export default {
   methods: {
     steemconnectVote(approve) {
       window.open(
-        `https://beta.steemconnect.com/sign/update-proposal-votes?proposal_ids=[${this.id}]&approve=${approve}`
+        `https://hivesigner.com/sign/update-proposal-votes?proposal_ids=[${this.id}]&approve=${approve}`
       );
     },
     fetchProposalById() {

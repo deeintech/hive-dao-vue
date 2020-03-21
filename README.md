@@ -1,4 +1,4 @@
-# Steem Proposals System
+# Hive DAO
 
 ## Project setup
 ```

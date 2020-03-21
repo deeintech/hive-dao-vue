@@ -76,7 +76,7 @@
                 {{ $t("keychain.voteWithLabel") }}
                 <img
                   class="icon-small ml-1"
-                  src="@/assets/img/random/steemconnect.png"
+                  src="@/assets/img/random/hivesigner.svg"
                 />
               </button>
             </b-form-group>
@@ -152,7 +152,7 @@ export default {
     steemconnectVote(voteStatus) {
       if (this.user !== "") {
         window.open(
-          `https://beta.steemconnect.com/sign/update-proposal-votes?proposal_ids=[${this.proposalId}]&approve=${voteStatus}`
+          `https://hivesigner.com/sign/update-proposal-votes?proposal_ids=[${this.proposalId}]&approve=${voteStatus}`
         );
       }
     },
