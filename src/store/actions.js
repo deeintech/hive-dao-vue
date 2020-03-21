@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default {
   async fetchProposals({ commit }, limit) {
-    const url = process.env.VUE_APP_STEEM_MAINNET;
+    const url = process.env.VUE_APP_HIVE_MAINNET;
     const headers = {
       "Content-Type": "application/json"
     };
@@ -33,7 +33,7 @@ export default {
   },
   async fetchProposalById({ commit, dispatch }, id) {
     commit("SET_PROPOSAL", {});
-    const url = process.env.VUE_APP_STEEM_MAINNET;
+    const url = process.env.VUE_APP_HIVE_MAINNET;
     const headers = {
       "Content-Type": "application/json"
     };
@@ -57,7 +57,7 @@ export default {
   },
   async fetchPost({ commit }, [author, permlink]) {
     commit("SET_POST", {});
-    const url = process.env.VUE_APP_STEEM_MAINNET;
+    const url = process.env.VUE_APP_HIVE_MAINNET;
     const headers = {
       "Content-Type": "application/json"
     };
@@ -81,7 +81,7 @@ export default {
   async fetchProposalVoters({ commit, dispatch }, proposalId) {
     commit("SET_VOTERS", []);
     commit("SET_ACCOUNTS", []);
-    const url = process.env.VUE_APP_STEEM_MAINNET;
+    const url = process.env.VUE_APP_HIVE_MAINNET;
     const headers = {
       "Content-Type": "application/json"
     };
@@ -92,13 +92,13 @@ export default {
       params: [
         "condenser_api",
         "list_proposal_votes",
-        [[proposalId, ""], 1000, "by_proposal_voter"]
+        [[proposalId, ""], 500, "by_proposal_voter"]
       ]
     };
     await axios
       .post(url, body, headers)
       .then(response => {
-        if (response.data.result.length) {
+        if (response.data.result !== undefined) {
           let voters = response.data.result;
           let accounts = voters
             .filter(v => v.proposal.id === proposalId)
@@ -120,7 +120,7 @@ export default {
   },
   async setVoterProposals({ commit }, voter) {
     commit("SET_VOTER_PROPOSALS", []);
-    const url = process.env.VUE_APP_STEEM_MAINNET;
+    const url = process.env.VUE_APP_HIVE_MAINNET;
     const headers = {
       "Content-Type": "application/json"
     };
@@ -131,13 +131,13 @@ export default {
       params: [
         "condenser_api",
         "list_proposal_votes",
-        [[voter, 0], 1000, "by_voter_proposal"]
+        [[voter, 0], 500, "by_voter_proposal"]
       ]
     };
     await axios
       .post(url, body, headers)
       .then(response => {
-        if (response.data.result.length) {
+        if (response.data.result !== undefined) {
           let voterProposals = response.data.result.filter(
             p => p.voter === voter
           );
@@ -154,7 +154,7 @@ export default {
       });
   },
   async fetchAccounts({ commit, dispatch }, voters) {
-    const url = process.env.VUE_APP_STEEM_MAINNET;
+    const url = process.env.VUE_APP_HIVE_MAINNET;
     const headers = {
       "Content-Type": "application/json"
     };
@@ -168,9 +168,11 @@ export default {
       .post(url, body, headers)
       .then(response => {
         let accounts = response.data.result;
-        commit("SET_ACCOUNTS", accounts);
-        dispatch("setProposalVoters", voters);
-        commit("SET_TOTAL_PROPOSAL_VOTERS", voters.length);
+        if (accounts !== undefined) {
+          commit("SET_ACCOUNTS", accounts);
+          dispatch("setProposalVoters", voters);
+          commit("SET_TOTAL_PROPOSAL_VOTERS", voters.length);
+        }
         return accounts;
       })
       .catch(() => {
@@ -192,7 +194,7 @@ export default {
       });
   },
   async setBudget({ commit }, totalBudget) {
-    const url = process.env.VUE_APP_STEEM_MAINNET;
+    const url = process.env.VUE_APP_HIVE_MAINNET;
     const headers = {
       "Content-Type": "application/json"
     };
@@ -215,7 +217,7 @@ export default {
       });
   },
   async fetchSteemGlobalProperties({ commit, dispatch }, globalProperties) {
-    const url = process.env.VUE_APP_STEEM_MAINNET;
+    const url = process.env.VUE_APP_HIVE_MAINNET;
     const headers = {
       "Content-Type": "application/json"
     };

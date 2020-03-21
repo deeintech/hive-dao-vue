@@ -38,7 +38,7 @@
                 {{ $t("about.description2") }}
               </p>
               <a
-                href="https://steempeak.com/steem/@steemitblog/hf21-sps-and-eip-explained"
+                href="https://peakd.com/steem/@steemitblog/hf21-sps-and-eip-explained"
                 target="_blank"
                 class="link link-underline-info"
                 >{{ $t("common.findOutMore") }}</a

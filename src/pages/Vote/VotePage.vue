@@ -19,7 +19,7 @@
 
     <!-- Voters modal -->
     <b-modal
-      size="md"
+      size="lg"
       scrollable
       ref="modal-voters"
       :title="`${$t('proposals.proposalVoters')} (#${id})`"
@@ -37,11 +37,11 @@
           <div class="row row-grid justify-content-around align-items-center">
             <div class="col-lg-5">
               <div class="text-center text-lg-left">
-                <span class="badge badge-soft-primary badge-pill">{{
-                  $t("vote.steemOn")
+                <span class="badge badge-light badge-pill">{{
+                  $t("vote.HiveOn")
                 }}</span>
                 <h1 class="text-white mt-4 mb-3">
-                  {{ $t("vote.steemProposalsTitle") }}
+                  {{ $t("vote.HiveProposalsTitle") }}
                 </h1>
                 <!-- Buttons -->
                 <div class="mt-6">
@@ -76,10 +76,10 @@
                 </div>
                 <div class="text-white">
                   <a
-                    href="https://signup.steemit.com"
+                    href="https://signup.hive.io"
                     target="_blank"
                     class="text-white"
-                    ><small>{{ $t("vote.steemAccount") }}</small></a
+                    ><small>{{ $t("vote.HiveAccount") }}</small></a
                   >
                 </div>
               </div>
@@ -101,7 +101,7 @@
                   <b-progress
                     id="tooltip1"
                     height="2rem"
-                    variant="primary"
+                    variant="success"
                     :max="100"
                   >
                     <b-progress-bar
@@ -122,7 +122,7 @@
                     <li class="py-2">
                       <div class="d-flex align-items-center">
                         <a
-                          :href="`https://steemit.com/@${proposal.creator}`"
+                          :href="`https://peakd.com/@${proposal.creator}`"
                           target="_blank"
                           class="avatar avatar-sm rounded-circle mr-3"
                         >
@@ -136,7 +136,7 @@
                         <span class="h6 mb-0"
                           ><strong>{{ $t("vote.createdBy") }}</strong> @<a
                             target="_blank"
-                            :href="`https://steemit.com/@${proposal.creator}`"
+                            :href="`https://peakd.com/@${proposal.creator}`"
                             >{{ proposal.creator }}</a
                           ></span
                         >
@@ -145,20 +145,20 @@
                     <li class="py-2">
                       <div class="d-flex align-items-center">
                         <div
-                          class="icon icon-shape icon-warning icon-sm rounded-circle mr-3"
+                          class="icon icon-shape icon-danger icon-sm rounded-circle mr-3"
                         >
                           <i class="fas fa-wallet"></i>
                         </div>
                         <span class="h6 mb-0"
                           ><strong>{{ $t("vote.requestedFunding") }}: </strong>
-                          {{ proposal.total_requested | numeric3 }} SBD</span
+                          {{ proposal.total_requested | numeric3 }} HBD</span
                         >
                       </div>
                     </li>
                     <li class="py-2">
                       <div class="d-flex align-items-center">
                         <div
-                          class="icon icon-shape icon-primary icon-sm rounded-circle mr-3"
+                          class="icon icon-shape icon-warning icon-sm rounded-circle mr-3"
                         >
                           <i class="fas fa-calendar"></i>
                         </div>
@@ -203,7 +203,7 @@
           <h3>{{ $t("common.originalPostTitle") }}</h3>
           <div>
             {{ $t("common.originalPostDescription") }}
-            <a :href="`${proposal.permlink}`" target="_blank">Steempeak</a>.
+            <a :href="`${proposal.permlink}`" target="_blank">PeakD</a>.
           </div>
         </div>
       </div>
@@ -292,7 +292,7 @@ export default {
     },
     showPostDetails() {
       const renderer = new DefaultRenderer({
-        baseUrl: "https://steempeak.com/",
+        baseUrl: "https://peakd.com/",
         breaks: true,
         skipSanitization: false,
         allowInsecureScriptTags: false,

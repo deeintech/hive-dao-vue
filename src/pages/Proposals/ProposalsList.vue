@@ -18,7 +18,7 @@
     </b-modal>
 
     <b-modal
-      size="md"
+      size="lg"
       scrollable
       ref="modal-voters2"
       :title="`${$t('proposals.proposalVoters')} (#${proposalId})`"
@@ -44,9 +44,9 @@
         <div>
           {{ $t("common.originalPostDescription") }}
           <a
-            :href="`https://steempeak.com/@${post.author}/${post.permlink}`"
+            :href="`https://peakd.com/@${post.author}/${post.permlink}`"
             target="_blank"
-            >Steempeak</a
+            >PeakD</a
           >.
         </div>
       </div>
@@ -79,7 +79,7 @@
           <!-- Votes -->
           <template v-slot:cell(total_votes)="data">
             <span style="cursor:pointer" @click="loadVoters(data.item.id)"
-              >{{ data.item.total_votes | numeric }} SP</span
+              >{{ data.item.total_votes | numeric }} HP</span
             >
           </template>
           <!-- Status -->
@@ -294,7 +294,7 @@ export default {
       this.proposalSubject = subject;
       this.proposalId = id;
       const renderer = new DefaultRenderer({
-        baseUrl: "https://steemit.com/",
+        baseUrl: "https://peakd.com/",
         breaks: true,
         skipSanitization: false,
         allowInsecureScriptTags: false,

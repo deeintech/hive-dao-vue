@@ -61,7 +61,7 @@ export default {
         container.receiver = p.receiver;
         container.creator = p.creator;
         container.daily_pay = p.daily_pay.amount / 1000;
-        (container.permlink = `https://steempeak.com/@${p.creator}/${p.permlink}`),
+        (container.permlink = `https://peakd.com/@${p.creator}/${p.permlink}`),
           (container.permlink_short = p.permlink);
         container.start_date = p.start_date;
         container.end_date = p.end_date;
@@ -142,7 +142,7 @@ export default {
       if (p === "permlink") {
         proposal[
           "permlink"
-        ] = `https://steempeak.com/@${proposal["creator"]}/${proposal["permlink"]}`;
+        ] = `https://peakd.com/@${proposal["creator"]}/${proposal["permlink"]}`;
       } else {
         proposal[p] = proposal[p];
       }

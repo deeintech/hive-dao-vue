@@ -14,7 +14,7 @@
               </div>
               <div class="pl-4">
                 <span class="d-block h5 text-white mr-2 mb-1"
-                  >{{ totalBudget | numeric3 }} SBD</span
+                  >{{ totalBudget | numeric3 }} HBD</span
                 >
                 <span class="text-white">{{ $t("common.totalBudget") }}</span>
               </div>
@@ -24,7 +24,7 @@
       </div>
       <div class="col-lg-4">
         <div
-          class="card card-stats bg-gradient-info border-0 hover-shadow-lg hover-translate-y-n3 mb-4 ml-lg-0"
+          class="card card-stats bg-gradient-warning border-0 hover-shadow-lg hover-translate-y-n3 mb-4 ml-lg-0"
         >
           <div class="card-body">
             <div class="d-flex">
@@ -35,7 +35,7 @@
               </div>
               <div class="pl-4">
                 <span class="d-block h5 text-white mr-2 mb-1"
-                  >{{ dailyBudget | numeric3 }} SBD</span
+                  >{{ dailyBudget | numeric3 }} HBD</span
                 >
                 <span class="text-white">{{ $t("common.dailyBudget") }}</span>
               </div>

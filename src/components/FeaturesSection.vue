@@ -217,7 +217,7 @@
                   </td>
                   <td>
                     <span class="h6"
-                      >{{ proposal.daily_pay | numeric }} SBD</span
+                      >{{ proposal.daily_pay | numeric }} HBD</span
                     >
                   </td>
                   <td>
@@ -228,7 +228,7 @@
                   </td>
                   <td>
                     <span class="h6"
-                      >{{ proposal.total_votes | numeric3 }} SP</span
+                      >{{ proposal.total_votes | numeric3 }} HP</span
                     >
                   </td>
                 </tr>
@@ -250,10 +250,10 @@
       <div class="row align-items-md-center slice">
         <div class="col-lg-3 col-6 mb-5 mb-lg-0">
           <div class="text-center mb-5 mb-lg-0">
-            <div class="icon icon-lg text-info">
+            <div class="icon icon-lg text-warning">
               <i class="fas fa-bullseye"></i>
             </div>
-            <span class="d-block mt-4 h3 text-info">{{ totalProposals }}</span>
+            <span class="d-block mt-4 h3 text-warning">{{ totalProposals }}</span>
             <span class="d-block mt-2 h6">{{
               $t("common.totalProposals")
             }}</span>
@@ -261,10 +261,10 @@
         </div>
         <div class="col-lg-3 col-6 mb-5 mb-lg-0">
           <div class="text-center mb-5 mb-lg-0">
-            <div class="icon icon-lg text-warning">
+            <div class="icon icon-lg text-success">
               <i class="fas fa-thumbs-up"></i>
             </div>
-            <span class="d-block mt-4 h3 text-warning">{{
+            <span class="d-block mt-4 h3 text-success">{{
               totalProposalsByStatus("active")
             }}</span>
             <span class="d-block mt-2 h6">{{
@@ -274,11 +274,11 @@
         </div>
         <div class="col-lg-3 col-6 mb-5 mb-lg-0">
           <div class="text-center">
-            <div class="icon icon-lg text-primary">
+            <div class="icon icon-lg text-dark">
               <i class="fas fa-hand-holding-usd"></i>
             </div>
-            <span class="d-block mt-4 h3 text-primary"
-              >{{ totalBudget | numeric3 }} SBD</span
+            <span class="d-block mt-4 h3 text-dark"
+              >{{ totalBudget | numeric3 }} HBD</span
             >
             <span class="d-block mt-2 h6">{{ $t("common.totalBudget") }}</span>
           </div>
@@ -289,7 +289,7 @@
               <i class="fas fa-user-friends"></i>
             </div>
             <span class="d-block mt-4 h2 text-danger"
-              >{{ dailyBudget | numeric3 }} SBD</span
+              >{{ dailyBudget | numeric3 }} HBD</span
             >
             <span class="d-block mt-2 h6">{{ $t("common.dailyBudget") }}</span>
           </div>

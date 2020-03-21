@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-12 d-flex justify-content-center">
+    <div class="col-sm-12 col-md-12 col-lg-9 justify-content-center">
       <b-list-group v-if="accounts.length">
         <h5>
           {{ $t("vote.supportedByCommunity") }} ({{ proposalVoters.length }}):
@@ -11,21 +11,21 @@
           class="d-flex justify-content-between align-items-center"
         >
           <div class="avatar rounded-circle">
-            <a :href="`https://steemit.com/@${voter.voter}`" target="_blank">
+            <a :href="`https://peakd.com/@${voter.voter}`" target="_blank">
               <img :src="`https://steemitimages.com/u/${voter.voter}/avatar`" />
             </a>
           </div>
           <a
             v-if="voter.proxyAccount === ''"
             class="text-dark"
-            :href="`https://steemit.com/@${voter.voter}`"
+            :href="`https://peakd.com/@${voter.voter}`"
             target="_blank"
             >@{{ voter.voter }}</a
           >
           <a
             v-else
             class="text-dark"
-            :href="`https://steemit.com/@${voter.voter}`"
+            :href="`https://peakd.com/@${voter.voter}`"
             target="_blank"
             v-b-tooltip.hover
             :title="
@@ -36,10 +36,10 @@
             ><strike>@{{ voter.voter }}</strike></a
           >
           <b-badge v-if="voter.proxyAccount === ''" variant="light" class="p-2"
-            >{{ voter.sp | numeric3 }} SP + <br />{{
+            >{{ voter.sp | numeric3 }} HP + <br />{{
               voter.proxySP | numeric3
             }}
-            SP {{ $t("common.proxy") }}</b-badge
+            HP {{ $t("common.proxy") }}</b-badge
           >
           <b-badge
             v-else
@@ -52,10 +52,10 @@
               )}`
             "
             ><strike
-              >{{ voter.sp | numeric3 }} SP + <br />{{
+              >{{ voter.sp | numeric3 }} HP + <br />{{
                 voter.proxySP | numeric3
               }}
-              SP {{ $t("common.proxy") }}</strike
+              HP {{ $t("common.proxy") }}</strike
             ></b-badge
           >
         </b-list-group-item>

@@ -55,7 +55,7 @@
               <span class="extra-info text-wrap">
                 <ul>
                   <li>
-                    <strong>{{ proposal.total_votes | numeric3 }} SP</strong>
+                    <strong>{{ proposal.total_votes | numeric3 }} HP</strong>
                   </li>
                   <li>
                     <strong>{{ proposal.daily_pay | numeric }}</strong>

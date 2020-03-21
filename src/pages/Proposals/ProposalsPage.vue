@@ -21,7 +21,7 @@
 
           <!-- RETURN PROPOSAL -->
           <div class="text-center text-warning text-uppercase mb-2">
-            {{ $t("proposals.insufficientVotes") }} ({{returnProposal[0].total_votes | numeric3}} SP)
+            {{ $t("proposals.insufficientVotes") }} ({{returnProposal[0].total_votes | numeric3}} HP)
           </div>
 
           <!-- PROPOSALS WITH INSUFFICIENT VOTES -->

@@ -13,7 +13,7 @@
                 <div class="mt-5">
                   <router-link
                     to="/proposals/createproposal"
-                    class="btn btn-soft-info rounded-pill mr-lg-4 mb-4 mb-md-0"
+                    class="btn btn-dark rounded-pill mr-lg-4 mb-4 mb-md-0"
                     data-toggle="tab"
                     >{{ $t("common.createProposalLabel") }}</router-link
                   >

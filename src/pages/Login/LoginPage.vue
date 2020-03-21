@@ -40,12 +40,12 @@
               <hr />
               <div class="text-center text-small text-white">
                 <span
-                  >{{ $t("common.createSteemAccount1") }}
+                  >{{ $t("common.createHiveAccount1") }}
                   <a
-                    href="https://signup.steemit.com"
+                    href="https://signup.hive.io/"
                     target="_blank"
                     class="text-light"
-                    >{{ $t("common.createSteemAccount2") }}</a
+                    >{{ $t("common.createHiveAccount2") }}</a
                   >
                 </span>
               </div>
