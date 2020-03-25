@@ -22,23 +22,23 @@
       </b-form-group>
       <b-form-group>
         <div class="mb-2">{{ $t("keychain.voteLabel4") }}</div>
-        <button class="btn-block btn btn-light" type="submmit" variant="light">
+        <button class="btn-block btn btn-dark" type="submmit" variant="light">
           {{ $t("keychain.voteWithLabel") }}
           <img
             class="icon-small ml-1"
-            src="@/assets/img/random/keychain2.png"
+            src="@/assets/img/random/keychain.png"
           />
         </button>
         <button
-          class="btn-block btn btn-light"
-          @click="witnessVoteSteemconnect()"
+          class="btn-block btn btn-dark"
+          @click="witnessVoteHivesigner()"
           type="button"
           variant="light"
         >
           {{ $t("keychain.voteWithLabel") }}
           <img
             class="icon-small ml-1"
-            src="@/assets/img/random/steemconnect.png"
+            src="@/assets/img/random/hivesigner.svg"
           />
         </button>
       </b-form-group>
@@ -62,8 +62,8 @@ export default {
   },
   methods: {
     witnessVoteKeychain(user) {
-      if (window.steem_keychain && user !== "") {
-        steem_keychain.requestWitnessVote(user, "dmitrydao", true, function(
+      if (window.hive_keychain && user !== "") {
+        hive_keychain.requestWitnessVote(user, "dmitrydao", true, function(
           response
         ) {
           if (response.success) {
@@ -76,9 +76,9 @@ export default {
         return [];
       }
     },
-    witnessVoteSteemconnect() {
+    witnessVoteHivesigner() {
       window.open(
-        `https://steemconnect.com/sign/account-witness-vote?witness=dmitrydao&approve=1`
+        `https://hivesigner.com/sign/account-witness-vote?witness=dmitrydao&approve=1`
       );
     }
   }

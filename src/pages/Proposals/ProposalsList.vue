@@ -12,7 +12,7 @@
         :userProp="user.name"
         :voteStatusProp="user.loggedIn ? isApproved(proposalId) : voteStatus"
         :loggedInProp="user.loggedIn"
-        :steemconnect="true"
+        :hivesigner="true"
         :shareonsocial="true"
       />
     </b-modal>

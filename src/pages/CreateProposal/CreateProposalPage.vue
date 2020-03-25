@@ -109,7 +109,7 @@
             <p class="text-danger">
               <small>{{ $t("createProposal.feeLabel") }}</small>
             </p>
-            <button type="sumbit" class="btn btn-primary">
+            <button type="sumbit" class="btn btn-dark">
               {{ $t("common.submitWithButton")
               }}<img
                 class="icon-small ml-1"
@@ -144,16 +144,16 @@ export default {
     };
   },
   methods: {
-    createProposalSteemconnect() {
+    createProposalHivesigner() {
       event.target.reset();
       this.$router.push("/proposals");
       window.open(
-        `https://beta.steemconnect.com/sign/create-proposal?start_date=${this.form.start_date}&end_date=${this.form.end_date}&daily_pay=${this.form.dailypay}&subject=${this.form.subject}&permlink=${this.form.permlink}&creator=${this.form.creator}&receiver=${this.form.receiver}`
+        `https://hivesigner.com/sign/create-proposal?start_date=${this.form.start_date}&end_date=${this.form.end_date}&daily_pay=${this.form.dailypay}&subject=${this.form.subject}&permlink=${this.form.permlink}&creator=${this.form.creator}&receiver=${this.form.receiver}`
       );
     },
     createProposalKeychain(event) {
-      if (window.steem_keychain) {
-        steem_keychain.requestBroadcast(
+      if (window.hive_keychain) {
+        hive_keychain.requestBroadcast(
           this.form.creator,
           [
             [
@@ -163,7 +163,7 @@ export default {
                 receiver: this.form.receiver,
                 start_date: this.form.start_date,
                 end_date: this.form.end_date,
-                daily_pay: Number(this.form.dailypay).toFixed(3) + " SBD",
+                daily_pay: Number(this.form.dailypay).toFixed(3) + " HBD",
                 subject: this.form.subject,
                 permlink: this.form.permlink.replace(/^.*\/(.*)$/, "$1")
               }

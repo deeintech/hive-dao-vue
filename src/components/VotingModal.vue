@@ -56,7 +56,7 @@
             <h6>{{ $t("keychain.voteLabel3") }}</h6>
             <b-form-group>
               <button
-                class="btn btn-light btn-sm"
+                class="btn btn-dark btn-sm"
                 type="submit"
                 variant="light"
               >
@@ -67,11 +67,11 @@
                 />
               </button>
               <button
-                @click="steemconnectVote(!voteStatus)"
-                class="btn btn-light btn-sm"
+                @click="hivesignerVote(!voteStatus)"
+                class="btn btn-dark btn-sm"
                 type="button"
                 variant="light"
-                v-if="steemconnect"
+                v-if="hivesigner"
               >
                 {{ $t("keychain.voteWithLabel") }}
                 <img
@@ -119,7 +119,7 @@ export default {
     userProp: String,
     voteStatusProp: Boolean,
     loggedInProp: Boolean,
-    steemconnect: Boolean,
+    hivesigner: Boolean,
     shareonsocial: Boolean
   },
   computed: {
@@ -135,8 +135,8 @@ export default {
   },
   methods: {
     witnessVoteKeychain(user) {
-      if (window.steem_keychain && user !== "") {
-        steem_keychain.requestWitnessVote(user, "dmitrydao", true, function(
+      if (window.hive_keychain && user !== "") {
+        hive_keychain.requestWitnessVote(user, "dmitrydao", true, function(
           response
         ) {
           if (response.success) {
@@ -149,7 +149,7 @@ export default {
         return [];
       }
     },
-    steemconnectVote(voteStatus) {
+    hivesignerVote(voteStatus) {
       if (this.user !== "") {
         window.open(
           `https://hivesigner.com/sign/update-proposal-votes?proposal_ids=[${this.proposalId}]&approve=${voteStatus}`
@@ -157,8 +157,8 @@ export default {
       }
     },
     keychainVote(user, voteStatus) {
-      if (window.steem_keychain && user !== "") {
-        steem_keychain.requestBroadcast(
+      if (window.hive_keychain && user !== "") {
+        hive_keychain.requestBroadcast(
           user,
           [
             [
@@ -185,8 +185,8 @@ export default {
       }
     },
     witnessVoteKeychain(user) {
-      if (window.steem_keychain && user !== "") {
-        steem_keychain.requestWitnessVote(user, "dmitrydao", true, function(
+      if (window.hive_keychain && user !== "") {
+        hive_keychain.requestWitnessVote(user, "dmitrydao", true, function(
           response
         ) {
           if (response.success) {

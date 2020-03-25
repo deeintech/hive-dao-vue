@@ -24,14 +24,14 @@
               </b-form-group>
               <b-form-group>
                 <button
-                  class="btn-block btn btn-light"
+                  class="btn-block btn btn-dark"
                   type="submit"
                   variant="light"
                 >
                   {{ $t("common.loginLabel") }}
                   <img
                     class="icon-small ml-1"
-                    src="@/assets/img/random/keychain2.png"
+                    src="@/assets/img/random/keychain.png"
                   />
                 </button>
               </b-form-group>
@@ -75,8 +75,8 @@ export default {
   },
   methods: {
     loginKeychain(user) {
-      if (window.steem_keychain && user !== "") {
-        steem_keychain.requestSignBuffer(
+      if (window.hive_keychain && user !== "") {
+        hive_keychain.requestSignBuffer(
           user,
           `{login: "${user}"}`,
           "Active",

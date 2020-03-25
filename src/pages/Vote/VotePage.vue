@@ -12,7 +12,7 @@
         :userProp="user.name"
         :voteStatusProp="user.loggedIn ? isApproved(id) : voteStatus"
         :loggedInProp="user.loggedIn"
-        :steemconnect="false"
+        :hivesigner="false"
         :shareonsocial="false"
       />
     </b-modal>
@@ -61,7 +61,7 @@
                   </a>
                   <a
                     class="btn btn-app-store hover-translate-y-n3 mb-4 text-left"
-                    @click="steemconnectVote(true)"
+                    @click="hivesignerVote(true)"
                   >
                     <i
                       ><img
@@ -248,7 +248,7 @@ export default {
     };
   },
   methods: {
-    steemconnectVote(approve) {
+    hivesignerVote(approve) {
       window.open(
         `https://hivesigner.com/sign/update-proposal-votes?proposal_ids=[${this.id}]&approve=${approve}`
       );
