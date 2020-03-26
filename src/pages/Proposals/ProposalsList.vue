@@ -176,9 +176,9 @@
           </template>
           <!-- Requested -->
           <template v-slot:cell(requested)="data">
-            <div>{{ data.item.total_requested | numeric }} SBD</div>
+            <div>{{ data.item.total_requested | numeric }} HBD</div>
             <div>
-              {{ data.item.daily_pay | numeric }} SBD /
+              {{ data.item.daily_pay | numeric }} HBD /
               {{ $t("common.day") }}
             </div>
           </template>
@@ -188,7 +188,7 @@
               :title="
                 `${Number(
                   data.item.funding.availableBudget
-                ).toLocaleString()} SBD ${$t('common.availableBudget')}`
+                ).toLocaleString()} HBD ${$t('common.availableBudget')}`
               "
             >
               {{ data.item.funding.fundedStake }}%

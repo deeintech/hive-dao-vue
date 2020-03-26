@@ -59,11 +59,11 @@
                   </li>
                   <li>
                     <strong>{{ proposal.daily_pay | numeric }}</strong>
-                    SBD / {{ $t("common.day") }}
+                    HBD / {{ $t("common.day") }}
                   </li>
                   <li>
                     <strong>{{ proposal.total_requested | numeric }}</strong>
-                    SBD {{ $t("common.total") }}
+                    HBD {{ $t("common.total") }}
                   </li>
                   <li>
                     <strong>{{ proposal.start_date | dateFilter }}</strong>
