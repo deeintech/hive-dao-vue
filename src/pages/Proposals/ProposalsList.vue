@@ -112,7 +112,7 @@
                   <router-link :to="'/proposals/' + data.item.creator">
                     <img
                       :src="
-                        `https://steemitimages.com/u/${data.item.creator}/avatar`
+                        `https://images.hive.blog/u/${data.item.creator}/avatar`
                       "
                     />
                   </router-link>

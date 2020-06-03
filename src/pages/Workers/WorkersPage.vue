@@ -28,7 +28,7 @@
                     :to="'/proposals/' + worker"
                   >
                     <img
-                      :src="`https://steemitimages.com/u/${worker}/avatar`"
+                      :src="`https://images.hive.blog/u/${worker}/avatar`"
                     />
                   </router-link>
                 </div>

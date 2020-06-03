@@ -12,7 +12,7 @@
         >
           <div class="avatar rounded-circle">
             <a :href="`https://peakd.com/@${voter.voter}`" target="_blank">
-              <img :src="`https://steemitimages.com/u/${voter.voter}/avatar`" />
+              <img :src="`https://images.hive.blog/u/${voter.voter}/avatar`" />
             </a>
           </div>
           <a

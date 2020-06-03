@@ -129,7 +129,7 @@
                           <img
                             alt="Image placeholder"
                             :src="
-                              `https://steemitimages.com/u/${proposal.creator}/avatar`
+                              `https://images.hive.blog/u/${proposal.creator}/avatar`
                             "
                           />
                         </a>

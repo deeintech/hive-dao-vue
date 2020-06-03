@@ -181,16 +181,26 @@ export default {
   },
   async fetchAccountByName({ commit }, accountName) {
     commit("SET_ACCOUNT", "");
-    const baseUrl = process.env.VUE_APP_HIVEMIND_API;
+    const url = process.env.VUE_APP_HIVE_MAINNET;
+    const headers = {
+      "Content-Type": "application/json"
+    };
+    const body = {
+      jsonrpc: "2.0",
+      method: "call",
+      id: 0,
+      params: ["condenser_api", "get_accounts", [[accountName]]]
+    };
     await axios
-      .get(`${baseUrl}/accounts/${accountName}`)
+      .post(url, body, headers)
       .then(response => {
-        let account = response.data;
+        let account = response.data.result[0];
+        console.log(account);
         commit("SET_ACCOUNT", account);
         return account;
       })
       .catch(() => {
-        return {};
+        return [];
       });
   },
   async setBudget({ commit }, totalBudget) {

@@ -195,7 +195,7 @@
                           >
                             <img
                               :src="
-                                `https://steemitimages.com/u/${proposal.creator}/avatar`
+                                `https://images.hive.blog/u/${proposal.creator}/avatar`
                               "
                             />
                           </router-link>
